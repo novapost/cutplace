@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Development &mdash; cutplace 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/cutplace_logo_32x32.ico"/>
+    <link rel="top" title="cutplace 0.7.0 documentation" href="index.html" />
+    <link rel="next" title="Revision history" href="changes.html" />
+    <link rel="prev" title="Getting support" href="support.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="changes.html" title="Revision history"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="support.html" title="Getting support"
+             accesskey="P">previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/cutplace_logo_64x64.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Development</a><ul>
+<li><a class="reference internal" href="#obtaining-additional-tools-and-python-packages">Obtaining additional tools and Python packages</a></li>
+<li><a class="reference internal" href="#obtaining-and-building-the-source-code">Obtaining and building the source code</a></li>
+<li><a class="reference internal" href="#contributing-source-code">Contributing source code</a></li>
+<li><a class="reference internal" href="#developer-notes">Developer notes</a><ul>
+<li><a class="reference internal" href="#install-a-developer-build">Install a developer build</a></li>
+<li><a class="reference internal" href="#add-a-release-tag">Add a release tag</a></li>
+<li><a class="reference internal" href="#set-up-jenkins">Set up Jenkins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="support.html"
+                        title="previous chapter">Getting support</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="changes.html"
+                        title="next chapter">Revision history</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>Cutplace is open source software, so its source code is available for you to
+inspect, extend and play around with. This chapter describes where to get it,
+how to build it and how to contribute to the project.</p>
+<p>If you are just interested to use cutplace&#8217;s library classes and functions,
+refer to the chapter about the <a class="reference internal" href="api.html"><em>Application programmer interface</em></a>.</p>
+<div class="section" id="obtaining-additional-tools-and-python-packages">
+<h2>Obtaining additional tools and Python packages<a class="headerlink" href="#obtaining-additional-tools-and-python-packages" title="Permalink to this headline">¶</a></h2>
+<p>To build the source code, you need a few additional tools and Python packages.</p>
+<p>First there are a couple of Python packages:</p>
+<ul class="simple">
+<li>coverage</li>
+<li>epydoc</li>
+<li>nose</li>
+<li>pep8</li>
+<li>profiler</li>
+<li>sphinx</li>
+</ul>
+<p>The easiest way to install them is running:</p>
+<div class="highlight-python"><pre>$ easy_install coverage epydoc nose pep8 profiler sphinx</pre>
+</div>
+<p>If you are using Ubuntu, you should instead use <tt class="docutils literal"><span class="pre">apt-get</span></tt>:</p>
+<div class="highlight-python"><pre>$ sudo apt-get install python-setuptools
+$ sudo apt-get install python-profiler
+$ sudo easy_install coverage epydoc nose pep8 sphinx</pre>
+</div>
+<p id="index-0">Sadly, epydoc 3.0.1 does not work with docutils 0.6, so in case you are using
+a reasonably modern Python version, it will fail with:</p>
+<div class="highlight-python"><pre>'Text' object has no attribute 'data'</pre>
+</div>
+<p>In order to fix this, open <tt class="docutils literal"><span class="pre">epydoc/markup/restructuredtext.py</span></tt>, locate
+<tt class="docutils literal"><span class="pre">_SummaryExtractor.visit_paragraph()</span></tt> and change the lines below marked
+with <tt class="docutils literal"><span class="pre">#</span> <span class="pre">FIXED</span></tt> comments:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">:</span>
+   <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+       <span class="c"># FIXED: m = self._SUMMARY_RE.match(child.data)</span>
+       <span class="n">text</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">astext</span><span class="p">()</span>
+       <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SUMMARY_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+       <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+           <span class="n">summary_pieces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+           <span class="c"># FIXED: other = child.data[m.end():]</span>
+           <span class="n">other</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">():]</span>
+           <span class="k">if</span> <span class="n">other</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">other</span><span class="o">.</span><span class="n">isspace</span><span class="p">():</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">other_docs</span> <span class="o">=</span> <span class="bp">True</span>
+           <span class="k">break</span>
+   <span class="n">summary_pieces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once these packages are installed, you should be able to build the
+distribution archive using:</p>
+<div class="highlight-python"><pre>$ python setup.py sdist</pre>
+</div>
+<p id="index-1">For everything else related to the build, use
+<a class="reference external" href="http://ant.apache.org/">ant</a>, a build tool popular in the Java world.
+To get an overview of the available ant targets, run:</p>
+<div class="highlight-python"><pre>$ ant -projecthelp</pre>
+</div>
+<p>To build for example the source distribution, run:</p>
+<div class="highlight-python"><pre>$ ant sdist</pre>
+</div>
+<p>Using ant in a Python project might seem unusual, but there are good
+reasons for that:</p>
+<ul class="simple">
+<li>ant is more robust and portable than using shell scripts for the same
+thing.</li>
+<li>It seems easier to write and maintain an ant target than adding a new
+<tt class="docutils literal"><span class="pre">setup.py</span></tt> command.</li>
+<li>ant is easy to use for continuous integration driven by Jenkins as
+described in <a class="reference internal" href="#jenkins"><em>Set up Jenkins</em></a>.</li>
+</ul>
+<p id="index-2">To monitor the source code size in Jenkins, you need <tt class="docutils literal"><span class="pre">sloccount</span></tt>
+available from <a class="reference external" href="http://www.dwheeler.com/sloccount/">http://www.dwheeler.com/sloccount/</a>. For Linux, your
+distribution most likely has a binary package. For Mac OS X, use the
+package provided by Mac Ports.</p>
+</div>
+<div class="section" id="obtaining-and-building-the-source-code">
+<span id="index-3"></span><h2>Obtaining and building the source code<a class="headerlink" href="#obtaining-and-building-the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>The source code for cutplace is available via a Subversion repository from
+<a class="reference external" href="https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk">https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk</a>. You can browse it
+at <a class="reference external" href="https://apps.sourceforge.net/trac/cutplace/browser/trunk">https://apps.sourceforge.net/trac/cutplace/browser/trunk</a>.</p>
+<p>The source code consists of:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">build.xml</span></tt> is the project file for the build tool <a class="reference external" href="http://ant.apache.org/">ant</a></li>
+<li><tt class="docutils literal"><span class="pre">cutplace/*.py</span></tt> are the Python modules for cutplace</li>
+<li><tt class="docutils literal"><span class="pre">cutplace/dev_*.py</span></tt> are Python modules useful only during
+development</li>
+<li><tt class="docutils literal"><span class="pre">cutplace/test_*.py</span></tt> are test cases for unittest</li>
+<li><tt class="docutils literal"><span class="pre">docs/*</span></tt> is the reStructuredText for the web site and user guide</li>
+<li><tt class="docutils literal"><span class="pre">examples/*</span></tt> contains the example date used in the <a class="reference internal" href="tutorial.html"><em>Tutorial</em></a> and
+code examples on how to use the cutplace Python module in you own code.</li>
+<li><tt class="docutils literal"><span class="pre">tests/*</span></tt> contains test data; use for example <a class="reference external" href="http://www.openoffice.org/">OpenOffice.org</a>&#8216;s calc to edit the <tt class="docutils literal"><span class="pre">*.ods</span></tt> and <tt class="docutils literal"><span class="pre">*.csv</span></tt>
+files</li>
+<li><tt class="docutils literal"><span class="pre">tests/input/*</span></tt> are test data used by the unittest tests in
+<tt class="docutils literal"><span class="pre">cutplace/test_*.py</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">.project</span></tt> and <tt class="docutils literal"><span class="pre">.pydevproject</span></tt> are for use with <a class="reference external" href="http://www.eclipse.org/">Eclipse</a> and <a class="reference external" href="http://pydev.sourceforge.net/">PyDev</a>.</li>
+</ul>
+<p>If Eclipse and PyDev are your developer environment of choice, you can check
+out the repository directly from Eclipse using
+<em class="menuselection">File ‣ New ‣ Other...</em> and select
+<em class="menuselection">SVN ‣ Checkout projects from SVN</em>.</p>
+<p>If you prefer the command line, you need any Subversion client and the build
+tool ant.</p>
+<p>To check out the current version using the standard Subversion command line
+client, run:</p>
+<div class="highlight-python"><pre>$ svn checkout https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk cutplace</pre>
+</div>
+<p>After the checkout, change to the cutplace folder:</p>
+<div class="highlight-python"><pre>$ cd cutplace</pre>
+</div>
+<p>To just build a binary distribution, run:</p>
+<div class="highlight-python"><pre>$ ant bdist_egg</pre>
+</div>
+<p>The output should look something like this:</p>
+<div class="highlight-python"><pre>running bdist_egg
+running egg_info
+writing requirements to cutplace.egg-info/requires.txt
+writing cutplace.egg-info/PKG-INFO
+...</pre>
+</div>
+<p>To run all test cases:</p>
+<div class="highlight-python"><pre>$ ant test</pre>
+</div>
+<p>To build the user guide, developer reports and web site:</p>
+<div class="highlight-python"><pre>$ ant site</pre>
+</div>
+<p>To remove files generated during the build process:</p>
+<div class="highlight-python"><pre>$ ant clean</pre>
+</div>
+</div>
+<div class="section" id="contributing-source-code">
+<h2>Contributing source code<a class="headerlink" href="#contributing-source-code" title="Permalink to this headline">¶</a></h2>
+<p>In case you fixed any bugs or added improvements to cutplace, feel free to
+contribute your changes.</p>
+<p>The easiest way to do this is by posting your patch to the
+<a class="reference external" href="http://apps.sourceforge.net/phpbb/cutplace/viewforum.php?f=4">developer forum</a></p>
+</div>
+<div class="section" id="developer-notes">
+<h2>Developer notes<a class="headerlink" href="#developer-notes" title="Permalink to this headline">¶</a></h2>
+<p>This section collects a few final notes interesting for developers.</p>
+<div class="section" id="install-a-developer-build">
+<h3>Install a developer build<a class="headerlink" href="#install-a-developer-build" title="Permalink to this headline">¶</a></h3>
+<p>To install the current work copy as a developer build, use:</p>
+<div class="highlight-python"><pre>$ sudo python setup.py develop</pre>
+</div>
+<p>Once the related version is published, you can install it using:</p>
+<div class="highlight-python"><pre>$ sudo easy_install --upgrade cutplace</pre>
+</div>
+<p>This ensures that the current version found on PyPI is installed even if
+a locally installed developer build has the same version.</p>
+</div>
+<div class="section" id="add-a-release-tag">
+<h3>Add a release tag<a class="headerlink" href="#add-a-release-tag" title="Permalink to this headline">¶</a></h3>
+<p>When publishing a new release, a tag should be added to the repository. This
+can be done using the following template:</p>
+<div class="highlight-python"><pre>$ svn copy -m "Added tag for version 0.x.x." https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk https://cutplace.svn.sourceforge.net/svnroot/cutplace/tags/0.x.x</pre>
+</div>
+<p>Simply replace <tt class="docutils literal"><span class="pre">0.x.x</span></tt> with the current version number.</p>
+</div>
+<div class="section" id="set-up-jenkins">
+<span id="jenkins"></span><span id="index-4"></span><h3>Set up Jenkins<a class="headerlink" href="#set-up-jenkins" title="Permalink to this headline">¶</a></h3>
+<p>Jenkins is a continuous integration server available from
+<a class="reference external" href="http://jenkins-ci.org/">http://jenkins-ci.org/</a>. It can periodically check for changes committed to
+the repository and run then run tests and collect reports.</p>
+<p>This section describes how to configure a Jenkins job for cutplace. It
+assumes that Jenkins is already installed an running.</p>
+<p>First, install the following plugins by navigating to
+<em class="menuselection">Manage Jenkins ‣ Manage plugins</em> and then choosing them
+from the tab <em class="guilabel">Available</em>:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Cobertura Plugin</li>
+<li>Performance Plugin</li>
+<li>SLOCCount Plug-in</li>
+<li>Static Code Analysis Plug-ins</li>
+<li>Task Scanner Plugin</li>
+<li>Violations plugin</li>
+</ul>
+</div></blockquote>
+<p>In case Jenkins runs as a deamon on Mac OS X and you are using MacPorts,
+navigate to
+<em class="menuselection">Manage Jenkins ‣ Configure System ‣ Global Properties</em>
+and add the following environment variables:</p>
+<div class="highlight-python"><pre>LC_ALL=en_US.UTF-8
+LC_CTYPE=UTF-8
+PATH=/opt/local/bin:/opt/local/sbin:$PATH</pre>
+</div>
+<p>Next, create a build using the following steps:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Source code management:<ul>
+<li>Subversion: <tt class="docutils literal"><span class="pre">https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk</span></tt></li>
+</ul>
+</li>
+<li>Build triggers:<ul>
+<li>Poll SCM: <tt class="docutils literal"><span class="pre">*/10</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span></tt></li>
+</ul>
+</li>
+<li>Build:<ol class="arabic">
+<li>Invoke ant: targets: <tt class="docutils literal"><span class="pre">test</span> <span class="pre">site</span> <span class="pre">sdist</span> <span class="pre">bdist_egg</span></tt></li>
+</ol>
+</li>
+<li>Post-build actions:<ol class="arabic">
+<li>Scan workspace for open tasks:<ul>
+<li>Files to scan: <tt class="docutils literal"><span class="pre">**/*.py,</span> <span class="pre">**/*.rst</span></tt></li>
+<li>Files to exclude: <tt class="docutils literal"><span class="pre">build/**</span></tt></li>
+<li>Task tags: High=FIXME, normal=TODO, low=HACK</li>
+</ul>
+</li>
+<li>Publish Cobertura Coverage Report: <tt class="docutils literal"><span class="pre">**/coverage.xml</span></tt></li>
+<li>Publish JUnit test result report: <tt class="docutils literal"><span class="pre">**/nosetests.xml</span></tt></li>
+<li>Publish Performance test result report:<ul>
+<li>Choose <em class="menuselection">Add a new report ‣ JUnit</em></li>
+<li><em class="guilabel">Report files</em>: <tt class="docutils literal"><span class="pre">**/nosetests_performance.xml</span></tt></li>
+</ul>
+</li>
+<li>Publish SLOCCount analysis results: SLOCCount reports: <tt class="docutils literal"><span class="pre">**/sloccount.sc</span></tt></li>
+<li>Report Violations: pep8: XML filename pattern: <tt class="docutils literal"><span class="pre">**/pep8.txt</span></tt></li>
+</ol>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="changes.html" title="Revision history"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="support.html" title="Getting support"
+             >previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009-2011, Thomas Aglassinger.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class Hierarchy</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">&nbsp;</td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="class-tree.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<center><b>
+ [ <a href="module-tree.html">Module Hierarchy</a>
+ | <a href="class-tree.html">Class Hierarchy</a> ]
+</b></center><br />
+<h1 class="epydoc">Class Hierarchy</h1>
+<ul class="nomargin-top">
+    <li> <strong class="uidlink">object</strong>:
+      <em class="summary">The most base type</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.checks.AbstractCheck-class.html">cutplace.checks.AbstractCheck</a></strong>:
+      <em class="summary">Abstract check to be used as base class for other checks.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.checks.DistinctCountCheck-class.html">cutplace.checks.DistinctCountCheck</a></strong>:
+      <em class="summary">Check to ensure that the number of different values in a field matches an expression.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.checks.IsUniqueCheck-class.html">cutplace.checks.IsUniqueCheck</a></strong>:
+      <em class="summary">Check to ensure that all rows are unique concerning certain key fields.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.AbstractFieldFormat-class.html">cutplace.fields.AbstractFieldFormat</a></strong>:
+      <em class="summary">Abstract format description of a field in a data file to validate which acts as base for all
+other field formats.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.fields.ChoiceFieldFormat-class.html">cutplace.fields.ChoiceFieldFormat</a></strong>:
+      <em class="summary">Field format accepting only values from a pool of choices.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.DateTimeFieldFormat-class.html">cutplace.fields.DateTimeFieldFormat</a></strong>:
+      <em class="summary">Field format accepting values that represent dates or times.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.DecimalFieldFormat-class.html">cutplace.fields.DecimalFieldFormat</a></strong>:
+      <em class="summary">Field format accepting decimal numeric values, taking the data format properties
+<a href="cutplace.data-module.html#KEY_DECIMAL_SEPARATOR" class="link">data.KEY_DECIMAL_SEPARATOR</a> and <a href="cutplace.data-module.html#KEY_THOUSANDS_SEPARATOR" class="link">data.KEY_THOUSANDS_SEPARATOR</a> into account.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.IntegerFieldFormat-class.html">cutplace.fields.IntegerFieldFormat</a></strong>:
+      <em class="summary">Field format accepting numeric integer values with fractional part.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.PatternFieldFormat-class.html">cutplace.fields.PatternFieldFormat</a></strong>:
+      <em class="summary">Field format accepting values that match a pattern using &quot;*&quot; and &quot;?&quot; as place holders.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.RegExFieldFormat-class.html">cutplace.fields.RegExFieldFormat</a></strong>:
+      <em class="summary">Field format accepting values that match a specified regular expression.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.TextFieldFormat-class.html">cutplace.fields.TextFieldFormat</a></strong>:
+      <em class="summary">Field format accepting any text.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">exceptions.BaseException</strong>:
+      <em class="summary">Common base class for all exceptions</em>
+    <ul>
+    <li> <strong class="uidlink">exceptions.Exception</strong>:
+      <em class="summary">Common base class for all non-exit exceptions.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.tools._BaseCutplaceError-class.html" onclick="show_private();">cutplace.tools._BaseCutplaceError</a></strong>:
+      <em class="summary">Exception that supports a message describing the error and an optional
+<a href="cutplace.tools._BaseCutplaceError-class.html#location" class="link">location</a> in the input where the error happened.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.tools.CutplaceError-class.html">cutplace.tools.CutplaceError</a></strong>:
+      <em class="summary">Error detected by cutplace caused by issues in the ICD or data.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.checks.CheckError-class.html">cutplace.checks.CheckError</a></strong>:
+      <em class="summary">Error to be raised when a check fails.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.checks.CheckSyntaxError-class.html">cutplace.checks.CheckSyntaxError</a></strong>:
+      <em class="summary">Error to be raised when the specification of check in the ICD is broken.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.sniff.CutplaceSniffError-class.html">cutplace.sniff.CutplaceSniffError</a></strong>:
+      <em class="summary">Error to indicate that the format of some content could not be sniffed.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.data.DataFormatSyntaxError-class.html">cutplace.data.DataFormatSyntaxError</a></strong>:
+      <em class="summary">Error in data format declaration.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.data.DataFormatValueError-class.html">cutplace.data.DataFormatValueError</a></strong>:
+      <em class="summary">Error in data caused by violating the data format.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.FieldLookupError-class.html">cutplace.fields.FieldLookupError</a></strong>:
+      <em class="summary">Error raised when a field cannot be found.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.FieldSyntaxError-class.html">cutplace.fields.FieldSyntaxError</a></strong>:
+      <em class="summary">Error raised when a field definition in the ICD is broken.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.fields.FieldValueError-class.html">cutplace.fields.FieldValueError</a></strong>:
+      <em class="summary">Error raised when <a href="cutplace.fields.AbstractFieldFormat-class.html#validated" class="link">AbstractFieldFormat.validated</a> detects an error.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.interface.IcdSyntaxError-class.html">cutplace.interface.IcdSyntaxError</a></strong>:
+      <em class="summary">General syntax error in the specification of the ICD.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.ranges.RangeSyntaxError-class.html">cutplace.ranges.RangeSyntaxError</a></strong>:
+      <em class="summary">Error in Range declaration.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.ranges.RangeValueError-class.html">cutplace.ranges.RangeValueError</a></strong>:
+      <em class="summary">Error raised when ranges.validate() detects that a value is outside the expected ranges.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.tools.CutplaceUnicodeError-class.html">cutplace.tools.CutplaceUnicodeError</a></strong>:
+      <em class="summary">Error detected by cutplace caused by improperly encoded ICD or data.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.interface.BaseValidationListener-class.html">cutplace.interface.BaseValidationListener</a></strong>:
+      <em class="summary">Listener to process events during <a href="cutplace.interface.InterfaceControlDocument-class.html#validate" class="link">InterfaceControlDocument.validate()</a>.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.tools.ErrorInfo-class.html">cutplace.tools.ErrorInfo</a></strong>:
+      <em class="summary">Container for <tt class="rst-docutils literal">sys.exc_info()</tt> that also can <a href="cutplace.tools.ErrorInfo-class.html#reraise" class="link">reraise()</a> an existing exception while preserving the
+stack trace.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.tools.InputLocation-class.html">cutplace.tools.InputLocation</a></strong>:
+      <em class="summary">Location in an input file, consisting of <tt class="rst-docutils literal">line</tt>, an optional <tt class="rst-docutils literal">column</tt> (pointing at a
+single character) and an optional cell (pointing a cell in a structured input such as CSV).</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.interface.InterfaceControlDocument-class.html">cutplace.interface.InterfaceControlDocument</a></strong>:
+      <em class="summary">Model of the data driven parts of an Interface Control Document (ICD).</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.ranges.Range-class.html">cutplace.ranges.Range</a></strong>:
+      <em class="summary">A range that can be used to validate that a value is within it.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.interface.Validator-class.html">cutplace.interface.Validator</a></strong>:
+      <em class="summary">Validator for tabular data organized in rows described by an <a href="cutplace.interface.InterfaceControlDocument-class.html" class="link">InterfaceControlDocument</a>.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.interface.Writer-class.html">cutplace.interface.Writer</a></strong>:
+      <em class="summary">Writer to write data to a filelike output while validating that they conform to an
+<a href="cutplace.interface.InterfaceControlDocument-class.html" class="link">InterfaceControlDocument</a>.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.data._BaseDataFormat-class.html" onclick="show_private();">cutplace.data._BaseDataFormat</a></strong>:
+      <em class="summary">Data format acting as base for other data formats.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.data._BaseSpreadsheetDataFormat-class.html" onclick="show_private();">cutplace.data._BaseSpreadsheetDataFormat</a></strong>:
+      <em class="summary">Base data format for spreadsheet formats.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.data.ExcelDataFormat-class.html">cutplace.data.ExcelDataFormat</a></strong>:
+      <em class="summary">Data format for Excel spreadsheets.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.data.OdsDataFormat-class.html">cutplace.data.OdsDataFormat</a></strong>:
+      <em class="summary">Data format for ODS as created by OpenOffice.org's Calc.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.data._BaseTextDataFormat-class.html" onclick="show_private();">cutplace.data._BaseTextDataFormat</a></strong>:
+      <em class="summary">Base data format that supports an &quot;encoding&quot; and &quot;line delimiter&quot; property.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.data.DelimitedDataFormat-class.html">cutplace.data.DelimitedDataFormat</a></strong>:
+      <em class="summary">Data format for delimited data such as CSV.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="cutplace.data.CsvDataFormat-class.html">cutplace.data.CsvDataFormat</a></strong>:
+      <em class="summary">Data format for comma separated values (CSV).</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.data.FixedDataFormat-class.html">cutplace.data.FixedDataFormat</a></strong>:
+      <em class="summary">Data format for fixed data.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="cutplace.sniff._ColumnSniffInfo-class.html" onclick="show_private();">cutplace.sniff._ColumnSniffInfo</a></strong>
+    </li>
+    </ul>
+    </li>
+</ul>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sun Apr 15 20:34:51 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

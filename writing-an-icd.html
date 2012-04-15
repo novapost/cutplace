@@ -1,0 +1,1409 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing an Interface Control Document &mdash; cutplace 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/cutplace_logo_32x32.ico"/>
+    <link rel="top" title="cutplace 0.7.0 documentation" href="index.html" />
+    <link rel="next" title="Command line usage" href="command-line-usage.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="command-line-usage.html" title="Command line usage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             accesskey="P">previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/cutplace_logo_64x64.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Writing an Interface Control Document</a><ul>
+<li><a class="reference internal" href="#parts-of-an-icd">Parts of an ICD</a></li>
+<li><a class="reference internal" href="#data-formats">Data formats</a><ul>
+<li><a class="reference internal" href="#delimited-data">Delimited data</a></li>
+<li><a class="reference internal" href="#csv-data-comma-separated-values">CSV data (comma separated values)</a></li>
+<li><a class="reference internal" href="#excel-data">Excel data</a></li>
+<li><a class="reference internal" href="#fixed-data">Fixed data</a></li>
+<li><a class="reference internal" href="#ods-data-open-document-spreadsheet">ODS data (open document spreadsheet)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#field-formats">Field formats</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#text">Text</a></li>
+<li><a class="reference internal" href="#integer">Integer</a></li>
+<li><a class="reference internal" href="#decimal">Decimal</a></li>
+<li><a class="reference internal" href="#choice">Choice</a></li>
+<li><a class="reference internal" href="#datetime">DateTime</a></li>
+<li><a class="reference internal" href="#pattern">Pattern</a></li>
+<li><a class="reference internal" href="#regex">RegEx</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#checks">Checks</a><ul>
+<li><a class="reference internal" href="#distinctcount">DistinctCount</a></li>
+<li><a class="reference internal" href="#isunique">IsUnique</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#comments">Comments</a></li>
+<li><a class="reference internal" href="#ranges">Ranges</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="previous chapter">Tutorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="command-line-usage.html"
+                        title="next chapter">Command line usage</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="writing-an-interface-control-document">
+<h1>Writing an Interface Control Document<a class="headerlink" href="#writing-an-interface-control-document" title="Permalink to this headline">¶</a></h1>
+<p>This chapter describes all aspects of writing an ICD and can be used as
+reference. In case you are looking for a gentle introduction, see the
+<a class="reference internal" href="tutorial.html#tutorial"><em>Tutorial</em></a>.</p>
+<div class="section" id="parts-of-an-icd">
+<h2>Parts of an ICD<a class="headerlink" href="#parts-of-an-icd" title="Permalink to this headline">¶</a></h2>
+<p>ICD&#8217;s for cutplace focus on the data specific parts. They describe tabular data
+split in rows. Each row consists of fields. The number of fields per row must
+be the same for all rows (except for optional header rows). The meaning of a
+field at a certain column must be the same for each row. For example, once you
+declare the field in column 3 to be a time, row 17 can not store the street
+address in column 3 without violating the requirements for time fields.</p>
+<ol class="arabic simple">
+<li>The Data format: The general format for data files, such as line separator,
+character encoding, quote character and so on. These properties concern the
+whole file and each data item in it.</li>
+<li>Fields: These are the smallest unit of information in a data file. A file
+consists 0, 1 or many lines. Each line is divided into 1 or more fields,
+which carry the actual information. For files with structured data, a
+certain field retains its meaning even when inspected in a different line.
+For example, if the third field in line 1 is a phone number, so has to be
+the third field in line 2, 3, 17, 23459 and so on. Nevertheless, the
+actual phone number can differ from line to line.</li>
+<li>Optional checks, which are rules that have to be met across the whole
+document or several fields in a row. For example, a customer ID might be
+supposed to be unique and therefor must occur only once within a file.</li>
+<li>Comments are intended for human readers. Cutplace does not process them.
+Typically they describing the meaning of things or the motivation for
+certain decisions. Another use is the description the source of certain data
+items to simplify error analysis.</li>
+</ol>
+<p>Below you will find a detailed description of each of these concepts
+accompanied by many examples.</p>
+</div>
+<div class="section" id="data-formats">
+<span id="index-0"></span><span id="id1"></span><h2>Data formats<a class="headerlink" href="#data-formats" title="Permalink to this headline">¶</a></h2>
+<p>The data format describes general properties of the data. Here is an example:</p>
+<p>Example data format</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="52%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>D</td>
+<td>Format</td>
+<td>CSV</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Encoding</td>
+<td>ISO-8859-15</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>Line delimiter</td>
+<td>LF</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Item delimiter</td>
+<td>,</td>
+</tr>
+</tbody>
+</table>
+<p>This basically says that the data are provided as comma separated values (CSV)
+and the character encoding is ISO-8859-15 (which is similar to Latin-1 but also
+includes the Euro sign). Rows are separated using linefeed characters (ASCII
+code 10) and columns are separated using a comma (,).</p>
+<p>The remainder of this section describes the supported formats and available
+properties for them.</p>
+<div class="section" id="delimited-data">
+<span id="index-1"></span><h3>Delimited data<a class="headerlink" href="#delimited-data" title="Permalink to this headline">¶</a></h3>
+<p>For data, both lines and columns are delimited by certain characters.</p>
+<p>Example for delimited data using visible ASCII characters and Cyrillic (Unicode
+0x0400-0x4ff)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="50%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>D</td>
+<td>Format</td>
+<td>Delimited</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Encoding</td>
+<td>UTF-8</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>Line delimiter</td>
+<td>CRLF</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Item delimiter</td>
+<td>,</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>Quote character</td>
+<td>&#8220;</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Escape character</td>
+<td>&#8220;</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>Decimal separator</td>
+<td>.</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Thousands separator</td>
+<td>,</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>Allowed characters</td>
+<td>32:128, 1024:1280</td>
+</tr>
+</tbody>
+</table>
+<p>In case Format is Delimited, the following properties have to be specified:</p>
+<dl class="docutils" id="index-2">
+<dt>Encoding</dt>
+<dd>The character encoding. The most common values will be ASCII, ISO-8859-15
+(for many western countries), UTF-8 (for Unicode), CP-850 (used by MS DOS
+in many western countries).</dd>
+</dl>
+<dl class="docutils" id="index-3">
+<dt>Line delimiter</dt>
+<dd><p class="first">Thus describes which character or character sequence is used to mark the
+end of a line. Possible values are:</p>
+<ul class="last simple">
+<li>LF - &#8220;line feed&#8221;, ASCII code 10, used by Unix based platforms and others,
+for example Mac OS X, Linux, Solaris BSD-variants and Amiga OS.</li>
+<li>CRLF - &#8220;carriage return linefeed&#8221;, two characters with ASCII code 13 and
+10, used for example by Windows and MS DOS.</li>
+<li>CR - &#8220;carriage return&#8221;, ASCII code 13, used by Mac OS Classic.</li>
+<li>Any - Do an analysis of the input and automatically choose the line
+delimiter from it based on the one used most often with the first few
+lines. Note that this still requires that the line delimiter is used
+consistently, using for example CR for some lines and LF for others is
+not allowed.</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils" id="index-4">
+<dt>Item delimiter</dt>
+<dd><p class="first">The character used to separated data items from each other, for example:</p>
+<blockquote class="last">
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="22%" />
+<col width="10%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+<th class="head">Note</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>D</td>
+<td>Item delimiter</td>
+<td><tt class="docutils literal"><span class="pre">&quot;,&quot;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Item delimiter</td>
+<td><tt class="docutils literal"><span class="pre">44</span></tt></td>
+<td>ASCII code of <tt class="docutils literal"><span class="pre">&quot;,&quot;</span></tt></td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>Item delimiter</td>
+<td><tt class="docutils literal"><span class="pre">0x2c</span></tt></td>
+<td>ASCII code of <tt class="docutils literal"><span class="pre">&quot;,&quot;</span></tt> in hex format</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Item delimiter</td>
+<td><tt class="docutils literal"><span class="pre">,</span></tt></td>
+<td>Deprecated syntax, enclose in double quotes instead</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>Item delimiter</td>
+<td><tt class="docutils literal"><span class="pre">&quot;\t&quot;</span></tt></td>
+<td>Escaped text indicating a tabulator</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Item delimiter</td>
+<td><tt class="docutils literal"><span class="pre">Tab</span></tt></td>
+<td>Same as <tt class="docutils literal"><span class="pre">&quot;\t&quot;</span></tt> but using a more legible symbolic name</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="docutils" id="index-5">
+<dt>Quote character</dt>
+<dd><p class="first">The character used to surround items with that contain delimiters or while
+space, for example double quote (&#8221;) or single quote (&#8216;).</p>
+<p class="last">TODO: How to specify &#8220;no quoting&#8221;?</p>
+</dd>
+</dl>
+<dl class="docutils" id="index-6">
+<dt>Escape character</dt>
+<dd>The escape character necessary to use the quote character in item values.
+Possible values are: double quote (&#8221;).</dd>
+</dl>
+<dl class="docutils" id="decimal-separator">
+<span id="index-7"></span><dt>Decimal separator</dt>
+<dd>The character to separate the fractional part of a number, for example
+in <cite>17.23</cite>. Typical values are: dot (.) and comma (,). The default is dot
+(.).</dd>
+</dl>
+<dl class="docutils" id="thousands-separator">
+<span id="index-8"></span><dt>Thousands separator</dt>
+<dd>The character to optionally group digits in large numbers, for example in
+<cite>12,345,678</cite>. Typical values are: comma (,), dot (.) and the space
+character. By default, no character can be used to group digits.</dd>
+</dl>
+<dl class="docutils" id="index-9">
+<dt>Allowed characters</dt>
+<dd><p class="first">This range describing the characters allowed for data items. Each number
+represents the decimal Unicode value of a character that can be used. With
+the help of colons (:) you can easily specify several characters. For
+example, <tt class="docutils literal"><span class="pre">32:128</span></tt> means &#8220;between 32 and 128&#8221;.</p>
+<p class="last">You can find more information on how to specify ranges in <a class="reference internal" href="#ranges"><em>Ranges</em></a>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="csv-data-comma-separated-values">
+<span id="index-10"></span><h3>CSV data (comma separated values)<a class="headerlink" href="#csv-data-comma-separated-values" title="Permalink to this headline">¶</a></h3>
+<p>CSV data are delimited data too, but most properties already have default
+values you do not need to specify unless you want to use other values.</p>
+<p>Minimal example for CSV data</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="53%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>Format</td>
+<td>CSV</td>
+</tr>
+</tbody>
+</table>
+<p>This is the same as:</p>
+<p>Example for CSV data with default values spelled out</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="72%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>Format</td>
+<td>CSV</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>Encoding</td>
+<td>ASCII</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>Line delimiter</td>
+<td>Any</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>Item delimiter</td>
+<td>,</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>Quote character</td>
+<td>&#8220;</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>Escape character</td>
+<td>&#8220;</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>Allowed characters</td>
+<td>0:</td>
+</tr>
+</tbody>
+</table>
+<p>Many of these values will be fine for all practical purpose.  Most frequently
+&#8220;Encoding&#8221; and &#8220;Item delimiter&#8221; might have to be adjusted.</p>
+<p>Example for CSV data common in many European regions</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="52%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>Format</td>
+<td>CSV</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>Encoding</td>
+<td>ISO-8859-15</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>Item delimiter</td>
+<td>;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="excel-data">
+<span id="format-excel"></span><span id="index-11"></span><h3>Excel data<a class="headerlink" href="#excel-data" title="Permalink to this headline">¶</a></h3>
+<p>Excel is a spreadsheet application and part of Microsoft Office.</p>
+<p>Minimal example for Excel data</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="53%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>Format</td>
+<td>Excel</td>
+</tr>
+</tbody>
+</table>
+<p>Additionally there are a couple of optional properties.</p>
+<p>A more advanced example for Excel data</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="53%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>Format</td>
+<td>Excel</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>Header</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>Sheet</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>The property <em>header</em> describes how many rows should be skipped before the data
+to validate start. It is optional and defaults to 0, meaning there is no header
+and the first row already contains data.</p>
+<p>The property <em>sheet</em> specifies from which sheet the data should be read. It is
+only required in case a workbook contains more than one sheet and the data to
+validate are located in the second or any later sheet. This property defaults
+to 1 meaning the first sheet.</p>
+<p>Excel uses special ways to internally store dates and times, so what you
+see on the screen in generally is not what cutplace gets when it reads
+Excel data. To avoid confusion, here&#8217;s short list of how certain data
+from Excel will look to cutplace:</p>
+<span class="target" id="index-12"></span><span class="target" id="index-13"></span><span class="target" id="index-14"></span><table border="1" class="docutils" id="index-15">
+<colgroup>
+<col width="29%" />
+<col width="29%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Excel type</th>
+<th class="head">cutplace type</th>
+<th class="head">rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Currency</td>
+<td>Decimal</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Date</td>
+<td>DateTime</td>
+<td>YYYY-MM-DD 00:00:00</td>
+</tr>
+<tr class="row-even"><td>Date and time</td>
+<td>DateTime</td>
+<td>YYYY-MM-DD hh:mm:ss</td>
+</tr>
+<tr class="row-odd"><td>Percent</td>
+<td>Decimal</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Time</td>
+<td>DateTime</td>
+<td>hh:mm:ss</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Excel cannot represent integer numbers exactly, so you better use
+<em>Decimal</em> instead of <em>Integer</em> in the ICD. In case you do use <em>Integer</em>
+be prepared for weird validation error and rounding issues.</p>
+</div>
+</div>
+<div class="section" id="fixed-data">
+<span id="index-16"></span><h3>Fixed data<a class="headerlink" href="#fixed-data" title="Permalink to this headline">¶</a></h3>
+<p>Fixed data reserve a certain number of characters per field. No delimiters are
+necessary.</p>
+<p>Example for fixed data format</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="58%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>Format</td>
+<td>Fixed</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>Encoding</td>
+<td>ISO-8859-15</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>Line delimiter</td>
+<td>LF</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>Allowed characters</td>
+<td>0:</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ods-data-open-document-spreadsheet">
+<span id="index-17"></span><h3>ODS data (open document spreadsheet)<a class="headerlink" href="#ods-data-open-document-spreadsheet" title="Permalink to this headline">¶</a></h3>
+<p>The Open Document Spreadsheet (ODS) file format is supported by several
+application, for instance OpenOffice.org&#8217;s Calc.</p>
+<p>Minimal example for ODS data</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="53%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>Format</td>
+<td>ODS</td>
+</tr>
+</tbody>
+</table>
+<p>The properties header and sheet have the same meaning as described in
+<a class="reference internal" href="#format-excel"><em>Excel data</em></a>.</p>
+<p>A more advanced example for ODS data</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="53%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>Format</td>
+<td>ODS</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>Header</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>Sheet</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="field-formats">
+<span id="index-18"></span><span id="id2"></span><h2>Field formats<a class="headerlink" href="#field-formats" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the different field formats.</p>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p>The field format section of the ICD contains rows with the following columns:</p>
+<ol class="arabic simple">
+<li>The letter &#8220;F&#8221; to indicate that the remaining columns describe a field
+format.</li>
+<li>The name of the field. It must start with an ASCII letter and continue with
+letters, numbers and underscores (_), for example
+<tt class="docutils literal"><span class="pre">customer_id</span></tt>.</li>
+<li>An optional example value for the field. This is for documentation purpose
+only and can be omitted for fields where there is no meaningful example (such
+as a field containing a BLOB). In case a value is specified though, it must
+be a valid example conforming to all the rules for this field.</li>
+<li>A flag that indicates if the field is allowed to be empty. <tt class="docutils literal"><span class="pre">X</span></tt> means that
+the field can be empty, no text means that the field always must contain at
+least some data.</li>
+<li>The optional length of the field in characters.  For separated formats, this is
+optional and takes the form <tt class="docutils literal"><span class="pre">lower_limit:upper_limit</span></tt>.  For example,
+<tt class="docutils literal"><span class="pre">10:20</span></tt> means that values in this field must contains at least 10
+characters and at most 20. It is also possible to specify only a lower or
+upper limit, for example <tt class="docutils literal"><span class="pre">10:</span></tt> means at least 10 characters ans <tt class="docutils literal"><span class="pre">:20</span></tt>
+means at least 20 characters.  Furthermore the length can be a single number
+with any colon (:), meaning that the length must match this number exactly.
+For fixed formats, this column takes a number that specifies the exact length
+of the field, for example <tt class="docutils literal"><span class="pre">50</span></tt>.</li>
+<li>The optional type of the field, for example <tt class="docutils literal"><span class="pre">Text</span></tt>, <tt class="docutils literal"><span class="pre">Integer</span></tt>, <tt class="docutils literal"><span class="pre">DateTime</span></tt> and
+others. Refer to the sections below for detailed descriptions of these types. If you
+do not specify a type, <tt class="docutils literal"><span class="pre">Text</span></tt> is used.</li>
+<li>A rule depending on the type further describing the field.  For example, a
+field of type DateTime requires an exact date or time format such as
+<tt class="docutils literal"><span class="pre">DD.MM.YYYY</span></tt>.</li>
+</ol>
+<p>The remaining columns are not parsed by cutplace and can contain any text you
+like, for example a description of the meaning of the field or details about
+from where the data originate.</p>
+<p>Simple examples for various field formats</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="22%" />
+<col width="17%" />
+<col width="10%" />
+<col width="17%" />
+<col width="14%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Name</th>
+<th class="head">Example</th>
+<th class="head">Empty</th>
+<th class="head">Length</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>customer_id</td>
+<td>123456</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Integer</td>
+<td>1:999999</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>surname</td>
+<td>Miller</td>
+<td>&nbsp;</td>
+<td>1:60</td>
+<td>Text</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>date_of_birth</td>
+<td>1969-11-03</td>
+<td>X</td>
+<td>&nbsp;</td>
+<td>DateTime</td>
+<td>YYYY-MM-DD</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="text">
+<span id="index-19"></span><h3>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h3>
+<p>The Text type describes a field that can contain any letters, digits and other
+characters.</p>
+<p>Examples for Text fields</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="20%" />
+<col width="20%" />
+<col width="14%" />
+<col width="17%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Name</th>
+<th class="head">Example</th>
+<th class="head">Empty</th>
+<th class="head">Length</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>surname</td>
+<td>Miller</td>
+<td>&nbsp;</td>
+<td>1:60</td>
+<td>Text</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="integer">
+<span id="index-20"></span><h3>Integer<a class="headerlink" href="#integer" title="Permalink to this headline">¶</a></h3>
+<p>The Integer type describes a field that can contain decimal numbers without any
+fractional part.</p>
+<p>Examples for Integer fields</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="18%" />
+<col width="13%" />
+<col width="15%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Name</th>
+<th class="head">Example</th>
+<th class="head">Empty</th>
+<th class="head">Length</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>height</td>
+<td>3798</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Integer</td>
+<td>0:8848</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>weight</td>
+<td>72</td>
+<td>&nbsp;</td>
+<td>0:</td>
+<td>Integer</td>
+<td>0:</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>id</td>
+<td>1337</td>
+<td>&nbsp;</td>
+<td>5</td>
+<td>Integer</td>
+<td>1:99999</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="decimal">
+<span id="field-format-decimal"></span><span id="index-21"></span><h3>Decimal<a class="headerlink" href="#decimal" title="Permalink to this headline">¶</a></h3>
+<p>The Decimal type describes a field that can contain decimal numbers
+including a fractional part. Currently the rule has to be empty.</p>
+<p>Examples for Decimal fields</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="15%" />
+<col width="18%" />
+<col width="13%" />
+<col width="15%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Name</th>
+<th class="head">Example</th>
+<th class="head">Empty</th>
+<th class="head">Length</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>amount</td>
+<td>17.3</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Decimal</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>size</td>
+<td>28.34</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Decimal</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>In case the numbers use a comma (&#8221;,&#8221;) or any other character to separate the
+fractional part, set the data format property
+decimal separator accordingly.</p>
+<p>In case the numbers use an additional separator to group digits, set the data
+format property decimal separator accordingly.</p>
+</div>
+<div class="section" id="choice">
+<span id="index-22"></span><h3>Choice<a class="headerlink" href="#choice" title="Permalink to this headline">¶</a></h3>
+<p>The Choice type describes a field that can contain on value out of a set of
+possibly values.</p>
+<p>Examples for Choice fields</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="12%" />
+<col width="8%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Name</th>
+<th class="head">Example</th>
+<th class="head">Empty</th>
+<th class="head">Length</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>color</td>
+<td>red</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Choice</td>
+<td>&#8220;red&#8221;, &#8220;green&#8221;, &#8220;blue&#8221;</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>iso_gender</td>
+<td>male</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Choice</td>
+<td>&#8220;male&#8221;, &#8220;female&#8221;, &#8220;unknown&#8221;, &#8220;other&#8221;</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>department</td>
+<td>sales</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Choice</td>
+<td>&#8220;accounting&#8221;, &#8220;development&#8221;, &#8220;sales&#8221;, &#8220;shipping&#8221;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="datetime">
+<span id="index-23"></span><h3>DateTime<a class="headerlink" href="#datetime" title="Permalink to this headline">¶</a></h3>
+<p>The DateTime type describes a field that can contain a date and/or time in a
+specified format.</p>
+<p>To describe a date, use the following place holders:</p>
+<ul class="simple">
+<li>DD: the day (a number between 1 and 31)</li>
+<li>MM: the numeric month (a number between 1 and 12)</li>
+<li>YYYY: the year including the century (a number between 1 and 9999)</li>
+<li>YY: the year without century</li>
+</ul>
+<p>To describe a time, use the following place holders:</p>
+<ul class="simple">
+<li>hh: hours (a number between 0 and 23)</li>
+<li>mm: minutes (a number between 0 and 59)</li>
+<li>ss: seconds, a number between 0 and 61; note that 60 and 61 are valid values
+because of possible leap seconds.</li>
+</ul>
+<p>Leading zeros are ignored. Any other characters will be interpreted as
+separators and have to appear in the data as specified.</p>
+<p>Examples for DateTime fields</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="27%" />
+<col width="18%" />
+<col width="9%" />
+<col width="11%" />
+<col width="14%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Name</th>
+<th class="head">Example</th>
+<th class="head">Empty</th>
+<th class="head">Length</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>date_of_birth</td>
+<td>1969-11-03</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>DateTime</td>
+<td>YYYY-MM-DD</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>time_of_arrival</td>
+<td>17:23</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>DateTime</td>
+<td>hh:mm</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pattern">
+<span id="field-format-pattern"></span><span id="index-24"></span><h3>Pattern<a class="headerlink" href="#pattern" title="Permalink to this headline">¶</a></h3>
+<p>The Pattern type is similar to the Text type but additionally allows to use
+special characters as place holders:</p>
+<ul class="simple">
+<li>&#8221;?&#8221; mean &#8220;exactly 1 character&#8221;.</li>
+<li>&#8220;*&#8221; means &#8220;none or any characters&#8221;</li>
+</ul>
+<p>Examples for Pattern fields</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="27%" />
+<col width="11%" />
+<col width="14%" />
+<col width="16%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Name</th>
+<th class="head">Empty</th>
+<th class="head">Length</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>dos_filename</td>
+<td>&nbsp;</td>
+<td>1:12</td>
+<td>Pattern</td>
+<td>?*.*</td>
+</tr>
+<tr class="row-odd"><td>F</td>
+<td>branch_id</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Pattern</td>
+<td>B???-????-?*</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="regex">
+<span id="field-format-regex"></span><span id="index-25"></span><h3>RegEx<a class="headerlink" href="#regex" title="Permalink to this headline">¶</a></h3>
+<p>The RegEx type is similar to the Pattern type but allows more sophisticated
+place holders by describing a regular expression. The syntax available is
+described in the chapter on &#8220;Regular expression operations&#8221; of the Python
+documentation, available from <a class="reference external" href="http://docs.python.org/library/re.html">http://docs.python.org/library/re.html</a>.</p>
+<p>Examples for RegEx fields</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="6%" />
+<col width="18%" />
+<col width="6%" />
+<col width="7%" />
+<col width="6%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Name</th>
+<th class="head">Example</th>
+<th class="head">Empty</th>
+<th class="head">Length</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>F</td>
+<td>email</td>
+<td><a class="reference external" href="mailto:some&#37;&#52;&#48;example&#46;com">some<span>&#64;</span>example<span>&#46;</span>com</a></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>RegEx</td>
+<td>^[A-Z0-9._%+-]+&#64;[A-Z0-9.-]+.[A-Z]{2,4}$ <a class="footnote-reference" href="#fn1" id="id3">[1]</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="checks">
+<span id="index-26"></span><h2>Checks<a class="headerlink" href="#checks" title="Permalink to this headline">¶</a></h2>
+<p>Checks are rules that cannot be expressed easily with the rules available for
+data formats and field formats. In general checks validate conditions that can
+be only be met by looking at several fields in a row or the whole document. In
+the ICD, a row describing the check requires the following columns:</p>
+<ol class="arabic simple">
+<li>A human readable description of the check that will be used in the error
+message in case the check fails. Most of the time this will be a short
+sentence of the template &#8220;something must/have something&#8221;. For instance,
+&#8220;<tt class="docutils literal"><span class="pre">customer</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">unique</span></tt>&#8221;.</li>
+<li>The type of the check as described in one of the sections below, for
+example <tt class="docutils literal"><span class="pre">DistinctCount</span></tt> or <tt class="docutils literal"><span class="pre">IsUnique</span></tt>.</li>
+<li>A rule describing the actual check to perform. The contents of this field
+highly depend on the check type specified in the previous column. For
+example, the IsUnique check requires the field(s) to be checked for
+uniqueness like &#8220;<tt class="docutils literal"><span class="pre">branch_id,</span> <span class="pre">customer_id</span></tt>&#8220;</li>
+</ol>
+<p>The remainder of this section describes the available checks in detail and
+gives specific examples.</p>
+<div class="section" id="distinctcount">
+<span id="check-distinct-count"></span><span id="index-27"></span><h3>DistinctCount<a class="headerlink" href="#distinctcount" title="Permalink to this headline">¶</a></h3>
+<p>Purpose: Validate that the number of different values for a certain field is
+within expected limits.</p>
+<p>The rule column describes the field to check and the limit is must meet.
+Example check for a limited number of different values within a field shows how
+to make sure that the data contain at most 5 different branch_ids.</p>
+<p>Example check for a limited number of different values within a field.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="58%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>C</td>
+<td>distinct branches must be within limit</td>
+<td>DistinctCount</td>
+<td>branch_id &lt; 5</td>
+</tr>
+</tbody>
+</table>
+<p>To describe the rule you can use any comparison operator or mathematical
+expression available to the Python language.</p>
+</div>
+<div class="section" id="isunique">
+<span id="check-is-unique"></span><span id="index-28"></span><h3>IsUnique<a class="headerlink" href="#isunique" title="Permalink to this headline">¶</a></h3>
+<p>Purpose: Validate that values for a field or a combination of fields occurs
+only once. This enables to detect duplicate or contradicting data.</p>
+<p>The &#8220;Rule&#8221; column describes the field that must contain only unique values.
+Example check for unique values within a single field shows how to specify that
+two customers must not have the same ID numbers.</p>
+<p>Example check for unique values within a single field.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="52%" />
+<col width="18%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>C</td>
+<td>customer must be unique</td>
+<td>IsUnique</td>
+<td>customer_id</td>
+</tr>
+</tbody>
+</table>
+<p>It could also be possible that customers actually may have the same ID number
+as long as they are assigned to different branches. In this case, only the
+combination of branch_id and customer_id must be unique.  Example check for
+unique values within a combination of fields shows how to describe a check for
+this: simply list all the necessary fields, separated by a comma (,) sign.</p>
+<p>Example check for unique values within a combination of fields.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="42%" />
+<col width="15%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"></th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+<th class="head">Rule</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>C</td>
+<td>customer must be unique</td>
+<td>IsUnique</td>
+<td>branch_id, customer_id</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>Comments can show up in the ICD at any line or column cutplace does not parse.
+In particular this constitutes:</p>
+<ul class="simple">
+<li>Lines that have an empty first column. Remember that a D means details about
+the data format, F about the field format and C describes checks.</li>
+<li>Columns that are past the columns needed by cutplace. For example, in a line
+describing a data format property, cutplace parses only the first three (D,
+Property name, value). Because of that you can write any text starting with
+column number 4.</li>
+</ul>
+</div>
+<div class="section" id="ranges">
+<span id="index-29"></span><span id="id4"></span><h2>Ranges<a class="headerlink" href="#ranges" title="Permalink to this headline">¶</a></h2>
+<p>At several locations in the ICD you can specify ranges. For example as value
+for the &#8220;Allowed characters&#8221; property of a data format or as length of a field
+format. Example ranges shows a couple of examples for ranges and explains their
+meaning.</p>
+<p>Example ranges.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Example</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">5:20</span></tt></td>
+<td>Between 5 and 20</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">6:</span></tt></td>
+<td>At least 6</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">:7</span></tt></td>
+<td>At most 7. Sample accepted values are -5, 0, 4 or 7.  Sample rejected values would be 8, 17, or 723.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">8</span></tt></td>
+<td>Exactly 8, which is the only accepted value. Anything else is rejected.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">2,</span> <span class="pre">4,</span> <span class="pre">6,</span> <span class="pre">8</span></tt></td>
+<td>One of the values specified, meaning 2, 4, 6 or 8.  Anything else is rejected, including 3, 5 and 7.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">20:30,</span> <span class="pre">40:50</span></tt></td>
+<td>Everything between 20 and 30 or between 40 and 50. Sample accepted values are 20, 27, 43 and 50. Sample rejected values are 19, 31, 55.</td>
+</tr>
+</tbody>
+</table>
+<p>Essentially ranges are one or more values (separated by a comma (,)) that are
+either numeric constant or a lower and upper limit separated by a colon (:).
+You can omit the lower or upper limit, in which case cutplace will use a
+sensible default depending on the context. For instance, a length of <tt class="docutils literal"><span class="pre">:20</span></tt>
+will use 0 as lower limit, whereas a field format of type <tt class="docutils literal"><span class="pre">Integer</span></tt> with a
+rule of <tt class="docutils literal"><span class="pre">:20</span></tt> will use the largest negative number possible on your computer
+(which depends on the amount of memory available).</p>
+<p>It is possible to use hexadecimal notation by starting the number with <tt class="docutils literal"><span class="pre">0x</span></tt>,
+for instance:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Example</th>
+<th class="head">Same as</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">0x0f</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">15</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">0x10</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">16</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">0xabcd</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">43981</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">10:0x10</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">10:16</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">:-0xDeadBeef</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">:-3735928559</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>You can also use single letters to specify range values, which are treated
+same as the numeric ASCII or Unicode value:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="54%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Example</th>
+<th class="head">Same as</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;A&quot;:&quot;Z&quot;</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">65:90</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;A&quot;:&quot;Z&quot;,</span> <span class="pre">&quot;a&quot;:&quot;z&quot;</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">65:90,</span> <span class="pre">97:122</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>For unprintable letters and Unicode characters you can use Python escape
+sequences:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Example escaped text</th>
+<th class="head">Same as</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;\t&quot;</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">9</span></tt> (tabulator)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;\\&quot;</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">92</span></tt> (backslash)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;\'&quot;</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">39</span></tt> (single quote)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;\&quot;&quot;</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">34</span></tt> (double quote)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">u&quot;\u00dc&quot;</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">220</span></tt> (the Unicode character 220, also known as &#8220;Umlaut U&#8221;)</td>
+</tr>
+</tbody>
+</table>
+<p>Additionally there are a few symbolic names that are easier to read than the
+rather cryptic escape sequences using a backslash:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="42%" />
+<col width="39%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Symbolic name</th>
+<th class="head">Escaped text</th>
+<th class="head">Number</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">Cr</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">&quot;\r&quot;</span></tt></td>
+<td>13</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">Ff</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">&quot;\f&quot;</span></tt></td>
+<td>12</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">Lf</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">&quot;\n&quot;</span></tt></td>
+<td>10</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">Tab</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">&quot;\t&quot;</span></tt></td>
+<td>9</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">Vt</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">&quot;\v&quot;</span></tt></td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="fn1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td>Validate that field value is an email address as described in <a class="reference external" href="http://www.regular-expressions.info/email.html">how to find or validate an email address</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="command-line-usage.html" title="Command line usage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             >previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009-2011, Thomas Aglassinger.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

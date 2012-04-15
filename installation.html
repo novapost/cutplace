@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Download and Installation &mdash; cutplace 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/cutplace_logo_32x32.ico"/>
+    <link rel="top" title="cutplace 0.7.0 documentation" href="index.html" />
+    <link rel="next" title="Tutorial" href="tutorial.html" />
+    <link rel="prev" title="Cutplace" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Cutplace"
+             accesskey="P">previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/cutplace_logo_64x64.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Download and Installation</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#download-and-install-using-pypi-and-easy-install">Download and install using PyPI and easy_install</a></li>
+<li><a class="reference internal" href="#download-and-install-using-pypi-with-mac-os-x-and-macports">Download and install using PyPI with Mac OS X and MacPorts</a></li>
+<li><a class="reference internal" href="#download-and-install-using-the-subversion-repository">Download and install using the Subversion repository</a></li>
+<li><a class="reference internal" href="#download-and-run-using-jython">Download and run using Jython</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Cutplace</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="next chapter">Tutorial</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="download-and-installation">
+<h1>Download and Installation<a class="headerlink" href="#download-and-installation" title="Permalink to this headline">¶</a></h1>
+<p>This chapter describes how to install the cutplace command line application and
+what you need to run it.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>In order to run cutplace you need Python 2.5 or later, available from
+<a class="reference external" href="http://www.python.org/">http://www.python.org/</a> for many platforms. To check if Python is already
+installed, run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>In case Python is installed, you should see an output like the following (the
+version number may vary):</p>
+<div class="highlight-python"><pre>Python 2.5.4</pre>
+</div>
+<p>Other than that, there are no special software requirements for cutplace.
+Hardware wise, any reasonably modern computer should easily meet the demands of
+cutplace. Memory usage depends on the amount of data you process, 256 MB of
+memory should be more than enough even for large datasets.</p>
+</div>
+<div class="section" id="download-and-install-using-pypi-and-easy-install">
+<h2>Download and install using PyPI and easy_install<a class="headerlink" href="#download-and-install-using-pypi-and-easy-install" title="Permalink to this headline">¶</a></h2>
+<p>Cutplace can be downloaded from <a class="reference external" href="http://pypi.python.org/pypi">http://pypi.python.org/pypi</a>, the Python Package
+Index.</p>
+<p>If you have <a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall">easy_install</a> installed, simply run:</p>
+<div class="highlight-python"><pre>easy_install cutplace</pre>
+</div>
+<p>to download and install the most current version. If you later on want to
+upgrade to a new version, run:</p>
+<div class="highlight-python"><pre>easy_install --upgrade cutplace</pre>
+</div>
+<p>Alternatively you can manually download and install cutplace by visiting
+<a class="reference external" href="http://pypi.python.org/pypi/cutplace/">http://pypi.python.org/pypi/cutplace/</a>.</p>
+<p>When this is finished, run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cutplace</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>to get a short overview of the available command line options (they are
+explained in detail in <a class="reference internal" href="command-line-usage.html"><em>Command line usage</em></a>).</p>
+</div>
+<div class="section" id="download-and-install-using-pypi-with-mac-os-x-and-macports">
+<h2>Download and install using PyPI with Mac OS X and MacPorts<a class="headerlink" href="#download-and-install-using-pypi-with-mac-os-x-and-macports" title="Permalink to this headline">¶</a></h2>
+<p>MacPorts provide a command-line driven software package under a BSD License,
+and through it easy access to thousands of ports that greatly simplify the task
+of compiling and installing open-source software on your Mac. To find out more
+about MacPorts, visit <a class="reference external" href="http://www.macports.org/">http://www.macports.org/</a>.</p>
+<p><tt class="docutils literal"><span class="pre">Easy_install</span></tt> is included with <tt class="docutils literal"><span class="pre">setuptools</span></tt>, which are already available
+as MacPorts package. So in order to install them, simply run:</p>
+<div class="highlight-python"><pre>sudo port install py25-setuptools</pre>
+</div>
+<p>For Python 2.6, use:</p>
+<div class="highlight-python"><pre>sudo port install py26-setuptools</pre>
+</div>
+<p>After that you can proceed as describe above and run:</p>
+<div class="highlight-python"><pre>easy_install-2.5 cutplace</pre>
+</div>
+<p>respectively:</p>
+<div class="highlight-python"><pre>easy_install-2.6 cutplace</pre>
+</div>
+</div>
+<div class="section" id="download-and-install-using-the-subversion-repository">
+<h2>Download and install using the Subversion repository<a class="headerlink" href="#download-and-install-using-the-subversion-repository" title="Permalink to this headline">¶</a></h2>
+<p>In case you prefer to install cutplace directly from the source, you can use
+its subversion repository as described in <a class="reference internal" href="development.html"><em>Development</em></a>.</p>
+</div>
+<div class="section" id="download-and-run-using-jython">
+<h2>Download and run using Jython<a class="headerlink" href="#download-and-run-using-jython" title="Permalink to this headline">¶</a></h2>
+<p>Jython is an implementation of Python written in 100% Pure Java, and seamlessly
+integrated with the Java platform. It thus allows you to run Python on any Java
+platform. To find out more, visit <a class="reference external" href="http://www.jython.org/">http://www.jython.org/</a>.</p>
+<p>You need Jython 2.5 which at the time of this writing does not integrate with
+<tt class="docutils literal"><span class="pre">setuptools</span></tt>, so you need to use the Subversion repository and then run it
+using something like:</p>
+<div class="highlight-python"><pre>jython .../path/to/cutplace/cutplace/cutplace.py --help</pre>
+</div>
+<p>This should output the quick help.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Cutplace"
+             >previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009-2011, Thomas Aglassinger.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

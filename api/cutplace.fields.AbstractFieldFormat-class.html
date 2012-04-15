@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cutplace.fields.AbstractFieldFormat</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cutplace-module.html">Package&nbsp;cutplace</a> ::
+        <a href="cutplace.fields-module.html">Module&nbsp;fields</a> ::
+        Class&nbsp;AbstractFieldFormat
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cutplace.fields.AbstractFieldFormat-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class AbstractFieldFormat</h1><p class="nomargin-top"><span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">AbstractFieldFormat</strong>
+</pre>
+
+<dl><dt>Known Subclasses:</dt>
+<dd>
+      <ul class="subclass-list">
+<li><a href="cutplace.fields.ChoiceFieldFormat-class.html">ChoiceFieldFormat</a></li><li>, <a href="cutplace.fields.DateTimeFieldFormat-class.html">DateTimeFieldFormat</a></li><li>, <a href="cutplace.fields.DecimalFieldFormat-class.html">DecimalFieldFormat</a></li><li>, <a href="cutplace.fields.IntegerFieldFormat-class.html">IntegerFieldFormat</a></li><li>, <a href="cutplace.fields.PatternFieldFormat-class.html">PatternFieldFormat</a></li><li>, <a href="cutplace.fields.RegExFieldFormat-class.html">RegExFieldFormat</a></li><li>, <a href="cutplace.fields.TextFieldFormat-class.html">TextFieldFormat</a></li>  </ul>
+</dd></dl>
+
+<hr />
+<p>Abstract format description of a field in a data file to validate which acts as base for all
+other field formats. To implement another field format, it is usually sufficient to:</p>
+<blockquote>
+<ol class="rst-arabic simple">
+<li>Overload <a href="cutplace.fields.AbstractFieldFormat-class.html#__init__" class="link">__init__()</a> but call <tt class="rst-docutils literal"><span class="pre">super(...,</span> <span class="pre">self).__init__(...)</span></tt> from it.</li>
+<li>Implement <a href="cutplace.fields.AbstractFieldFormat-class.html#validatedValue" class="link">validatedValue()</a>.</li>
+</ol>
+</blockquote>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.fields.AbstractFieldFormat-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fieldName</span>,
+        <span class="summary-sig-arg">isAllowedToBeEmpty</span>,
+        <span class="summary-sig-arg">lengthText</span>,
+        <span class="summary-sig-arg">rule</span>,
+        <span class="summary-sig-arg">dataFormat</span>,
+        <span class="summary-sig-arg">emptyValue</span>=<span class="summary-sig-default">None</span>)</span><br />
+      x.__init__(...) initializes x; see help(type(x)) for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_example"></a><span class="summary-sig-name">_example</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat._example">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_setExample"></a><span class="summary-sig-name">_setExample</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">newExample</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat._setExample">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateCharacters"></a><span class="summary-sig-name">validateCharacters</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.validateCharacters">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateEmpty"></a><span class="summary-sig-name">validateEmpty</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.validateEmpty">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateLength"></a><span class="summary-sig-name">validateLength</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.validateLength">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.fields.AbstractFieldFormat-class.html#validatedValue" class="summary-sig-name">validatedValue</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      The <code class="link">value</code> in its native type for this field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.validatedValue">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.fields.AbstractFieldFormat-class.html#validated" class="summary-sig-name">validated</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Validate that value complies with field description and return the value in its &quot;native&quot;
+type.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.validated">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="asIcdRow"></a><span class="summary-sig-name">asIcdRow</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      The description of the field format as row that can be written to an ICD except for the
+leading row mark &quot;f&quot;.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.asIcdRow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.fields.AbstractFieldFormat-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      str(x)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.__str__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.fields.AbstractFieldFormat-class.html#fieldName" class="summary-name">fieldName</a><br />
+      The name of the field.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.fields.AbstractFieldFormat-class.html#isAllowedToBeEmpty" class="summary-name">isAllowedToBeEmpty</a><br />
+      <tt class="rst-docutils literal">True</tt> if the field can be empty in the data set, resulting in <a href="cutplace.fields.AbstractFieldFormat-class.html#validated" class="link">validated()</a> to return
+<a href="cutplace.fields.AbstractFieldFormat-class.html#emptyValue" class="link">emptyValue</a>.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.fields.AbstractFieldFormat-class.html#length" class="summary-name">length</a><br />
+      A <a href="cutplace.ranges.Range-class.html" class="link">ranges.Range</a> describing the possible length of the value.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.fields.AbstractFieldFormat-class.html#rule" class="summary-name">rule</a><br />
+      A field format dependent rule to describe possible values.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.fields.AbstractFieldFormat-class.html#dataFormat" class="summary-name">dataFormat</a><br />
+      The <code class="link">data.AbstractDataFormat</code> the data set has in case the field needs any properties from
+it to validate its value, for instance <a href="cutplace.data-module.html#KEY_DECIMAL_SEPARATOR" class="link">data.KEY_DECIMAL_SEPARATOR</a>.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.fields.AbstractFieldFormat-class.html#emptyValue" class="summary-name">emptyValue</a><br />
+      The result of <a href="cutplace.fields.AbstractFieldFormat-class.html#validated" class="link">validated(value)</a> in case <tt class="rst-docutils literal">value</tt> is an empty string.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.fields.AbstractFieldFormat-class.html#example" class="summary-name">example</a><br />
+      Example value or <tt class="rst-docutils literal">None</tt> if no example is provided.
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">fieldName</span>,
+        <span class="sig-arg">isAllowedToBeEmpty</span>,
+        <span class="sig-arg">lengthText</span>,
+        <span class="sig-arg">rule</span>,
+        <span class="sig-arg">dataFormat</span>,
+        <span class="sig-arg">emptyValue</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  x.__init__(...) initializes x; see help(type(x)) for signature
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="validatedValue"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validatedValue</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.validatedValue">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>The <code class="link">value</code> in its native type for this field.</p>
+<p>By the time this is called it is already ensured that:</p>
+<blockquote>
+<ul class="rst-simple">
+<li><code class="link">value</code> is not an empty string</li>
+<li><code class="link">value</code> contains only valid characters</li>
+<li>trailing blanks have been removed from <code class="link">value</code> for fixed format data</li>
+</ul>
+</blockquote>
+<p>Concrete fields formats must override this because the default
+implementation just raises a <code class="link">NotImplementedError</code>.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="validated"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validated</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.validated">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Validate that value complies with field description and return the value in its &quot;native&quot;
+type. If not, raise FieldValueError.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.fields-pysrc.html#AbstractFieldFormat.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  str(x)
+  <dl class="fields">
+    <dt>Overrides:
+        object.__str__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== PROPERTY DETAILS ==================== -->
+<a name="section-PropertyDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Property Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-PropertyDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="fieldName"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">fieldName</h3>
+  The name of the field.
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.fieldName(<span class="summary-sig-arg">self</span>)</span>
+        - The name of the field.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="isAllowedToBeEmpty"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">isAllowedToBeEmpty</h3>
+  <tt class="rst-rst-docutils literal rst-docutils literal">True</tt> if the field can be empty in the data set, resulting in <a href="cutplace.fields.AbstractFieldFormat-class.html#validated" class="link">validated()</a> to return
+<a href="cutplace.fields.AbstractFieldFormat-class.html#emptyValue" class="link">emptyValue</a>.
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.isAllowedToBeEmpty(<span class="summary-sig-arg">self</span>)</span>
+        - <tt class="rst-docutils literal">True</tt> if the field can be empty in the data set, resulting in <code class="link">validated()</code> to return
+<code class="link">emptyValue</code>.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="length"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">length</h3>
+  A <a href="cutplace.ranges.Range-class.html" class="link">ranges.Range</a> describing the possible length of the value.
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.length(<span class="summary-sig-arg">self</span>)</span>
+        - A <a href="cutplace.ranges.Range-class.html" class="link">ranges.Range</a> describing the possible length of the value.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="rule"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">rule</h3>
+  A field format dependent rule to describe possible values.
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.rule(<span class="summary-sig-arg">self</span>)</span>
+        - A field format dependent rule to describe possible values.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dataFormat"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">dataFormat</h3>
+  The <code class="link">data.AbstractDataFormat</code> the data set has in case the field needs any properties from
+it to validate its value, for instance <a href="cutplace.data-module.html#KEY_DECIMAL_SEPARATOR" class="link">data.KEY_DECIMAL_SEPARATOR</a>.
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.dataFormat(<span class="summary-sig-arg">self</span>)</span>
+        - The <code class="link">data.AbstractDataFormat</code> the data set has in case the field needs any properties from
+it to validate its value, for instance <code class="link">data.KEY_DECIMAL_SEPARATOR</code>.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="emptyValue"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">emptyValue</h3>
+  The result of <a href="cutplace.fields.AbstractFieldFormat-class.html#validated" class="link">validated(value)</a> in case <tt class="rst-rst-docutils literal rst-docutils literal">value</tt> is an empty string.
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.emptyValue(<span class="summary-sig-arg">self</span>)</span>
+        - The result of <code class="link">validated(value)</code> in case <tt class="rst-docutils literal">value</tt> is an empty string.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="example"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">example</h3>
+  Example value or <tt class="rst-rst-docutils literal rst-docutils literal">None</tt> if no example is provided.
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><a href="cutplace.fields.AbstractFieldFormat-class.html#_example" class="summary-sig-name" onclick="show_private();">_example</a>(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><a href="cutplace.fields.AbstractFieldFormat-class.html#_setExample" class="summary-sig-name" onclick="show_private();">_setExample</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">newExample</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sun Apr 15 20:34:52 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

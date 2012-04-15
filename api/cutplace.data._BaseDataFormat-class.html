@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cutplace.data._BaseDataFormat</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cutplace-module.html">Package&nbsp;cutplace</a> ::
+        <a href="cutplace.data-module.html">Module&nbsp;data</a> ::
+        Class&nbsp;_BaseDataFormat
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cutplace.data._BaseDataFormat-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class _BaseDataFormat</h1><p class="nomargin-top"><span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">_BaseDataFormat</strong>
+</pre>
+
+<dl><dt>Known Subclasses:</dt>
+<dd>
+      <ul class="subclass-list">
+<li class="private"><a href="cutplace.data._BaseTextDataFormat-class.html" onclick="show_private();">_BaseTextDataFormat</a></li><li class="private">, <a href="cutplace.data._BaseSpreadsheetDataFormat-class.html" onclick="show_private();">_BaseSpreadsheetDataFormat</a></li>  </ul>
+</dd></dl>
+
+<hr />
+<p>Data format acting as base for other data formats.</p>
+<p>The only function you really need to overwrite is <a href="cutplace.data._BaseDataFormat-class.html#validated" class="link">validated()</a>.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.data._BaseDataFormat-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">requiredKeys</span>,
+        <span class="summary-sig-arg">optionalKeyValueMap</span>)</span><br />
+      Setup new format with <tt class="rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-docutils literal rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">requiredKeys</tt> being a list of property names that must be set, and
+<tt class="rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-docutils literal rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">optionalKeyValueMap</tt> being a dictionary where they keys denote property names and the
+values describe default values that should be used in case the property is never set.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_normalizedKey"></a><span class="summary-sig-name">_normalizedKey</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat._normalizedKey">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.data._BaseDataFormat-class.html#_validatedChoice" class="summary-sig-name" onclick="show_private();">_validatedChoice</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">choices</span>)</span><br />
+      Validate that <code class="link">value</code> is one of the available <code class="link">choices</code> and otherwise raise <a href="cutplace.data.DataFormatValueError-class.html" class="link">DataFormatValueError</a>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat._validatedChoice">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_validatedLong"></a><span class="summary-sig-name">_validatedLong</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">lowerLimit</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate that <tt class="rst-docutils literal">value</tt> is a long number with a value of at least <tt class="rst-docutils literal">lowerLimit</tt> (if
+specified) and raise <a href="cutplace.data.DataFormatSyntaxError-class.html" class="link">DataFormatSyntaxError</a> if not.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat._validatedLong">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_raiseDecimalThousandsSeparatorClash"></a><span class="summary-sig-name">_raiseDecimalThousandsSeparatorClash</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">propertyToBeSet</span>,
+        <span class="summary-sig-arg">propertyExisting</span>,
+        <span class="summary-sig-arg">clashingValue</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat._raiseDecimalThousandsSeparatorClash">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.data._BaseDataFormat-class.html#validated" class="summary-sig-name">validated</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">Value</tt> in its native type.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.validated">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateAllRequiredPropertiesHaveBeenSet"></a><span class="summary-sig-name">validateAllRequiredPropertiesHaveBeenSet</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Validate that all required properties have been set and if not, raise
+<a href="cutplace.data.DataFormatSyntaxError-class.html" class="link">DataFormatSyntaxError</a>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.validateAllRequiredPropertiesHaveBeenSet">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.data._BaseDataFormat-class.html#set" class="summary-sig-name">set</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Attempt to set <tt class="rst-docutils literal">key</tt> to <tt class="rst-docutils literal">value</tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.set">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.data._BaseDataFormat-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">useDefault</span>=<span class="summary-sig-default">True</span>)</span><br />
+      The value of <code class="link">key</code>, or its default value (as specified with <a href="cutplace.data._BaseDataFormat-class.html#__init__" class="link">__init__()</a>) in case it has
+not be set yet, or <code class="link">None</code> if no default value exists.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.get">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_getEncoding"></a><span class="summary-sig-name">_getEncoding</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat._getEncoding">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_setEncoding"></a><span class="summary-sig-name">_setEncoding</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat._setEncoding">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="asIcdRows"></a><span class="summary-sig-name">asIcdRows</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      The data format as it could be defined in an ICD (without the leading 'd').</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.asIcdRows">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.data._BaseDataFormat-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      str(x)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.__str__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.data._BaseDataFormat-class.html#encoding" class="summary-name">encoding</a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">requiredKeys</span>,
+        <span class="sig-arg">optionalKeyValueMap</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Setup new format with <tt class="rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-docutils literal rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">requiredKeys</tt> being a list of property names that must be set, and
+<tt class="rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-rst-docutils literal rst-rst-rst-rst-docutils literal rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">optionalKeyValueMap</tt> being a dictionary where they keys denote property names and the
+values describe default values that should be used in case the property is never set.
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_validatedChoice"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_validatedChoice</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">value</span>,
+        <span class="sig-arg">choices</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat._validatedChoice">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Validate that <code class="link">value</code> is one of the available <code class="link">choices</code> and otherwise raise <a href="cutplace.data.DataFormatValueError-class.html" class="link">DataFormatValueError</a>.
+Always returns <code class="link">value</code>. To be called from <a href="cutplace.data._BaseDataFormat-class.html#validated" class="link">validated()</a>.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="validated"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validated</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.validated">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p><tt class="rst-rst-rst-rst-docutils literal rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">Value</tt> in its native type.</p>
+<p>If <tt class="rst-rst-docutils literal rst-docutils literal">key</tt> can not be handled, raise <a href="cutplace.data.DataFormatSyntaxError-class.html" class="link">DataFormatSyntaxError</a>.</p>
+<p>If <tt class="rst-rst-docutils literal rst-docutils literal">value</tt> can not be handled, raise <a href="cutplace.data.DataFormatValueError-class.html" class="link">DataFormatValueError</a>.</p>
+<p>This function should be overwritten by child classes, but also be called by them via
+<tt class="rst-rst-docutils literal rst-docutils literal">super</tt> in case the child cannot handle <code class="link">key</code> in order to consistently handle the
+standard keys.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.set">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Attempt to set <tt class="rst-rst-docutils literal rst-docutils literal">key</tt> to <tt class="rst-rst-docutils literal rst-docutils literal">value</tt>.</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>format = createDataFormat(FORMAT_CSV)
+<span class="py-prompt">&gt;&gt;&gt; </span>format.set(KEY_LINE_DELIMITER, LF)</pre>
+<p>In case the <tt class="rst-docutils literal">key</tt> has already been set, raise a <a href="cutplace.data.DataFormatValueError-class.html" class="link">DataFormatValueError</a>.</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>format.set(KEY_LINE_DELIMITER, CR)
+<span class="py-except">Traceback (most recent call last):</span>
+<span class="py-except">    ...</span>
+<span class="py-except">DataFormatValueError: data format property 'line delimiter' has already been set: '\n'</span></pre>
+<p>In case <code class="link">value</code> can not be used for <tt class="rst-docutils literal">key</tt>, reraise the error raised by <a href="cutplace.data._BaseDataFormat-class.html#validated" class="link">validated()</a>.</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>format.set(KEY_ALLOWED_CHARACTERS, <span class="py-string">&quot;spam&quot;</span>)
+<span class="py-except">Traceback (most recent call last):</span>
+<span class="py-except">    ...</span>
+<span class="py-except">DataFormatValueError: value for property 'allowed characters' must be a valid range: symbolic name 'spam' must be one of: 'cr', 'ff', 'lf', 'tab' or 'vt'</span></pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">useDefault</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.get">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>The value of <code class="link">key</code>, or its default value (as specified with <a href="cutplace.data._BaseDataFormat-class.html#__init__" class="link">__init__()</a>) in case it has
+not be set yet, or <code class="link">None</code> if no default value exists.</p>
+<p>Note that the result does not have to be the same value that has been passed to <a href="cutplace.data._BaseDataFormat-class.html#set" class="link">set()</a>
+because for some keys the value for <a href="cutplace.data._BaseDataFormat-class.html#set" class="link">set()</a> is in a human readable representation whereas
+the result of <a href="cutplace.data._BaseDataFormat-class.html#get" class="link">get()</a> can be an internal representation.</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>format = createDataFormat(FORMAT_CSV)
+<span class="py-prompt">&gt;&gt;&gt; </span>format.set(KEY_LINE_DELIMITER, LF)
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> <span class="py-string">&quot;%r&quot;</span> % format.get(KEY_LINE_DELIMITER)
+<span class="py-output">'\n'</span></pre>
+<p>Many properties have default values in case no value has been set yet:</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> <span class="py-string">&quot;%r&quot;</span> % format.get(KEY_ITEM_DELIMITER)
+<span class="py-output">'any'</span></pre>
+<p>You can query them ignoring the default, which yields <code class="link">None</code> for properties that have
+not been set yet:</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> <span class="py-string">&quot;%r&quot;</span> % format.get(KEY_ITEM_DELIMITER, False)
+<span class="py-output">None</span></pre>
+<p>Once a value is provided, the default is ignored in any case:</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>format.set(KEY_ITEM_DELIMITER, <span class="py-string">&quot;;&quot;</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> <span class="py-string">&quot;%r&quot;</span> % format.get(KEY_ITEM_DELIMITER, False)
+<span class="py-output">';'</span></pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.data-pysrc.html#_BaseDataFormat.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  str(x)
+  <dl class="fields">
+    <dt>Overrides:
+        object.__str__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== PROPERTY DETAILS ==================== -->
+<a name="section-PropertyDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Property Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-PropertyDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="encoding"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">encoding</h3>
+  
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><a href="cutplace.data._BaseDataFormat-class.html#_getEncoding" class="summary-sig-name" onclick="show_private();">_getEncoding</a>(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><a href="cutplace.data._BaseDataFormat-class.html#_setEncoding" class="summary-sig-name" onclick="show_private();">_setEncoding</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sun Apr 15 20:34:52 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

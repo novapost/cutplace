@@ -1,0 +1,976 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Application programmer interface &mdash; cutplace 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/cutplace_logo_32x32.ico"/>
+    <link rel="top" title="cutplace 0.7.0 documentation" href="index.html" />
+    <link rel="next" title="Getting support" href="support.html" />
+    <link rel="prev" title="Command line usage" href="command-line-usage.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="support.html" title="Getting support"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="command-line-usage.html" title="Command line usage"
+             accesskey="P">previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/cutplace_logo_64x64.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Application programmer interface</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#set-up-logging">Set up logging</a></li>
+<li><a class="reference internal" href="#basic-usage">Basic usage</a><ul>
+<li><a class="reference internal" href="#reading-an-icd">Reading an ICD</a></li>
+<li><a class="reference internal" href="#validating-data">Validating data</a></li>
+<li><a class="reference internal" href="#processing-data">Processing data</a></li>
+<li><a class="reference internal" href="#putting-it-all-together">Putting it all together</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-usage">Advanced usage</a><ul>
+<li><a class="reference internal" href="#building-an-icd-in-the-code">Building an ICD in the code</a></li>
+<li><a class="reference internal" href="#validating-with-listeners">Validating with listeners</a></li>
+<li><a class="reference internal" href="#writing-field-formats">Writing field formats</a></li>
+<li><a class="reference internal" href="#writing-checks">Writing checks</a></li>
+<li><a class="reference internal" href="#using-your-own-checks-and-field-format">Using your own checks and field format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="command-line-usage.html"
+                        title="previous chapter">Command line usage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="support.html"
+                        title="next chapter">Getting support</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="application-programmer-interface">
+<span id="index-0"></span><h1>Application programmer interface<a class="headerlink" href="#application-programmer-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Additionally to the command line tool <tt class="docutils literal"><span class="pre">cutplace</span></tt> all functions are available
+as Python API. For a complete reference about all public classes and functions,
+visit &lt;<a class="reference external" href="http://cutplace.sourceforge.net/api/">http://cutplace.sourceforge.net/api/</a>&gt;.</p>
+<p>This chapter describes how to perform a basic validation of a simple CSV file
+containing data about some customers. It also explains how to extend
+cutplace&#8217;s fields formats and checks.</p>
+</div>
+<div class="section" id="set-up-logging">
+<h2>Set up logging<a class="headerlink" href="#set-up-logging" title="Permalink to this headline">¶</a></h2>
+<p>Cutplace uses Python&#8217;s standard logging module. This provides a familiar and
+powerful way to watch what cutplace is doing. However, it also requires to
+setup the logging properly in order to gain most from it.</p>
+<p>For a quick start, set up your application&#8217;s log messages to go to the console
+and show only information, warning and errors, but no debug messages:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next trim cutplace&#8217;s logging to show only warnings and errors as you might not
+be particularly interested in whatever it is cutplace does during a
+validation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&quot;cutplace&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This should be enough to get you going. To learn more about logging, take a
+look at <a class="reference external" href="http://docs.python.org/library/logging.html">logging chapter</a> of
+the Python library documentation.</p>
+</div>
+<div class="section" id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reading-an-icd">
+<h3>Reading an ICD<a class="headerlink" href="#reading-an-icd" title="Permalink to this headline">¶</a></h3>
+<p>The class
+<a class="reference external" href="api/cutplace.interface.InterfaceControlDocument-class.html">interface.InterfaceControlDocument</a>
+represents an ICD. In case you have an ICD stored in a file and want to read
+it, use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">interface</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Compute the path of a test file in a system independent manner,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># assuming that the current folder is &quot;docs&quot;.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icdPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;icds&quot;</span><span class="p">,</span> <span class="s">&quot;customers.csv&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">InterfaceControlDocument</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">icdPath</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">fieldNames</span>
+<span class="go">[u&#39;branch_id&#39;, u&#39;customer_id&#39;, u&#39;first_name&#39;, u&#39;surname&#39;, u&#39;gender&#39;, u&#39;date_of_birth&#39;]</span>
+</pre></div>
+</div>
+<p>This is the easiest way to describe an interface. The resulting document is
+human readable even for non coders and quite simple to edit and maintain. It
+also keeps declaration and validation in separate files.</p>
+</div>
+<div class="section" id="validating-data">
+<h3>Validating data<a class="headerlink" href="#validating-data" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The functions described in this section might still change slightly
+in later versions and consequently require you to update your own code.</p>
+</div>
+<p>Now that we know how our data are supposed to look, we can validate and optionally
+process them using
+<a class="reference external" href="file:///Users/agi/workspace/cutplace/build/site/api/cutplace.interface-module.html#validatedRows">interface.validatedRows()</a>.
+This is a simple generator function that returns all data rows. If you are
+familiar with Python&#8217;s <tt class="docutils literal"><span class="pre">csv.reader()</span></tt>, you already know how to use it.</p>
+<p>Here is a trivial example that reads all rows from a valid CSV file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">validCsvPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;valid_customers.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">interface</span><span class="o">.</span><span class="n">validatedRows</span><span class="p">(</span><span class="n">icd</span><span class="p">,</span> <span class="n">validCsvPath</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">pass</span> <span class="c"># We could also do something useful with the data in ``row`` here.</span>
+</pre></div>
+</div>
+<p>In this case we only validate the data, but we could easily extend the loop
+body to process them in any meaningful such a inserting them in a database.</p>
+<p>Now what happens if the data do not conform with the interface? Let&#8217;s take a
+look at it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">brokenCsvPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;broken_customers.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">interface</span><span class="o">.</span><span class="n">validatedRows</span><span class="p">(</span><span class="n">icd</span><span class="p">,</span> <span class="n">brokenCsvPath</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">pass</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">FieldValueError: broken_customers.csv (R4C1): field u&#39;branch_id&#39; must match format: value u&#39;12345&#39; must match regular expression</span>: <span class="n">u&#39;38\\d\\d\\d&#39;</span>
+</pre></div>
+</div>
+<p>Apparently the first broken data item causes the reading to stop with an
+<tt class="docutils literal"><span class="pre">Exception</span></tt>. In many cases this is what you want.</p>
+<p>Sometimes however the requirements for an application will state that all
+valid data should be processed and invalid data should be put aside for
+further examination, for example by writing them to a log file. This is
+easy to do by setting the optional parameter <tt class="docutils literal"><span class="pre">errors=&quot;yield&quot;</span></tt>. With this
+enabled, the generator always returns a value even for broken rows. The difference
+however is that broken rows do not result in a list of values but in a result
+of type <tt class="docutils literal"><span class="pre">CutplaceError</span></tt>. It is up to you to detect this and process the different kinds
+of results properly.</p>
+<p>Here is an example the prints any data related errors detected during validation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">tools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">brokenCsvPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;broken_customers.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">rowOrError</span> <span class="ow">in</span> <span class="n">interface</span><span class="o">.</span><span class="n">validatedRows</span><span class="p">(</span><span class="n">icd</span><span class="p">,</span> <span class="n">brokenCsvPath</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s">&quot;yield&quot;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rowOrError</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">ErrorInfo</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rowOrError</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">CutplaceError</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="c"># Print data related error details and move on.</span>
+<span class="gp">... </span>            <span class="k">print</span> <span class="n">rowOrError</span><span class="o">.</span><span class="n">error</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="c"># Let other, more severe errors terminate the validation.</span>
+<span class="gp">... </span>            <span class="n">rowOrError</span><span class="o">.</span><span class="n">reraise</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">pass</span> <span class="c"># We could also do something useful with the data in ``row`` here.</span>
+<span class="go">broken_customers.csv (R4C1): field u&#39;branch_id&#39; must match format: value u&#39;12345&#39; must match regular expression: u&#39;38\\d\\d\\d&#39;</span>
+<span class="go">broken_customers.csv (R5C2): field u&#39;customer_id&#39; must match format: value must be an integer number: u&#39;XX&#39;</span>
+<span class="go">broken_customers.csv (R6C6): field u&#39;date_of_birth&#39; must match format: date must match format DD.MM.YYYY (%d.%m.%Y) but is: u&#39;30.02.1994&#39; (day is out of range for month)</span>
+</pre></div>
+</div>
+<p>Note that it is possible for the reader to throw other exceptions, for example
+of type <tt class="docutils literal"><span class="pre">IOError</span></tt> in case the file cannot be read at all or
+<tt class="docutils literal"><span class="pre">CutplaceUnicodeError</span></tt> (which does not inherit from <tt class="docutils literal"><span class="pre">CutplaceError</span></tt>) in
+case the encoding does not match. You should not continue after such errors as
+they indicate a problem not related to the data but either in the specification
+or environment.</p>
+<p>The <tt class="docutils literal"><span class="pre">errors</span></tt> parameter can also take the values <tt class="docutils literal"><span class="pre">&quot;strict&quot;</span></tt> (which is the
+default and raises a <tt class="docutils literal"><span class="pre">CutplaceError</span></tt> on encountering the first error as
+described above) and <tt class="docutils literal"><span class="pre">&quot;ignore&quot;</span></tt>, which silently ignores any error and moves
+on with the next row. The latter can be useful during prototyping a new
+application when ICD&#8217;s and data are in a constant state of flux. In production
+code <tt class="docutils literal"><span class="pre">errors=&quot;ignore&quot;</span></tt> mainly represents a very efficient way to shoot
+yourself into the foot.</p>
+</div>
+<div class="section" id="processing-data">
+<h3>Processing data<a class="headerlink" href="#processing-data" title="Permalink to this headline">¶</a></h3>
+<p>As a first step, we should figure out where in each row we can find the first
+name and the surname. We need to do this only once so this happens outside of
+the processing loop. The names used to find the indices must match the names
+used in the ICD.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">firstNameIndex</span> <span class="o">=</span> <span class="n">icd</span><span class="o">.</span><span class="n">getFieldNameIndex</span><span class="p">(</span><span class="s">&quot;first_name&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">surnameIndex</span> <span class="o">=</span>  <span class="n">icd</span><span class="o">.</span><span class="n">getFieldNameIndex</span><span class="p">(</span><span class="s">&quot;surname&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can read the data just like before. Instead of a simple <tt class="docutils literal"><span class="pre">pass</span></tt> loop we
+obtain the first name from <tt class="docutils literal"><span class="pre">row</span></tt> and check if it starts with &#8220;J&#8221;. If so, we
+compute the full name and print it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">interface</span><span class="o">.</span><span class="n">validatedRows</span><span class="p">(</span><span class="n">icd</span><span class="p">,</span> <span class="n">validCsvPath</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="n">firstName</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">firstNameIndex</span><span class="p">]</span>
+<span class="gp">... </span>  <span class="k">if</span> <span class="n">firstName</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;J&quot;</span><span class="p">):</span>
+<span class="gp">... </span>     <span class="n">surname</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">surnameIndex</span><span class="p">]</span>
+<span class="gp">... </span>     <span class="n">fullName</span> <span class="o">=</span> <span class="n">surname</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">firstName</span>
+<span class="gp">... </span>     <span class="k">print</span> <span class="n">fullName</span>
+<span class="go">Doe, John</span>
+<span class="go">Miller, Jane</span>
+</pre></div>
+</div>
+<p>Of course nothing prevents you from doing more glamourous things here like
+inserting the data into a database or rendering them to a dynamic web page.</p>
+</div>
+<div class="section" id="putting-it-all-together">
+<h3>Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h3>
+<p>To recapitulate and summarize the previous sections here is a little code
+fragment containing a complete example you can use as base for your own
+validation code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Validate a test CSV file.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Change this to use your own files.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icdPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;icds&quot;</span><span class="p">,</span> <span class="s">&quot;customers.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;valid_customers.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Define the interface.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">InterfaceControlDocument</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">icdPath</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Validate the data.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">interface</span><span class="o">.</span><span class="n">validatedRows</span><span class="p">(</span><span class="n">icd</span><span class="p">,</span> <span class="n">dataPath</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">pass</span> <span class="c"># We could also do something useful with the data in ``row`` here.</span>
+</pre></div>
+</div>
+<p>In case you want to process the data, simply replace the <tt class="docutils literal"><span class="pre">pass</span></tt> inside the
+loop by whatever needs to be done.</p>
+<p>In case you want to continue even if a row was rejected, use the optional
+parameter <tt class="docutils literal"><span class="pre">errors=&quot;yield&quot;</span></tt> as described earlier.</p>
+</div>
+</div>
+<div class="section" id="advanced-usage">
+<h2>Advanced usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h2>
+<p>In the previous section, you learned how to read an ICD and use it to validate
+data using a few simple API calls. You also learned how to handle errors
+detected in the data.</p>
+<p>With this knowledge, you should be able to write your own small validation
+scripts that process the results in any meaningful way you want by adding your
+own code to log errors, send validation reports via email or automatically
+insert accepted rows in a data base. The Python standard library offers
+powerful modules for all these tasks.</p>
+<p>In case you are already happy and found everything you need, you can stop
+reading this chapter and move on with implementing your tasks.</p>
+<p>If however you need more flexibility, suffer from API
+<a class="reference external" href="http://en.wikipedia.org/wiki/Obsessive-compulsive_personality_disorder">OCPD</a>
+or just want to know what else cutplace offers in case you might need it one
+day, the following sections describe the lower level hooks of cutplace API.
+They are more powerful and flexible, but also more difficult to use.</p>
+<div class="section" id="building-an-icd-in-the-code">
+<h3>Building an ICD in the code<a class="headerlink" href="#building-an-icd-in-the-code" title="Permalink to this headline">¶</a></h3>
+<p>In some cases it might be preferable to include the ICD in the code, for
+instance for trivial interfaces that are only used internally. Here is an
+example of a simple ICD for CSV data with 3 fields:</p>
+<p>First, import the necessary modules:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">fields</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">interface</span>
+</pre></div>
+</div>
+<p>Next create an empty ICD:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">InterfaceControlDocument</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As the ICD will not be read from an input file, error messages would not be
+able to refer to any file in case of errors. To have at least some reference,
+we need to tell the ICD that it is declared from source code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">setLocationToSourceCode</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>That way, error messages will refer you to the Python module where this call
+happened.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Use CSV as data format. This is the same as having a spreadsheet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># with the cells:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c">#</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># | F | Format         | CSV |</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># | F | Item separator | ;   |</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addDataFormat</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">KEY_FORMAT</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">FORMAT_CSV</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addDataFormat</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">KEY_ITEM_DELIMITER</span><span class="p">,</span> <span class="s">&quot;;&quot;</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Add a couple of fields.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addFieldFormat</span><span class="p">([</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;1:5&quot;</span><span class="p">,</span> <span class="s">&quot;Integer&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addFieldFormat</span><span class="p">([</span><span class="s">&quot;name&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addFieldFormat</span><span class="p">([</span><span class="s">&quot;dateOfBirth&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;X&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;DateTime&quot;</span><span class="p">,</span> <span class="s">&quot;YYYY-MM-DD&quot;</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Make sure that the `id` field contains only unique values.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addCheck</span><span class="p">([</span><span class="s">&quot;id_must_be_unique&quot;</span><span class="p">,</span> <span class="s">&quot;IsUnique&quot;</span><span class="p">,</span> <span class="s">&quot;id&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">fieldNames</span>
+<span class="go">[&#39;id&#39;, &#39;name&#39;, &#39;dateOfBirth&#39;]</span>
+</pre></div>
+</div>
+<p>If any of this methods cannot handle the parameters you passed, they raise a
+<tt class="docutils literal"><span class="pre">CutplaceError</span></tt> with a message describing what went wrong. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addCheck</span><span class="p">([])</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">CheckSyntaxError: &lt;source&gt; (R1C2)</span>: <span class="n">check row (marked with &#39;c&#39;) must contain at least 2 columns</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="validating-with-listeners">
+<h3>Validating with listeners<a class="headerlink" href="#validating-with-listeners" title="Permalink to this headline">¶</a></h3>
+<p>Once the ICD is set up, you can validate data using <tt class="docutils literal"><span class="pre">validate()</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icdPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;icds&quot;</span><span class="p">,</span> <span class="s">&quot;customers.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">InterfaceControlDocument</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">icdPath</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validCsvPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;valid_customers.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">validCsvPath</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So what happens if the data contain errors? Let&#8217;s give it a try:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">brokenCsvPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s">&quot;tests&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;broken_customers.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">brokenCsvPath</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Again, the validation runs through without any <tt class="docutils literal"><span class="pre">Exception</span></tt> or other
+indication that something is wrong.</p>
+<p>The reason for that is that cutplace should be able to continue in case a data
+row is rejected. Raising an <tt class="docutils literal"><span class="pre">Exception</span></tt> would defeat that. So instead, it
+informs interested listeners about validation events. To act on events, define
+a class inheriting from <tt class="docutils literal"><span class="pre">BaseValidationListener</span></tt> and overwrite the methods
+for the events you are interested in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">ErrorPrintingValidationListener</span><span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">BaseValidationListener</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">rejectedRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%r</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">row</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="s">&quot;error: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">error</span>
+</pre></div>
+</div>
+<p>This is a very simple listener which is only interested about rejected rows. In
+case this happens, it simply prints the row and the error that was detected in it.
+To learn about other events this listener can receive, take a look at the API
+documentation of
+<a class="reference external" href="api/cutplace.interface.BaseValidationListener-class.html">BaseValidationListener</a></p>
+<p>To actually get some information about validation errors, you have to create
+such a listener and attach it to an ICD:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">errorPrintingValidationListener</span> <span class="o">=</span> <span class="n">ErrorPrintingValidationListener</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addValidationListener</span><span class="p">(</span><span class="n">errorPrintingValidationListener</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let&#8217;s see what happens if we validate broken data again:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">brokenCsvPath</span><span class="p">)</span>
+<span class="go">[u&#39;12345&#39;, u&#39;92&#39;, u&#39;Bill&#39;, u&#39;Carter&#39;, u&#39;male&#39;, u&#39;05.04.1953&#39;]</span>
+<span class="go">error: broken_customers.csv (R4C1): field u&#39;branch_id&#39; must match format: value u&#39;12345&#39; must match regular expression: u&#39;38\\d\\d\\d&#39;</span>
+<span class="go">[u&#39;38111&#39;, u&#39;XX&#39;, u&#39;Sue&#39;, u&#39;Brown&#39;, u&#39;female&#39;, u&#39;08.02.1962&#39;]</span>
+<span class="go">error: broken_customers.csv (R5C2): field u&#39;customer_id&#39; must match format: value must be an integer number: u&#39;XX&#39;</span>
+<span class="go">[u&#39;38088&#39;, u&#39;83&#39;, u&#39;Rose&#39;, u&#39;Baker&#39;, u&#39;female&#39;, u&#39;30.02.1994&#39;]</span>
+<span class="go">error: broken_customers.csv (R6C6): field u&#39;date_of_birth&#39; must match format: date must match format DD.MM.YYYY (%d.%m.%Y) but is: u&#39;30.02.1994&#39; (day is out of range for month)</span>
+</pre></div>
+</div>
+<p>When you are done, remove the listener:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">removeValidationListener</span><span class="p">(</span><span class="n">errorPrintingValidationListener</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-field-formats">
+<h3>Writing field formats<a class="headerlink" href="#writing-field-formats" title="Permalink to this headline">¶</a></h3>
+<p>Cutplace already ships with several field formats found in the <a class="reference external" href="api/cutplace.fields-module.html">fields</a> module that should cover most needs. If
+however you have some very special requirements, you can write your own
+formats.</p>
+<p>Simply inherit from <tt class="docutils literal"><span class="pre">AbstractFieldFormat</span></tt> and optionally provide a
+constructor to parse the <tt class="docutils literal"><span class="pre">rule</span></tt> parameter. Next, implement
+<tt class="docutils literal"><span class="pre">validatedValue(self,</span> <span class="pre">value)</span></tt> that validates that the text in <tt class="docutils literal"><span class="pre">value</span></tt>
+conforms to <tt class="docutils literal"><span class="pre">rule</span></tt>. If not, raise an <tt class="docutils literal"><span class="pre">FieldValueError</span></tt> with a descriptive
+error message.</p>
+<p>Here is a very simple example of a field format that accepts values of &#8220;red&#8221;,
+&#8220;green&#8221; and &#8220;blue&#8221;.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">ColorFieldFormat</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">AbstractFieldFormat</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldName</span><span class="p">,</span> <span class="n">isAllowedToBeEmpty</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">dataFormat</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">ColorFieldFormat</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">fieldName</span><span class="p">,</span> <span class="n">isAllowedToBeEmpty</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">dataFormat</span><span class="p">,</span> <span class="n">emptyValue</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">validatedValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c"># Validate that ``value`` is a color and return it.</span>
+<span class="gp">... </span>        <span class="k">assert</span> <span class="n">value</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;red&quot;</span><span class="p">,</span> <span class="s">&quot;green&quot;</span><span class="p">,</span> <span class="s">&quot;blue&quot;</span><span class="p">]:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="n">fields</span><span class="o">.</span><span class="n">FieldValueError</span><span class="p">(</span><span class="s">&quot;color value is </span><span class="si">%r</span><span class="s"> but must be one of: red, green, blue&quot;</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">value</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">value</span></tt> parameter is a Unicode string. Cutplace ensures that
+<tt class="docutils literal"><span class="pre">validatedValue()</span></tt> will never be called with an empty <tt class="docutils literal"><span class="pre">value</span></tt> parameter,
+hence the <tt class="docutils literal"><span class="pre">assert</span> <span class="pre">value</span></tt> - it will cause an <tt class="docutils literal"><span class="pre">AssertionError</span></tt> if <tt class="docutils literal"><span class="pre">value</span></tt>
+is <tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt> because that would mean cutplace is broken.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span> <span class="o">=</span> <span class="n">ColorFieldFormat</span><span class="p">(</span><span class="s">&quot;roofColor&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">icd</span><span class="o">.</span><span class="n">dataFormat</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span><span class="o">.</span><span class="n">validated</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="go">&#39;red&#39;</span>
+</pre></div>
+</div>
+<p>Of course you could have achieved similar results using <a class="reference external" href="api/fields.ChoiceFieldFormat-class.html">fields.ChoiceFieldFormat</a>. However, a custom field format can
+do more. In particular, <tt class="docutils literal"><span class="pre">validatedValue()</span></tt> does not have to return a string.
+It can return any Python type and even <tt class="docutils literal"><span class="pre">None</span></tt>. The result will be used in the
+<tt class="docutils literal"><span class="pre">row</span></tt> array cutplace sends to any <a class="reference external" href="api/cutplace.interface.BaseValidationListener-class.html#acceptedRow">BaseValidationListener.acceptedRow()</a>.</p>
+<p>Here&#8217;s a more advanced <tt class="docutils literal"><span class="pre">ColorFieldFormat</span></tt> that returns the color as a
+tuple of RGB items:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">ColorFieldFormat</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">AbstractFieldFormat</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldName</span><span class="p">,</span> <span class="n">isAllowedToBeEmpty</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">dataFormat</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">ColorFieldFormat</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">fieldName</span><span class="p">,</span> <span class="n">isAllowedToBeEmpty</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">dataFormat</span><span class="p">,</span> <span class="n">emptyValue</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">validatedValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorName</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c"># Validate that ``colorName`` is a color and return its RGB representation.</span>
+<span class="gp">... </span>        <span class="k">assert</span> <span class="n">colorName</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;red&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">elif</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;green&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">elif</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;blue&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="n">fields</span><span class="o">.</span><span class="n">FieldValueError</span><span class="p">(</span><span class="s">&quot;color name is </span><span class="si">%r</span><span class="s"> but must be one of: red, green, blue&quot;</span> <span class="o">%</span> <span class="n">colorName</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>For a simple test, let&#8217;s see this field format in action:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span> <span class="o">=</span> <span class="n">ColorFieldFormat</span><span class="p">(</span><span class="s">&quot;roofColor&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">icd</span><span class="o">.</span><span class="n">dataFormat</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span><span class="o">.</span><span class="n">validated</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="go">(1.0, 0.0, 0.0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span><span class="o">.</span><span class="n">validated</span><span class="p">(</span><span class="s">&quot;yellow&quot;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">FieldValueError: color name is &#39;yellow&#39; but must be one of</span>: <span class="n">red, green, blue</span>
+</pre></div>
+</div>
+<p>Before you learned that <tt class="docutils literal"><span class="pre">validatedValue()</span></tt> never gets called with an empty
+value. So what happens if you declare a color field that allows empty values,
+for instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Sets ``isAllowedToBeEmpty`` to ``True`` to accept empty values.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span> <span class="o">=</span> <span class="n">ColorFieldFormat</span><span class="p">(</span><span class="s">&quot;roofColor&quot;</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">icd</span><span class="o">.</span><span class="n">dataFormat</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span><span class="o">.</span><span class="n">validated</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="go">&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Not quiet a color tuple...</span>
+</pre></div>
+</div>
+<p>Well, that&#8217;s not quite what we want. Instead of an empty string, some default
+RGB tuple would be a lot more useful. Say, <tt class="docutils literal"><span class="pre">(0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0)</span></tt> to represent
+black.</p>
+<p>Fortunately field formats can just specify that by using the <tt class="docutils literal"><span class="pre">emptyValue</span></tt>
+parameter in the constructor. When passed to the <tt class="docutils literal"><span class="pre">super</span></tt> constructor in
+<tt class="docutils literal"><span class="pre">AbstractFieldFormat</span></tt>, everything will be taken care of. So here&#8217;s a
+slightly modified version:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">ColorFieldFormat</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">AbstractFieldFormat</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldName</span><span class="p">,</span> <span class="n">isAllowedToBeEmpty</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">dataFormat</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">ColorFieldFormat</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">fieldName</span><span class="p">,</span> <span class="n">isAllowedToBeEmpty</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">dataFormat</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">emptyValue</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="c"># Use black as &quot;empty&quot; color.</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">validatedValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorName</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c"># (Exactly same as before)</span>
+<span class="gp">... </span>        <span class="k">assert</span> <span class="n">colorName</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;red&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">elif</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;green&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">elif</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;blue&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="n">fields</span><span class="o">.</span><span class="n">FieldValueError</span><span class="p">(</span><span class="s">&quot;color name is </span><span class="si">%r</span><span class="s"> but must be one of: red, green, blue&quot;</span> <span class="o">%</span> <span class="n">colorName</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>Let&#8217;s give it a try:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span> <span class="o">=</span> <span class="n">ColorFieldFormat</span><span class="p">(</span><span class="s">&quot;roofColor&quot;</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">icd</span><span class="o">.</span><span class="n">dataFormat</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span><span class="o">.</span><span class="n">validated</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="go">(1.0, 0.0, 0.0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colorField</span><span class="o">.</span><span class="n">validated</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="go">(0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-checks">
+<h3>Writing checks<a class="headerlink" href="#writing-checks" title="Permalink to this headline">¶</a></h3>
+<p>Writing checks is quite similar to writing field formats. However, the
+interaction with the validation is more complex.</p>
+<p>Checks have to implement certain methods described in <a class="reference external" href="api/cutplace.checks.AbstractCheck-class.html">checks.AbstractCheck</a>. For each check, cutplace
+performs the following actions:</p>
+<ol class="arabic simple">
+<li>When reading the ICD, call the check&#8217;s <tt class="docutils literal"><span class="pre">__init__()</span></tt>.</li>
+<li>When starting to read a set of data, call the checks&#8217;s <tt class="docutils literal"><span class="pre">reset()</span></tt>.</li>
+<li>For each row of data, call the checks&#8217;s <tt class="docutils literal"><span class="pre">checkRow()</span></tt>.</li>
+<li>When done with a set of data, call the checks&#8217;s <tt class="docutils literal"><span class="pre">checkAtEnd()</span></tt>.</li>
+</ol>
+<p>The remainder of this section will describe how to implement each of
+these methods. As an example, we implement a check to ensure that
+each customer&#8217;s full name requires less than 100 characters. The field
+formats already ensure that <tt class="docutils literal"><span class="pre">first_name</span></tt> and <tt class="docutils literal"><span class="pre">last_name</span></tt> are at most
+60 characters each. However, assuming the full name is derived using the
+expression:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">last_name</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">first_name</span>
+</pre></div>
+</div>
+<p>this could lead to full names with up to 122 characters.</p>
+<p>To implements this check, start by inheriting from <a class="reference external" href="api/cutplace.checks.AbstractCheck-class.html">checks.AbstractCheck</a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">checks</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">FullNameLengthIsInRangeCheck</span><span class="p">(</span><span class="n">checks</span><span class="o">.</span><span class="n">AbstractCheck</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot;Check that total length of customer name is within the specified range.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Next, implement a constructor to which cutplace can pass the values
+found in the ICD. For example, for our check the ICD would contain:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="1%" />
+<col width="59%" />
+<col width="33%" />
+<col width="7%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="2">&nbsp;</th>
+<th class="head" rowspan="2">Description</th>
+<th class="head" rowspan="2">Type</th>
+<th class="head" rowspan="2">Rule</th>
+</tr>
+<tr class="row-even"></tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">C</td>
+<td rowspan="2">full name must have at most 100 characters</td>
+<td rowspan="2">FullNameLengthIsInRange</td>
+<td rowspan="2">:100</td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
+<p>When cutplace encounters this line, it will create a new check by calling
+<tt class="docutils literal"><span class="pre">checks.FullNameLengthIsInRangeCheck.__init__()</span></tt>, passing the following
+parameters:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">description=&quot;customer</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">unique&quot;</span></tt>, which is just a human readable
+description of the check to refer to it in error messages</li>
+<li><tt class="docutils literal"><span class="pre">rule=&quot;:100&quot;</span></tt>, which describes what exactly the check
+should do. Each check can define its own syntax for the rule. In case of
+<tt class="docutils literal"><span class="pre">FullNameLengthIsInRange</span></tt> the rule describes a <a class="reference external" href="api/cutplace.ranges.Range-class.html">ranges.Range</a>.</li>
+<li><tt class="docutils literal"><span class="pre">availableFieldNames=[&quot;branch_id&quot;,</span> <span class="pre">&quot;customer_id&quot;,</span> <span class="pre">&quot;first_name&quot;,&quot;last_name&quot;,</span>
+<span class="pre">&quot;gender&quot;,</span> <span class="pre">&quot;date_of_birth&quot;]</span></tt> (as defined in the ICD and using the same order)</li>
+<li><tt class="docutils literal"><span class="pre">location</span></tt> being the <tt class="docutils literal"><span class="pre">tools.InputLocation</span></tt> in the ICD where the check was defined.</li>
+</ul>
+<p>The constructor basically has to do 3 things:</p>
+<ol class="arabic simple">
+<li>Call the super constructor</li>
+<li>Perform optional initialization needed by the check that needs to be
+done only once and not on each new data set. In most cases, this involves
+parsing the <tt class="docutils literal"><span class="pre">rule</span></tt> parameter and obtain whatever information the checks needs
+from it.</li>
+<li>Call <tt class="docutils literal"><span class="pre">self.reset()</span></tt>. This is not really necessary for this check, but in most
+cases it will make your life easier because you can avoid redundant initializations
+in the constructor.</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">ranges</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">FullNameLengthIsInRangeCheck</span><span class="p">(</span><span class="n">checks</span><span class="o">.</span><span class="n">AbstractCheck</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot;Check that total length of customer name is within the specified range.&quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">availableFieldNames</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">FullNameLengthIsInRangeCheck</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">availableFieldNames</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_fullNameRange</span> <span class="o">=</span> <span class="n">ranges</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Once cutplace is done reading the ICD, it moves on to data. For each set of
+data it calls the checks <a class="reference external" href="api/cutplace.checks.AbstractCheck-class.html#reset">reset()</a> method. For our simple
+check, no actions are needed so we are good already because <tt class="docutils literal"><span class="pre">AbstractCheck</span></tt>
+already provides a <tt class="docutils literal"><span class="pre">reset()</span></tt> that does nothing.</p>
+<p>When cutplace validates data, it reads them row by row. For each row, it
+calls <a class="reference external" href="api/cutplace.fields.AbstractFieldFormat-class.html#validated">validated()</a>
+on each cell in the row. In case all cells are valid, it collects them in a
+dictionary which maps the field name to its native value. Recall the interface
+from the <a class="reference internal" href="tutorial.html"><em>Tutorial</em></a>, which defined the following fields:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="32%" />
+<col width="16%" />
+<col width="10%" />
+<col width="10%" />
+<col width="13%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="2">&nbsp;</th>
+<th class="head" rowspan="2">Name</th>
+<th class="head" rowspan="2">Example</th>
+<th class="head" rowspan="2">Empty?</th>
+<th class="head" rowspan="2">Length</th>
+<th class="head" rowspan="2">Type</th>
+<th class="head" rowspan="2">Rule</th>
+</tr>
+<tr class="row-even"></tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">F</td>
+<td rowspan="2">branch_id</td>
+<td rowspan="2">38000</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">5</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">F</td>
+<td rowspan="2">customer_id</td>
+<td rowspan="2">16</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">2:</td>
+<td rowspan="2">Integer</td>
+<td rowspan="2">10:65535</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">F</td>
+<td rowspan="2">first_name</td>
+<td rowspan="2">Jane</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">:60</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">F</td>
+<td rowspan="2">surname</td>
+<td rowspan="2">Doe</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">:60</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">F</td>
+<td rowspan="2">gender</td>
+<td rowspan="2">female</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">2:6</td>
+<td rowspan="2">Choice</td>
+<td rowspan="2">male, female</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">F</td>
+<td rowspan="2">date_of_birth</td>
+<td rowspan="2">27.02.1946</td>
+<td rowspan="2">X</td>
+<td rowspan="2">10</td>
+<td rowspan="2">DateTime</td>
+<td rowspan="2">DD.MM.YYYY</td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
+<p>Now consider a data row with the following values:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="20%" />
+<col width="18%" />
+<col width="13%" />
+<col width="11%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="2">Branch id</th>
+<th class="head" rowspan="2">Customer id</th>
+<th class="head" rowspan="2">First name</th>
+<th class="head" rowspan="2">Surname</th>
+<th class="head" rowspan="2">Gender</th>
+<th class="head" rowspan="2">Date of birth</th>
+</tr>
+<tr class="row-even"></tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">38111</td>
+<td rowspan="2">96</td>
+<td rowspan="2">Andrew</td>
+<td rowspan="2">Dixon</td>
+<td rowspan="2">male</td>
+<td rowspan="2">02.10.1913</td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
+<p>The row map for this row would be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">rowMap</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&quot;branch_id&quot;</span><span class="p">:</span> <span class="mi">38111</span><span class="p">,</span>
+    <span class="s">&quot;customer_id&quot;</span><span class="p">:</span> <span class="mi">96</span><span class="p">,</span>
+    <span class="s">&quot;first_name&quot;</span><span class="p">:</span> <span class="s">&quot;Andrew&quot;</span><span class="p">,</span>
+    <span class="s">&quot;last_name&quot;</span><span class="p">:</span> <span class="s">&quot;Dixon&quot;</span><span class="p">,</span>
+    <span class="s">&quot;gender&quot;</span><span class="p">:</span> <span class="s">&quot;male&quot;</span><span class="p">,</span>
+    <span class="s">&quot;date_of_birth&quot;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">(</span><span class="n">tm_year</span><span class="o">=</span><span class="mi">1913</span><span class="p">,</span> <span class="n">tm_mon</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">tm_mday</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With this knowledge, we can easily implement a <tt class="docutils literal"><span class="pre">checkRow</span></tt> that computes the
+full name and checks that it is within the required range. If not, it raises
+a <a class="reference external" href="api/cutplace.checks.CheckError-class.html">CheckError</a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">checkRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowMap</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">fullName</span> <span class="o">=</span> <span class="n">rowMap</span><span class="p">[</span><span class="s">&quot;last_name&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">rowMap</span><span class="p">[</span><span class="s">&quot;first_name&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">fullNameLength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fullName</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_fullNameRange</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s">&quot;full name&quot;</span><span class="p">,</span> <span class="n">fullNameLength</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="n">ranges</span><span class="o">.</span><span class="n">RangeValueError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">raise</span> <span class="n">CheckError</span><span class="p">(</span><span class="s">&quot;full name length is </span><span class="si">%d</span><span class="s"> but must be in range </span><span class="si">%s</span><span class="s">: </span><span class="si">%r</span><span class="s">&quot;</span> \
+<span class="gp">... </span>                <span class="o">%</span> <span class="p">(</span><span class="n">fullNameLength</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fullNameRange</span><span class="p">,</span> <span class="n">fullName</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>And finally, there is
+<a class="reference external" href="api/cutplace.checks.AbstractCheck-class.html#checkAtEnd">checkAtEnd()</a> which
+is called when all data rows have been processed. Note that <tt class="docutils literal"><span class="pre">checkAtEnd()</span></tt>
+does not have any parameters that contain actual data. Instead you typically
+would collect all information needed by <tt class="docutils literal"><span class="pre">checkAtEnd()</span></tt> in <tt class="docutils literal"><span class="pre">checkRow()</span></tt> and
+store them in instance variables.</p>
+<p>Because our <tt class="docutils literal"><span class="pre">FullNameLengthIsInRangeCheck</span></tt> does not need to do anything here,
+we can omit it and keep inherit an empty implementation from <tt class="docutils literal"><span class="pre">AbstractCheck</span></tt>.</p>
+</div>
+<div class="section" id="using-your-own-checks-and-field-format">
+<span id="using-own-check-and-field-formats"></span><h3>Using your own checks and field format<a class="headerlink" href="#using-your-own-checks-and-field-format" title="Permalink to this headline">¶</a></h3>
+<p>Now that you know how to write your own field format, it would be nice to
+actually utilize it in an ICD. For this purpose, cutplace lets you import
+plugins that can define their own fields.</p>
+<p>Plugins are standard Python modules that define classes based on
+<tt class="docutils literal"><span class="pre">fields.AbstractFieldFormat</span></tt> and <tt class="docutils literal"><span class="pre">checks.AbstractCheck</span></tt>. For our
+example, create a folder named <tt class="docutils literal"><span class="pre">~/cutplace_plugins</span></tt> and store a Python
+module named <tt class="docutils literal"><span class="pre">myplugins.py</span></tt> in it with the following contents:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Example plugins for cutplace.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">checks</span>
+<span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">fields</span>
+<span class="kn">from</span> <span class="nn">cutplace</span> <span class="kn">import</span> <span class="n">ranges</span>
+
+<span class="k">class</span> <span class="nc">ColorFieldFormat</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">AbstractFieldFormat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Field format representing colors as their names.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldName</span><span class="p">,</span> <span class="n">isAllowedToBeEmpty</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">dataFormat</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ColorFieldFormat</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">fieldName</span><span class="p">,</span> <span class="n">isAllowedToBeEmpty</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">dataFormat</span><span class="p">,</span>
+                <span class="n">emptyValue</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="c"># Use black as &quot;empty&quot; color.</span>
+
+    <span class="k">def</span> <span class="nf">validatedValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorName</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">colorName</span>
+        <span class="k">if</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;red&quot;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;green&quot;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">colorName</span> <span class="o">==</span> <span class="s">&quot;blue&quot;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">fields</span><span class="o">.</span><span class="n">FieldValueError</span><span class="p">(</span><span class="s">&quot;color name is </span><span class="si">%r</span><span class="s"> but must be one of: red, green, blue&quot;</span> <span class="o">%</span> <span class="n">colorName</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">class</span> <span class="nc">FullNameLengthIsInRangeCheck</span><span class="p">(</span><span class="n">checks</span><span class="o">.</span><span class="n">AbstractCheck</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Check that total length of customer name is within the specified range.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">availableFieldNames</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FullNameLengthIsInRangeCheck</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">availableFieldNames</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fullNameRange</span> <span class="o">=</span> <span class="n">ranges</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">checkRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowMap</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+        <span class="n">fullName</span> <span class="o">=</span> <span class="n">rowMap</span><span class="p">[</span><span class="s">&quot;last_name&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">rowMap</span><span class="p">[</span><span class="s">&quot;first_name&quot;</span><span class="p">]</span>
+        <span class="n">fullNameLength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fullName</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fullNameRange</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s">&quot;full name&quot;</span><span class="p">,</span> <span class="n">fullNameLength</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">ranges</span><span class="o">.</span><span class="n">RangeValueError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CheckError</span><span class="p">(</span><span class="s">&quot;full name length is </span><span class="si">%d</span><span class="s"> but must be in range </span><span class="si">%s</span><span class="s">: </span><span class="si">%r</span><span class="s">&quot;</span> \
+                <span class="o">%</span> <span class="p">(</span><span class="n">fullNameLength</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fullNameRange</span><span class="p">,</span> <span class="n">fullName</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The ICD can now refer to <tt class="docutils literal"><span class="pre">ColorFieldFormat</span></tt> as <tt class="docutils literal"><span class="pre">Color</span></tt> (without
+<tt class="docutils literal"><span class="pre">FieldFormat</span></tt>) and to <tt class="docutils literal"><span class="pre">FullNameLengthIsInRangeCheck</span></tt> as
+<tt class="docutils literal"><span class="pre">FullNameLengthIsInRange</span></tt> (without <tt class="docutils literal"><span class="pre">Check</span></tt>). For example:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="37%" />
+<col width="15%" />
+<col width="13%" />
+<col width="13%" />
+<col width="11%" />
+<col width="9%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">&nbsp;</td>
+<td rowspan="2">Interface: colors</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">&nbsp;</td>
+<td rowspan="2">Data format</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">D</td>
+<td rowspan="2">Format</td>
+<td rowspan="2">CSV</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">D</td>
+<td rowspan="2">Header</td>
+<td rowspan="2">1</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">&nbsp;</td>
+<td rowspan="2">Fields</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">&nbsp;</td>
+<td rowspan="2">Name</td>
+<td rowspan="2">Example</td>
+<td rowspan="2">Empty?</td>
+<td rowspan="2">Length</td>
+<td rowspan="2">Type</td>
+<td rowspan="2">Rule</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">F</td>
+<td rowspan="2">item</td>
+<td rowspan="2">tree</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td rowspan="2">F</td>
+<td rowspan="2">color</td>
+<td rowspan="2">green</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+<td rowspan="2">Color</td>
+<td rowspan="2">&nbsp;</td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
+<p>See: <a class="reference download internal" href="_downloads/icd_colors.csv"><tt class="xref download docutils literal"><span class="pre">icd_colors.csv</span></tt></a>
+or <a class="reference download internal" href="_downloads/icd_colors.ods"><tt class="xref download docutils literal"><span class="pre">icd_colors.ods</span></tt></a></p>
+<p>Here is a data file where all but one row conforms to the ICD:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Item</span><span class="p">,</span><span class="n">Color</span>
+<span class="n">flower</span><span class="p">,</span><span class="n">red</span>
+<span class="n">tree</span><span class="p">,</span><span class="n">green</span>
+<span class="n">sky</span><span class="p">,</span><span class="n">blue</span>
+<span class="n">sun</span><span class="p">,</span><span class="n">yellow</span>
+<span class="n">gras</span><span class="p">,</span><span class="n">green</span>
+</pre></div>
+</div>
+<p>See: <a class="reference download internal" href="_downloads/colors.csv"><tt class="xref download docutils literal"><span class="pre">colors.csv</span></tt></a></p>
+<p>To tell cutplace where the plugins folder is located, use the command line
+option <tt class="docutils literal"><span class="pre">--plugins</span></tt>. Assuming that your <tt class="docutils literal"><span class="pre">myplugins.py</span></tt> is stored in
+<tt class="docutils literal"><span class="pre">~/cutplace_plugins</span></tt> you can run:</p>
+<div class="highlight-python"><pre>cutplace --plugins ~/cutplace_plugins icd_colors.ods colors.csv</pre>
+</div>
+<p>The output is:</p>
+<div class="highlight-python"><pre>ERROR:cutplace:field error: colors.csv (R5C2): field u'color' must match format: color name is u'yellow' but must be one of: red, green, blue
+colors.csv: rejected 1 of 5 rows. 0 final checks failed.</pre>
+</div>
+<p>If you are unsure which plugins exactly cutplace imports, use <tt class="docutils literal"><span class="pre">--log=info</span></tt>.
+For example, the output could contain:</p>
+<div class="highlight-python"><pre>INFO:cutplace:import plugins from "/Users/me/cutplace_plugins"
+INFO:cutplace:  import plugins from "/Users/me/cutplace_plugins/myplugins.py"
+INFO:cutplace:    fields found: ['ColorFieldFormat']
+INFO:cutplace:    checks found: ['FullNameLengthIsInRangeCheck']</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="support.html" title="Getting support"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="command-line-usage.html" title="Command line usage"
+             >previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009-2011, Thomas Aglassinger.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

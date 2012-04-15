@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cutplace.sniff</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cutplace-module.html">Package&nbsp;cutplace</a> ::
+        Module&nbsp;sniff
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cutplace.sniff-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module sniff</h1><p class="nomargin-top"><span class="codelink"><a href="cutplace.sniff-pysrc.html">source&nbsp;code</a></span></p>
+Heuristic data analysis to figure out file types and field formats.
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.sniff.CutplaceSniffError-class.html" class="summary-name">CutplaceSniffError</a><br />
+      Error to indicate that the format of some content could not be sniffed.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.sniff._ColumnSniffInfo-class.html" class="summary-name" onclick="show_private();">_ColumnSniffInfo</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.sniff-module.html#createDataFormat" class="summary-sig-name">createDataFormat</a>(<span class="summary-sig-arg">readable</span>,
+        <span class="summary-sig-arg">**keywords</span>)</span><br />
+      Data format describing the contents of <tt class="rst-docutils literal">readable</tt>, which should be a
+a raw binary input stream as returned by <tt class="rst-docutils literal"><span class="pre">open(...,</span> 'rb')</tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.sniff-pysrc.html#createDataFormat">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.sniff-module.html#createReader" class="summary-sig-name">createReader</a>(<span class="summary-sig-arg">readable</span>,
+        <span class="summary-sig-arg">**keywords</span>)</span><br />
+      A reader fitting the contents of <tt class="rst-docutils literal">readable</tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.sniff-pysrc.html#createReader">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.sniff-module.html#delimitedOptions" class="summary-sig-name">delimitedOptions</a>(<span class="summary-sig-arg">readable</span>,
+        <span class="summary-sig-arg">**keywords</span>)</span><br />
+      Dictionary containing the delimited options as derived from <tt class="rst-docutils literal">readable</tt> and <tt class="rst-docutils literal">keywords</tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.sniff-pysrc.html#delimitedOptions">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cutplace.sniff-module.html#createCidRows" class="summary-sig-name">createCidRows</a>(<span class="summary-sig-arg">readable</span>,
+        <span class="summary-sig-arg">**keywords</span>)</span><br />
+      Create rows for an ICD by examining the contents of <tt class="rst-docutils literal">readable</tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cutplace.sniff-pysrc.html#createCidRows">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_log"></a><span class="summary-name">_log</span> = <code title="logging.getLogger(&quot;cutplace&quot;)">logging.getLogger(&quot;cutplace&quot;)</code><br />
+      Pseudo data format name to indicate the the format should be sniffed.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="FORMAT_AUTO"></a><span class="summary-name">FORMAT_AUTO</span> = <code title="'any'"><code class="variable-quote">'</code><code class="variable-string">any</code><code class="variable-quote">'</code></code><br />
+      The encoding to be used if no encoding is specified within the keyword
+parameters of the functions of this module.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DEFAULT_ENCODING"></a><span class="summary-name">DEFAULT_ENCODING</span> = <code title="'ascii'"><code class="variable-quote">'</code><code class="variable-string">ascii</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DEFAULT_ESCAPE_CHARACTER"></a><span class="summary-name">DEFAULT_ESCAPE_CHARACTER</span> = <code title="'&quot;'"><code class="variable-quote">'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DEFAULT_HEADER"></a><span class="summary-name">DEFAULT_HEADER</span> = <code title="'0'"><code class="variable-quote">'</code><code class="variable-string">0</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DEFAULT_ITEM_DELIMITER"></a><span class="summary-name">DEFAULT_ITEM_DELIMITER</span> = <code title="'any'"><code class="variable-quote">'</code><code class="variable-string">any</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DEFAULT_LINE_DELIMITER"></a><span class="summary-name">DEFAULT_LINE_DELIMITER</span> = <code title="'any'"><code class="variable-quote">'</code><code class="variable-string">any</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DEFAULT_QUOTE_CHARACTER"></a><span class="summary-name">DEFAULT_QUOTE_CHARACTER</span> = <code title="'&quot;'"><code class="variable-quote">'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_ENCODING"></a><span class="summary-name">_ENCODING</span> = <code title="'encoding'"><code class="variable-quote">'</code><code class="variable-string">encoding</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_ESCAPE_CHARACTER"></a><span class="summary-name">_ESCAPE_CHARACTER</span> = <code title="'escapeCharacter'"><code class="variable-quote">'</code><code class="variable-string">escapeCharacter</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_HEADER"></a><span class="summary-name">_HEADER</span> = <code title="'header'"><code class="variable-quote">'</code><code class="variable-string">header</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_ITEM_DELIMITER"></a><span class="summary-name">_ITEM_DELIMITER</span> = <code title="'itemDelimiter'"><code class="variable-quote">'</code><code class="variable-string">itemDelimiter</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_LINE_DELIMITER"></a><span class="summary-name">_LINE_DELIMITER</span> = <code title="'lineDelimiter'"><code class="variable-quote">'</code><code class="variable-string">lineDelimiter</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_QUOTE_CHARACTER"></a><span class="summary-name">_QUOTE_CHARACTER</span> = <code title="'quoteCharacter'"><code class="variable-quote">'</code><code class="variable-string">quoteCharacter</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="CR"></a><span class="summary-name">CR</span> = <code title="'\r'"><code class="variable-quote">'</code><code class="variable-string">\r</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="LF"></a><span class="summary-name">LF</span> = <code title="'''
+'''"><code class="variable-quote">'</code><code class="variable-string">\n</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="CRLF"></a><span class="summary-name">CRLF</span> = <code title="'''\r
+'''"><code class="variable-quote">'</code><code class="variable-string">\r\n</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_VALID_LINE_DELIMITERS"></a><span class="summary-name">_VALID_LINE_DELIMITERS</span> = <code title="['any', '\r', '\r\n', '\n']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">any</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\r</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\r\n</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\n</code><code class="variable-quote">'</code><code class="variable-group">]</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="cutplace.sniff-module.html#_LINE_DELIMITER_TO_NAME_MAP" class="summary-name" onclick="show_private();">_LINE_DELIMITER_TO_NAME_MAP</a> = <code title="{'\n': 'lf', '\r': 'cr', '\r\n': 'crlf'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">\n</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">lf</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\r</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">cr</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\r\n</code><code class="variable-quote">'</code><code class="variable-op">:</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_ODS_HEADER"></a><span class="summary-name">_ODS_HEADER</span> = <code title="'PK\x03\x04'"><code class="variable-quote">'</code><code class="variable-string">PK\x03\x04</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_EXCEL_HEADER"></a><span class="summary-name">_EXCEL_HEADER</span> = <code title="'\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1'"><code class="variable-quote">'</code><code class="variable-string">\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'cutplace'"><code class="variable-quote">'</code><code class="variable-string">cutplace</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="createDataFormat"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">createDataFormat</span>(<span class="sig-arg">readable</span>,
+        <span class="sig-arg">**keywords</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.sniff-pysrc.html#createDataFormat">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Data format describing the contents of <tt class="rst-rst-docutils literal rst-docutils literal">readable</tt>, which should be a
+a raw binary input stream as returned by <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">open(...,</span> 'rb')</tt>. Do not use
+<tt class="rst-docutils literal"><span class="pre">codecs.open(...)</span></tt> because it returns Unicode strings instead of raw
+strings.</p>
+<p>Supported formats are delimited data (such as CSV), ODS and Excel.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="createReader"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">createReader</span>(<span class="sig-arg">readable</span>,
+        <span class="sig-arg">**keywords</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.sniff-pysrc.html#createReader">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  A reader fitting the contents of <tt class="rst-rst-docutils literal rst-docutils literal">readable</tt>. Supported formats are
+delimited data (such as CSV), ODS and Excel. When iterating the reader,
+it returns a Python array for each row of data.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="delimitedOptions"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">delimitedOptions</span>(<span class="sig-arg">readable</span>,
+        <span class="sig-arg">**keywords</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.sniff-pysrc.html#delimitedOptions">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Dictionary containing the delimited options as derived from <tt class="rst-rst-docutils literal rst-docutils literal">readable</tt> and <tt class="rst-rst-docutils literal rst-docutils literal">keywords</tt>.</p>
+<p>Possible values for <tt class="rst-docutils literal">keywords</tt> and the keys in the result are:</p>
+<blockquote>
+<ul class="rst-simple">
+<li><tt class="rst-docutils literal">encoding</tt></li>
+<li><tt class="rst-docutils literal">escapeCharacter</tt></li>
+<li><tt class="rst-docutils literal">header</tt></li>
+<li><tt class="rst-docutils literal">itemDelimiter</tt></li>
+<li><tt class="rst-docutils literal">lineDelimiter</tt></li>
+<li><tt class="rst-docutils literal">quoteCharacter</tt></li>
+</ul>
+</blockquote>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="createCidRows"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">createCidRows</span>(<span class="sig-arg">readable</span>,
+        <span class="sig-arg">**keywords</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cutplace.sniff-pysrc.html#createCidRows">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create rows for an ICD by examining the contents of <tt class="rst-rst-docutils literal rst-docutils literal">readable</tt>.</p>
+<p>Optional keyword parameters are:</p>
+<blockquote>
+<ul class="rst-simple">
+<li><tt class="rst-docutils literal">encoding</tt> - the character encoding to be used in case <tt class="rst-docutils literal">readable</tt>
+contains delimited data.</li>
+<li><tt class="rst-docutils literal">dataFormat</tt> - the data format to be assumed; default: <a href="cutplace.sniff-module.html#FORMAT_AUTO" class="link">FORMAT_AUTO</a>.</li>
+<li><tt class="rst-docutils literal">header</tt> - number of header rows to ignore for data analysis;
+default: 0.</li>
+<li><tt class="rst-docutils literal">stopAfter</tt> - number of data rows after which to stop analyzing;
+0 means &quot;analyze all data&quot;; default: 0.</li>
+<li><tt class="rst-docutils literal">fieldNames</tt> - Python names to refer to the fields. If this is a list of
+strings, each string represents a field name. If this is a single
+string, split it using comma (,) as separator to get to the names. If
+this is <tt class="rst-docutils literal">None</tt> (the default), use the last column of the <tt class="rst-docutils literal">header</tt>
+as names. If <tt class="rst-docutils literal">header</tt> is <tt class="rst-docutils literal">None</tt>, use generated field names such as
+'column_a', 'column_b' and so on.</li>
+</ul>
+</blockquote>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_LINE_DELIMITER_TO_NAME_MAP"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_LINE_DELIMITER_TO_NAME_MAP</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">\n</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">lf</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\r</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">cr</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\r\n</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">crlf</code><code class="variable-quote">'</code><code class="variable-group">}</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sun Apr 15 20:34:52 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

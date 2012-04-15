@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Command line usage &mdash; cutplace 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/cutplace_logo_32x32.ico"/>
+    <link rel="top" title="cutplace 0.7.0 documentation" href="index.html" />
+    <link rel="next" title="Application programmer interface" href="api.html" />
+    <link rel="prev" title="Writing an Interface Control Document" href="writing-an-icd.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="Application programmer interface"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="writing-an-icd.html" title="Writing an Interface Control Document"
+             accesskey="P">previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="contents.html">
+              <img class="logo" src="_static/cutplace_logo_64x64.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Command line usage</a><ul>
+<li><a class="reference internal" href="#show-help-and-other-information">Show help and other information</a></li>
+<li><a class="reference internal" href="#validate-an-icd">Validate an ICD</a></li>
+<li><a class="reference internal" href="#icds-containing-non-ascii-characters">ICDs containing non ASCII characters</a></li>
+<li><a class="reference internal" href="#validate-that-a-data-file-conforms-to-an-icd">Validate that a data file conforms to an ICD</a></li>
+<li><a class="reference internal" href="#import-plugsins">Import plugsins</a></li>
+<li><a class="reference internal" href="#dealing-with-errors">Dealing with errors</a></li>
+<li><a class="reference internal" href="#launching-the-web-server">Launching the web server</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="writing-an-icd.html"
+                        title="previous chapter">Writing an Interface Control Document</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">Application programmer interface</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="command-line-usage">
+<span id="index-0"></span><h1>Command line usage<a class="headerlink" href="#command-line-usage" title="Permalink to this headline">¶</a></h1>
+<p>This chapter describes how to use cutplace from the command line. It assumes
+the user already opened a console window (for example <tt class="docutils literal"><span class="pre">Terminal.app</span></tt> on Mac
+OS X, <tt class="docutils literal"><span class="pre">term</span></tt> on Linux or <tt class="docutils literal"><span class="pre">cmd.exe</span></tt> on Windows) and is ready to enter
+commands in it.</p>
+<span class="target" id="index-1"></span><span class="target" id="index-2"></span><div class="section" id="show-help-and-other-information">
+<span id="index-3"></span><h2>Show help and other information<a class="headerlink" href="#show-help-and-other-information" title="Permalink to this headline">¶</a></h2>
+<p>To read a short description of all options available for cutplace, run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cutplace</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>To find out which characters encodings cutplace supports, run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cutplace</span> <span class="o">--</span><span class="n">listencodings</span>
+</pre></div>
+</div>
+<p>To learn which version of cutplace you are using, run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cutplace</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>Note that this also prints the version of Python used and a few details on the
+platform running on. This is particular useful in case you intend to report
+bugs as described in <a class="reference internal" href="support.html"><em>Getting support</em></a>.</p>
+</div>
+<div class="section" id="validate-an-icd">
+<h2>Validate an ICD<a class="headerlink" href="#validate-an-icd" title="Permalink to this headline">¶</a></h2>
+<p>To validate that an ICD is syntactically and semantically correct, simply run
+cutplace with only the path of the ICD as option. For example, an ICD stored in
+CSV format and named <tt class="docutils literal"><span class="pre">customer_icd.csv</span></tt> can be validated by running:</p>
+<div class="highlight-python"><pre>cutplace customer_icd.ods</pre>
+</div>
+<p>Possible errors show up in the console and result in an exit code of 1.</p>
+<p>In case the ICD is in good shape, no error messages appear and the exit code is
+0.</p>
+</div>
+<div class="section" id="icds-containing-non-ascii-characters">
+<h2>ICDs containing non ASCII characters<a class="headerlink" href="#icds-containing-non-ascii-characters" title="Permalink to this headline">¶</a></h2>
+<p>If the ICD is provided in CSV format and contains non ASCII characters such as
+Umlauts or Kanji, you have to specify the encoding using <tt class="docutils literal"><span class="pre">--icd-encoding</span></tt>:</p>
+<div class="highlight-python"><pre>cutplace --icd-encoding iso-8859-15 kunden.csv</pre>
+</div>
+<p>To obtain a list of all encodings available to cutplace, run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cutplace</span> <span class="o">--</span><span class="nb">list</span><span class="o">-</span><span class="n">encodings</span>
+</pre></div>
+</div>
+<p>You can avoid this by storing ICDs in ODS or Excel format, which include
+information about the encoding used inside the file already.</p>
+</div>
+<div class="section" id="validate-that-a-data-file-conforms-to-an-icd">
+<h2>Validate that a data file conforms to an ICD<a class="headerlink" href="#validate-that-a-data-file-conforms-to-an-icd" title="Permalink to this headline">¶</a></h2>
+<p>To validate that a data file conforms to an ICD, pass the path of the ICD and
+the data file. For example using the same ICD as in the previous section to
+validate a data file containing customers stored in <cite>customers.csv</cite>, run:</p>
+<div class="highlight-python"><pre>cutplace customer_icd.csv customers.csv</pre>
+</div>
+<p>To validate several data files against the same ICD, simply pass them all. For
+example:</p>
+<div class="highlight-python"><pre>cutplace customer_icd.csv customers_east.csv customers_north.csv customers_south.csv customers_west.csv</pre>
+</div>
+<p>In case the data do not conform to the ICD, error messages show up in the
+console.</p>
+</div>
+<div class="section" id="import-plugsins">
+<span id="index-4"></span><h2>Import plugsins<a class="headerlink" href="#import-plugsins" title="Permalink to this headline">¶</a></h2>
+<p>You can define your own field format and checks in simple Pyhton modules and
+tell cutplace to import them. For more information on how to write such
+modules see <a class="reference internal" href="api.html#using-own-check-and-field-formats"><em>Using your own checks and field format</em></a>.</p>
+<p>To import all plugins located in the folder <tt class="docutils literal"><span class="pre">~/cutplace-plugins</span></tt>, use:</p>
+<div class="highlight-python"><pre>cutplace --plugins ~/cutplace-plugins ...</pre>
+</div>
+<p>This will import and initialize all <tt class="docutils literal"><span class="pre">*.py</span></tt> files in this folder. To see
+which checks and field formats are actually recognized, also specify
+<tt class="docutils literal"><span class="pre">--log=info</span></tt>.</p>
+</div>
+<div class="section" id="dealing-with-errors">
+<h2>Dealing with errors<a class="headerlink" href="#dealing-with-errors" title="Permalink to this headline">¶</a></h2>
+<p>Roughly speaking cutplace can encounter the following kinds of errors when
+validating data:</p>
+<ul class="simple">
+<li>Errors that prevent cutplace from validating the data at all, such as non
+existent data files, insufficient file access rights or broken ICD&#8217;s.</li>
+<li>Errors in the data format that prevent it from validating the whole file. For
+example, the ICD might specify a line separator &#8220;LF&#8221; (linefeed) but the data
+file uses &#8220;CRLF&#8221; (carriage return and linefeed). In such a case, cutplace
+will stop the validation once it encounters the wrong separator.</li>
+<li>Errors in the data that violate the rules specified in the ICD for fields and
+checks. For example, the ICD might specify that a field is an integer number
+but the data file contains letters in it.  In such a case, cutplace will
+report the specific line and column of the field, and continue with the next
+one.</li>
+</ul>
+<p>TODO: elaborate</p>
+<p id="index-5">If <tt class="docutils literal"><span class="pre">--split</span></tt> is set, cutplace stores each row in one of two files:</p>
+<ol class="arabic simple">
+<li>A CSV file containing the rows that have been accepted. It uses a comma (,)
+as separator and UTF-8 as character encoding. This file can be helpful in case
+you decide to process the valid part of the data even if some of them where
+broken.</li>
+<li>A text file containing a raw dump of each rejected row and the related error
+message. It uses UTF-8 as character encoding and Python&#8217;s <cite>repr()</cite> format to
+render the data. This has the advantage that hairy issues such as control
+characters or padding white space are easy to see.</li>
+</ol>
+<p>These files are stored in the same folder as the data file and have a the same
+name but a suffix of &#8220;_accepted.csv&#8221; and &#8220;_rejected.txt&#8221; appended.</p>
+<p id="index-6">The command line option <tt class="docutils literal"><span class="pre">--trace</span></tt> can be helpful for tracking down bugs in
+the rules you specified for complex checks like <tt class="docutils literal"><span class="pre">DistinctCount</span></tt>, field
+formats or checks you developed yourself, or in cutplace itself. When enabled,
+error messages related to issues in the data include a Python stack trace,
+which might contain information useful to developers.</p>
+<span class="target" id="index-7"></span><span class="target" id="index-8"></span></div>
+<div class="section" id="launching-the-web-server">
+<span id="index-9"></span><h2>Launching the web server<a class="headerlink" href="#launching-the-web-server" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the command line interface cutplace offers a graphical user
+interface accessible for web browsers. It does so by launching a little web
+server that offers a simple page where you can select the files containing the
+ICD and data. Simply run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cutplace</span> <span class="o">--</span><span class="n">web</span>
+</pre></div>
+</div>
+<p>This should result in the following output:</p>
+<div class="highlight-python"><pre>INFO:cutplace.server:cutplace
+INFO:cutplace.server:Visit http://localhost:8778/ to connect
+INFO:cutplace.server:Press Control-C to shut down</pre>
+</div>
+<p>Next open your browser and point it to the address shown in the output. Then
+select the ICD and data file to validate and click <tt class="docutils literal"><span class="pre">Validate</span></tt>. The resulting
+pages shows the data, where green rows indicate proper data and red rows point
+out broken data.</p>
+<p>In case you want to run the server at a different port than 8778, specify the
+<tt class="docutils literal"><span class="pre">--port</span></tt> option, for example:</p>
+<div class="highlight-python"><pre>cutplace --web --port 1234</pre>
+</div>
+<p>Note that this is a very simple web server, and it will not support hundreds of
+users attempting to access it at the same time.</p>
+<p>Also be aware that everyone can access it unless your firewall restricts access
+to it.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="Application programmer interface"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="writing-an-icd.html" title="Writing an Interface Control Document"
+             >previous</a> |</li>
+        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009-2011, Thomas Aglassinger.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

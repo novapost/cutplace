@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cutplace.checks</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cutplace-module.html">Package&nbsp;cutplace</a> ::
+        Module&nbsp;checks
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cutplace.checks-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="cutplace.checks-module.html">Module cutplace.checks</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">Standard checks that can cover a whole row or data set.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (C) 2009-2012 Thomas Aglassinger</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># This program is free software: you can redistribute it and/or modify it</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># under the terms of the GNU Lesser General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># the Free Software Foundation, either version 3 of the License, or (at your</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># This program is distributed in the hope that it will be useful, but WITHOUT</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># for more details.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment"># You should have received a copy of the GNU Lesser General Public License</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">copy</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">StringIO</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">tokenize</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module cutplace.fields=cutplace.fields-module.html"><a title="cutplace.fields" class="py-name" href="#" onclick="return doclink('link-0', 'fields', 'link-0');">fields</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module cutplace.tools=cutplace.tools-module.html"><a title="cutplace.tools" class="py-name" href="#" onclick="return doclink('link-1', 'tools', 'link-1');">tools</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">_tools</tt> </tt>
+<a name="CheckError"></a><div id="CheckError-def"><a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt> <a class="py-toggle" href="#" id="CheckError-toggle" onclick="return toggle('CheckError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cutplace.checks.CheckError-class.html">CheckError</a><tt class="py-op">(</tt><tt class="py-base-class">tools</tt><tt class="py-op">.</tt><tt class="py-base-class">CutplaceError</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CheckError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="CheckError-expanded"><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-docstring">    Error to be raised when a check fails.</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="CheckSyntaxError"></a><div id="CheckSyntaxError-def"><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt> <a class="py-toggle" href="#" id="CheckSyntaxError-toggle" onclick="return toggle('CheckSyntaxError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cutplace.checks.CheckSyntaxError-class.html">CheckSyntaxError</a><tt class="py-op">(</tt><tt class="py-base-class">tools</tt><tt class="py-op">.</tt><tt class="py-base-class">CutplaceError</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CheckSyntaxError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="CheckSyntaxError-expanded"><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">    Error to be raised when the specification of check in the ICD is broken.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+</div><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="AbstractCheck"></a><div id="AbstractCheck-def"><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt> <a class="py-toggle" href="#" id="AbstractCheck-toggle" onclick="return toggle('AbstractCheck');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html">AbstractCheck</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="AbstractCheck-expanded"><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">    Abstract check to be used as base class for other checks. The constructor should be called by</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">    descendants, the other methods do nothing and can be left untouched.</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="AbstractCheck.__init__"></a><div id="AbstractCheck.__init__-def"><a name="L44"></a><tt class="py-lineno"> 44</tt> <a class="py-toggle" href="#" id="AbstractCheck.__init__-toggle" onclick="return toggle('AbstractCheck.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">description</tt><tt class="py-op">,</tt> <tt class="py-param">rule</tt><tt class="py-op">,</tt> <tt class="py-param">availableFieldNames</tt><tt class="py-op">,</tt> <tt class="py-param">locationOfDefinition</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.__init__-expanded"><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring">        Create a check with the human readable ``description``, a ``rule`` in a check dependent</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">        syntax which can act on the fields listed in ``availableFieldNames`` (in the same order as</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">        defined in the ICD) and the optional ``locationOfDefinition`` in the ICD. If no</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">        ``locationOfDefinition`` is provided, `tools.createCallerInputLocation(["checks"])` is</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">        used.</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt id="link-2" class="py-name" targets="Variable cutplace.checks.AbstractCheck.description=cutplace.checks.AbstractCheck-class.html#description,Variable cutplace.ranges.Range.description=cutplace.ranges.Range-class.html#description"><a title="cutplace.checks.AbstractCheck.description
+cutplace.ranges.Range.description" class="py-name" href="#" onclick="return doclink('link-2', 'description', 'link-2');">description</a></tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt id="link-3" class="py-name" targets="Variable cutplace.checks.AbstractCheck.rule=cutplace.checks.AbstractCheck-class.html#rule,Variable cutplace.fields.AbstractFieldFormat.rule=cutplace.fields.AbstractFieldFormat-class.html#rule"><a title="cutplace.checks.AbstractCheck.rule
+cutplace.fields.AbstractFieldFormat.rule" class="py-name" href="#" onclick="return doclink('link-3', 'rule', 'link-3');">rule</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">availableFieldNames</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">availableFieldNames</tt><tt class="py-op">:</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-4" class="py-name"><a title="cutplace.fields" class="py-name" href="#" onclick="return doclink('link-4', 'fields', 'link-0');">fields</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Class cutplace.fields.FieldLookupError=cutplace.fields.FieldLookupError-class.html"><a title="cutplace.fields.FieldLookupError" class="py-name" href="#" onclick="return doclink('link-5', 'FieldLookupError', 'link-5');">FieldLookupError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"field names must be specified"</tt><tt class="py-op">,</tt> <tt class="py-name">locationOfDefinition</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_description</tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="cutplace.checks.AbstractCheck.description
+cutplace.ranges.Range.description" class="py-name" href="#" onclick="return doclink('link-6', 'description', 'link-2');">description</a></tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_rule</tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name"><a title="cutplace.checks.AbstractCheck.rule
+cutplace.fields.AbstractFieldFormat.rule" class="py-name" href="#" onclick="return doclink('link-7', 'rule', 'link-3');">rule</a></tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fieldNames</tt> <tt class="py-op">=</tt> <tt class="py-name">availableFieldNames</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">locationOfDefinition</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_location</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="cutplace.tools" class="py-name" href="#" onclick="return doclink('link-8', 'tools', 'link-1');">tools</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Function cutplace.tools.createCallerInputLocation()=cutplace.tools-module.html#createCallerInputLocation"><a title="cutplace.tools.createCallerInputLocation" class="py-name" href="#" onclick="return doclink('link-9', 'createCallerInputLocation', 'link-9');">createCallerInputLocation</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-string">"checks"</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_location</tt> <tt class="py-op">=</tt> <tt class="py-name">locationOfDefinition</tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="AbstractCheck.reset"></a><div id="AbstractCheck.reset-def"><a name="L66"></a><tt class="py-lineno"> 66</tt> <a class="py-toggle" href="#" id="AbstractCheck.reset-toggle" onclick="return toggle('AbstractCheck.reset');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#reset">reset</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.reset-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.reset-expanded"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">        Reset all internal resources needed by the check to keep track of the check conditions.</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">        By default do nothing.</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">        It is recommended that the `__init__()` of any child classes calls this method.</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring">        This is called by `interface.InterfaceControlDocument.validate()` when starting to</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">        validate the data.</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="AbstractCheck.checkRow"></a><div id="AbstractCheck.checkRow-def"><a name="L78"></a><tt class="py-lineno"> 78</tt> <a class="py-toggle" href="#" id="AbstractCheck.checkRow-toggle" onclick="return toggle('AbstractCheck.checkRow');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#checkRow">checkRow</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">rowMap</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.checkRow-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.checkRow-expanded"><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-docstring">        Check row and in case it is invalid raise `CheckError`. By default do nothing.</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-docstring">        ``RowMap`` is maps all field names to their respective value for this row, ``location`` is</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"><tt class="py-docstring">        the `tools.InputLocation` where the row started in the input.</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="AbstractCheck.checkAtEnd"></a><div id="AbstractCheck.checkAtEnd-def"><a name="L87"></a><tt class="py-lineno"> 87</tt> <a class="py-toggle" href="#" id="AbstractCheck.checkAtEnd-toggle" onclick="return toggle('AbstractCheck.checkAtEnd');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#checkAtEnd">checkAtEnd</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.checkAtEnd-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.checkAtEnd-expanded"><a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">        Check at at end of document when all rows have been read and in case something is wrong</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">        raise `CheckError`. By default do nothing.</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-docstring">        ``Location`` is the `tools.InputLocation` of the last row in the input.</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"> </tt>
+<a name="AbstractCheck.cleanup"></a><div id="AbstractCheck.cleanup-def"><a name="L96"></a><tt class="py-lineno"> 96</tt> <a class="py-toggle" href="#" id="AbstractCheck.cleanup-toggle" onclick="return toggle('AbstractCheck.cleanup');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#cleanup">cleanup</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.cleanup-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.cleanup-expanded"><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-docstring">"""Clean up any resources allocated to perform the checks."""</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="AbstractCheck.__str__"></a><div id="AbstractCheck.__str__-def"><a name="L100"></a><tt class="py-lineno">100</tt> <a class="py-toggle" href="#" id="AbstractCheck.__str__-toggle" onclick="return toggle('AbstractCheck.__str__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#__str__">__str__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.__str__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.__str__-expanded"><a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"%s(%r, %r)"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__class__</tt><tt class="py-op">.</tt><tt class="py-name">__name__</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="cutplace.checks.AbstractCheck.description
+cutplace.ranges.Range.description" class="py-name" href="#" onclick="return doclink('link-10', 'description', 'link-2');">description</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="cutplace.checks.AbstractCheck.rule
+cutplace.fields.AbstractFieldFormat.rule" class="py-name" href="#" onclick="return doclink('link-11', 'rule', 'link-3');">rule</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="AbstractCheck.description"></a><div id="AbstractCheck.description-def"><a name="L104"></a><tt class="py-lineno">104</tt> <a class="py-toggle" href="#" id="AbstractCheck.description-toggle" onclick="return toggle('AbstractCheck.description');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#description">description</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.description-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.description-expanded"><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-docstring">        A short description of the check as specified in the ICD, for example "id must be unique".</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_description</tt> </tt>
+</div><a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="AbstractCheck.rule"></a><div id="AbstractCheck.rule-def"><a name="L111"></a><tt class="py-lineno">111</tt> <a class="py-toggle" href="#" id="AbstractCheck.rule-toggle" onclick="return toggle('AbstractCheck.rule');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#rule">rule</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.rule-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.rule-expanded"><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-docstring">        A rule string describing what the check actually should do; its syntax depends on the actual</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-docstring">        check.</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_rule</tt> </tt>
+</div><a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="AbstractCheck.location"></a><div id="AbstractCheck.location-def"><a name="L119"></a><tt class="py-lineno">119</tt> <a class="py-toggle" href="#" id="AbstractCheck.location-toggle" onclick="return toggle('AbstractCheck.location');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#location">location</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.location-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.location-expanded"><a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt class="py-docstring">        The `tools.InputLocation` where the check was defined.</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_location</tt> </tt>
+</div><a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="AbstractCheck.fieldNames"></a><div id="AbstractCheck.fieldNames-def"><a name="L126"></a><tt class="py-lineno">126</tt> <a class="py-toggle" href="#" id="AbstractCheck.fieldNames-toggle" onclick="return toggle('AbstractCheck.fieldNames');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.AbstractCheck-class.html#fieldNames">fieldNames</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AbstractCheck.fieldNames-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AbstractCheck.fieldNames-expanded"><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-docstring">        Names of fields declared in the ICD using this field format. They can be used by checks</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"><tt class="py-docstring">        that need to extract field values by name or that have a `rule` referring to certain</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-docstring">        fields.</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-docstring">        The order of field names in this list match the order of declaration in the ICD.</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_location</tt> </tt>
+</div></div><a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt>
+<a name="IsUniqueCheck"></a><div id="IsUniqueCheck-def"><a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt> <a class="py-toggle" href="#" id="IsUniqueCheck-toggle" onclick="return toggle('IsUniqueCheck');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cutplace.checks.IsUniqueCheck-class.html">IsUniqueCheck</a><tt class="py-op">(</tt><tt class="py-base-class">AbstractCheck</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="IsUniqueCheck-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="IsUniqueCheck-expanded"><a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-docstring">    Check to ensure that all rows are unique concerning certain key fields.</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="IsUniqueCheck.__init__"></a><div id="IsUniqueCheck.__init__-def"><a name="L141"></a><tt class="py-lineno">141</tt> <a class="py-toggle" href="#" id="IsUniqueCheck.__init__-toggle" onclick="return toggle('IsUniqueCheck.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.IsUniqueCheck-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">description</tt><tt class="py-op">,</tt> <tt class="py-param">rule</tt><tt class="py-op">,</tt> <tt class="py-param">availableFieldNames</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="IsUniqueCheck.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="IsUniqueCheck.__init__-expanded"><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-12" class="py-name" targets="Class cutplace.checks.IsUniqueCheck=cutplace.checks.IsUniqueCheck-class.html"><a title="cutplace.checks.IsUniqueCheck" class="py-name" href="#" onclick="return doclink('link-12', 'IsUniqueCheck', 'link-12');">IsUniqueCheck</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method cutplace.checks.AbstractCheck.__init__()=cutplace.checks.AbstractCheck-class.html#__init__,Method cutplace.checks.DistinctCountCheck.__init__()=cutplace.checks.DistinctCountCheck-class.html#__init__,Method cutplace.checks.IsUniqueCheck.__init__()=cutplace.checks.IsUniqueCheck-class.html#__init__,Method cutplace.data.CsvDataFormat.__init__()=cutplace.data.CsvDataFormat-class.html#__init__,Method cutplace.data.DelimitedDataFormat.__init__()=cutplace.data.DelimitedDataFormat-class.html#__init__,Method cutplace.data.ExcelDataFormat.__init__()=cutplace.data.ExcelDataFormat-class.html#__init__,Method cutplace.data.FixedDataFormat.__init__()=cutplace.data.FixedDataFormat-class.html#__init__,Method cutplace.data.OdsDataFormat.__init__()=cutplace.data.OdsDataFormat-class.html#__init__,Method cutplace.data._BaseDataFormat.__init__()=cutplace.data._BaseDataFormat-class.html#__init__,Method cutplace.data._BaseSpreadsheetDataFormat.__init__()=cutplace.data._BaseSpreadsheetDataFormat-class.html#__init__,Method cutplace.data._BaseTextDataFormat.__init__()=cutplace.data._BaseTextDataFormat-class.html#__init__,Method cutplace.fields.AbstractFieldFormat.__init__()=cutplace.fields.AbstractFieldFormat-class.html#__init__,Method cutplace.fields.ChoiceFieldFormat.__init__()=cutplace.fields.ChoiceFieldFormat-class.html#__init__,Method cutplace.fields.DateTimeFieldFormat.__init__()=cutplace.fields.DateTimeFieldFormat-class.html#__init__,Method cutplace.fields.DecimalFieldFormat.__init__()=cutplace.fields.DecimalFieldFormat-class.html#__init__,Method cutplace.fields.IntegerFieldFormat.__init__()=cutplace.fields.IntegerFieldFormat-class.html#__init__,Method cutplace.fields.PatternFieldFormat.__init__()=cutplace.fields.PatternFieldFormat-class.html#__init__,Method cutplace.fields.RegExFieldFormat.__init__()=cutplace.fields.RegExFieldFormat-class.html#__init__,Method cutplace.fields.TextFieldFormat.__init__()=cutplace.fields.TextFieldFormat-class.html#__init__,Method cutplace.interface.InterfaceControlDocument.__init__()=cutplace.interface.InterfaceControlDocument-class.html#__init__,Method cutplace.interface.Validator.__init__()=cutplace.interface.Validator-class.html#__init__,Method cutplace.interface.Writer.__init__()=cutplace.interface.Writer-class.html#__init__,Method cutplace.ranges.Range.__init__()=cutplace.ranges.Range-class.html#__init__,Method cutplace.sniff._ColumnSniffInfo.__init__()=cutplace.sniff._ColumnSniffInfo-class.html#__init__,Method cutplace.tools.ErrorInfo.__init__()=cutplace.tools.ErrorInfo-class.html#__init__,Method cutplace.tools.InputLocation.__init__()=cutplace.tools.InputLocation-class.html#__init__,Method cutplace.tools._BaseCutplaceError.__init__()=cutplace.tools._BaseCutplaceError-class.html#__init__"><a title="cutplace.checks.AbstractCheck.__init__
+cutplace.checks.DistinctCountCheck.__init__
+cutplace.checks.IsUniqueCheck.__init__
+cutplace.data.CsvDataFormat.__init__
+cutplace.data.DelimitedDataFormat.__init__
+cutplace.data.ExcelDataFormat.__init__
+cutplace.data.FixedDataFormat.__init__
+cutplace.data.OdsDataFormat.__init__
+cutplace.data._BaseDataFormat.__init__
+cutplace.data._BaseSpreadsheetDataFormat.__init__
+cutplace.data._BaseTextDataFormat.__init__
+cutplace.fields.AbstractFieldFormat.__init__
+cutplace.fields.ChoiceFieldFormat.__init__
+cutplace.fields.DateTimeFieldFormat.__init__
+cutplace.fields.DecimalFieldFormat.__init__
+cutplace.fields.IntegerFieldFormat.__init__
+cutplace.fields.PatternFieldFormat.__init__
+cutplace.fields.RegExFieldFormat.__init__
+cutplace.fields.TextFieldFormat.__init__
+cutplace.interface.InterfaceControlDocument.__init__
+cutplace.interface.Validator.__init__
+cutplace.interface.Writer.__init__
+cutplace.ranges.Range.__init__
+cutplace.sniff._ColumnSniffInfo.__init__
+cutplace.tools.ErrorInfo.__init__
+cutplace.tools.InputLocation.__init__
+cutplace.tools._BaseCutplaceError.__init__" class="py-name" href="#" onclick="return doclink('link-13', '__init__', 'link-13');">__init__</a></tt><tt class="py-op">(</tt><tt id="link-14" class="py-name"><a title="cutplace.checks.AbstractCheck.description
+cutplace.ranges.Range.description" class="py-name" href="#" onclick="return doclink('link-14', 'description', 'link-2');">description</a></tt><tt class="py-op">,</tt> <tt id="link-15" class="py-name"><a title="cutplace.checks.AbstractCheck.rule
+cutplace.fields.AbstractFieldFormat.rule" class="py-name" href="#" onclick="return doclink('link-15', 'rule', 'link-3');">rule</a></tt><tt class="py-op">,</tt> <tt class="py-name">availableFieldNames</tt><tt class="py-op">,</tt> <tt id="link-16" class="py-name" targets="Variable cutplace.checks.AbstractCheck.location=cutplace.checks.AbstractCheck-class.html#location,Variable cutplace.interface.Validator.location=cutplace.interface.Validator-class.html#location,Variable cutplace.interface.Writer.location=cutplace.interface.Writer-class.html#location,Variable cutplace.tools._BaseCutplaceError.location=cutplace.tools._BaseCutplaceError-class.html#location"><a title="cutplace.checks.AbstractCheck.location
+cutplace.interface.Validator.location
+cutplace.interface.Writer.location
+cutplace.tools._BaseCutplaceError.location" class="py-name" href="#" onclick="return doclink('link-16', 'location', 'link-16');">location</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fieldNamesToCheck</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-comment"># Extract field names to check from rule.</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">ruleReadLine</tt> <tt class="py-op">=</tt> <tt class="py-name">StringIO</tt><tt class="py-op">.</tt><tt class="py-name">StringIO</tt><tt class="py-op">(</tt><tt id="link-17" class="py-name"><a title="cutplace.checks.AbstractCheck.rule
+cutplace.fields.AbstractFieldFormat.rule" class="py-name" href="#" onclick="return doclink('link-17', 'rule', 'link-3');">rule</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">toky</tt> <tt class="py-op">=</tt> <tt class="py-name">tokenize</tt><tt class="py-op">.</tt><tt class="py-name">generate_tokens</tt><tt class="py-op">(</tt><tt class="py-name">ruleReadLine</tt><tt class="py-op">)</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">afterComma</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-name">nextToken</tt> <tt class="py-op">=</tt> <tt class="py-name">toky</tt><tt class="py-op">.</tt><tt class="py-name">next</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-name">uniqueFieldNames</tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name" targets="Method cutplace.data._BaseDataFormat.set()=cutplace.data._BaseDataFormat-class.html#set"><a title="cutplace.data._BaseDataFormat.set" class="py-name" href="#" onclick="return doclink('link-18', 'set', 'link-18');">set</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-keyword">not</tt> <tt class="py-name">_tools</tt><tt class="py-op">.</tt><tt class="py-name">isEofToken</tt><tt class="py-op">(</tt><tt class="py-name">nextToken</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">            <tt class="py-name">tokenType</tt> <tt class="py-op">=</tt> <tt class="py-name">nextToken</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">            <tt class="py-name">tokenValue</tt> <tt class="py-op">=</tt> <tt class="py-name">nextToken</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">afterComma</tt><tt class="py-op">:</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">tokenType</tt> <tt class="py-op">!=</tt> <tt class="py-name">tokenize</tt><tt class="py-op">.</tt><tt class="py-name">NAME</tt><tt class="py-op">:</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> <tt id="link-19" class="py-name" targets="Class cutplace.checks.CheckSyntaxError=cutplace.checks.CheckSyntaxError-class.html"><a title="cutplace.checks.CheckSyntaxError" class="py-name" href="#" onclick="return doclink('link-19', 'CheckSyntaxError', 'link-19');">CheckSyntaxError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"field name must contain only ASCII letters, numbers and underscores (_) "</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">                                           <tt class="py-op">+</tt> <tt class="py-string">"but found: %r [token type=%r]"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">tokenValue</tt><tt class="py-op">,</tt> <tt class="py-name">tokenType</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">                <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">                    <tt id="link-20" class="py-name"><a title="cutplace.fields" class="py-name" href="#" onclick="return doclink('link-20', 'fields', 'link-0');">fields</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Function cutplace.fields.getFieldNameIndex()=cutplace.fields-module.html#getFieldNameIndex,Method cutplace.interface.InterfaceControlDocument.getFieldNameIndex()=cutplace.interface.InterfaceControlDocument-class.html#getFieldNameIndex"><a title="cutplace.fields.getFieldNameIndex
+cutplace.interface.InterfaceControlDocument.getFieldNameIndex" class="py-name" href="#" onclick="return doclink('link-21', 'getFieldNameIndex', 'link-21');">getFieldNameIndex</a></tt><tt class="py-op">(</tt><tt class="py-name">tokenValue</tt><tt class="py-op">,</tt> <tt class="py-name">availableFieldNames</tt><tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-name">tokenValue</tt> <tt class="py-keyword">in</tt> <tt class="py-name">uniqueFieldNames</tt><tt class="py-op">:</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">                        <tt class="py-keyword">raise</tt> <tt id="link-22" class="py-name"><a title="cutplace.checks.CheckSyntaxError" class="py-name" href="#" onclick="return doclink('link-22', 'CheckSyntaxError', 'link-19');">CheckSyntaxError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"duplicate field name for unique check must be removed: %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">tokenValue</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">                    <tt class="py-name">uniqueFieldNames</tt><tt class="py-op">.</tt><tt class="py-name">add</tt><tt class="py-op">(</tt><tt class="py-name">tokenValue</tt><tt class="py-op">)</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt> <tt id="link-23" class="py-name"><a title="cutplace.fields" class="py-name" href="#" onclick="return doclink('link-23', 'fields', 'link-0');">fields</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="cutplace.fields.FieldLookupError" class="py-name" href="#" onclick="return doclink('link-24', 'FieldLookupError', 'link-5');">FieldLookupError</a></tt><tt class="py-op">,</tt> <tt class="py-name">error</tt><tt class="py-op">:</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> <tt id="link-25" class="py-name"><a title="cutplace.checks.CheckSyntaxError" class="py-name" href="#" onclick="return doclink('link-25', 'CheckSyntaxError', 'link-19');">CheckSyntaxError</a></tt><tt class="py-op">(</tt><tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">error</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fieldNamesToCheck</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">tokenValue</tt><tt class="py-op">)</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-keyword">not</tt> <tt class="py-name">_tools</tt><tt class="py-op">.</tt><tt class="py-name">isCommaToken</tt><tt class="py-op">(</tt><tt class="py-name">nextToken</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt id="link-26" class="py-name"><a title="cutplace.checks.CheckSyntaxError" class="py-name" href="#" onclick="return doclink('link-26', 'CheckSyntaxError', 'link-19');">CheckSyntaxError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"after field name a comma (,) must follow but found: %r"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">tokenValue</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">            <tt class="py-name">afterComma</tt> <tt class="py-op">=</tt> <tt class="py-keyword">not</tt> <tt class="py-name">afterComma</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">            <tt class="py-name">nextToken</tt> <tt class="py-op">=</tt> <tt class="py-name">toky</tt><tt class="py-op">.</tt><tt class="py-name">next</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fieldNamesToCheck</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-27" class="py-name"><a title="cutplace.checks.CheckSyntaxError" class="py-name" href="#" onclick="return doclink('link-27', 'CheckSyntaxError', 'link-19');">CheckSyntaxError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"rule must contain at least one field name to check for uniqueness"</tt><tt class="py-op">)</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method cutplace.checks.AbstractCheck.reset()=cutplace.checks.AbstractCheck-class.html#reset,Method cutplace.checks.DistinctCountCheck.reset()=cutplace.checks.DistinctCountCheck-class.html#reset,Method cutplace.checks.IsUniqueCheck.reset()=cutplace.checks.IsUniqueCheck-class.html#reset"><a title="cutplace.checks.AbstractCheck.reset
+cutplace.checks.DistinctCountCheck.reset
+cutplace.checks.IsUniqueCheck.reset" class="py-name" href="#" onclick="return doclink('link-28', 'reset', 'link-28');">reset</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"> </tt>
+<a name="IsUniqueCheck.reset"></a><div id="IsUniqueCheck.reset-def"><a name="L175"></a><tt class="py-lineno">175</tt> <a class="py-toggle" href="#" id="IsUniqueCheck.reset-toggle" onclick="return toggle('IsUniqueCheck.reset');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.IsUniqueCheck-class.html#reset">reset</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="IsUniqueCheck.reset-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="IsUniqueCheck.reset-expanded"><a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">uniqueValues</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+</div><a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"> </tt>
+<a name="IsUniqueCheck.checkRow"></a><div id="IsUniqueCheck.checkRow-def"><a name="L178"></a><tt class="py-lineno">178</tt> <a class="py-toggle" href="#" id="IsUniqueCheck.checkRow-toggle" onclick="return toggle('IsUniqueCheck.checkRow');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.IsUniqueCheck-class.html#checkRow">checkRow</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">rowMap</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="IsUniqueCheck.checkRow-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="IsUniqueCheck.checkRow-expanded"><a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-29" class="py-name" targets="Variable cutplace.fields.AbstractFieldFormat.fieldName=cutplace.fields.AbstractFieldFormat-class.html#fieldName"><a title="cutplace.fields.AbstractFieldFormat.fieldName" class="py-name" href="#" onclick="return doclink('link-29', 'fieldName', 'link-29');">fieldName</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fieldNamesToCheck</tt><tt class="py-op">:</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">            <tt class="py-name">item</tt> <tt class="py-op">=</tt> <tt class="py-name">rowMap</tt><tt class="py-op">[</tt><tt id="link-30" class="py-name"><a title="cutplace.fields.AbstractFieldFormat.fieldName" class="py-name" href="#" onclick="return doclink('link-30', 'fieldName', 'link-29');">fieldName</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">            <tt class="py-name">key</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">item</tt><tt class="py-op">)</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-name">keyText</tt> <tt class="py-op">=</tt> <tt class="py-name">repr</tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt id="link-31" class="py-name" targets="Variable cutplace.tools._BaseCutplaceError.seeAlsoLocation=cutplace.tools._BaseCutplaceError-class.html#seeAlsoLocation"><a title="cutplace.tools._BaseCutplaceError.seeAlsoLocation" class="py-name" href="#" onclick="return doclink('link-31', 'seeAlsoLocation', 'link-31');">seeAlsoLocation</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">uniqueValues</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Method cutplace.data._BaseDataFormat.get()=cutplace.data._BaseDataFormat-class.html#get"><a title="cutplace.data._BaseDataFormat.get" class="py-name" href="#" onclick="return doclink('link-32', 'get', 'link-32');">get</a></tt><tt class="py-op">(</tt><tt class="py-name">keyText</tt><tt class="py-op">)</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-33" class="py-name"><a title="cutplace.tools._BaseCutplaceError.seeAlsoLocation" class="py-name" href="#" onclick="return doclink('link-33', 'seeAlsoLocation', 'link-31');">seeAlsoLocation</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-34" class="py-name" targets="Class cutplace.checks.CheckError=cutplace.checks.CheckError-class.html"><a title="cutplace.checks.CheckError" class="py-name" href="#" onclick="return doclink('link-34', 'CheckError', 'link-34');">CheckError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"unique %r has already occurred: %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fieldNamesToCheck</tt><tt class="py-op">,</tt> <tt class="py-name">keyText</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">                <tt id="link-35" class="py-name"><a title="cutplace.checks.AbstractCheck.location
+cutplace.interface.Validator.location
+cutplace.interface.Writer.location
+cutplace.tools._BaseCutplaceError.location" class="py-name" href="#" onclick="return doclink('link-35', 'location', 'link-16');">location</a></tt><tt class="py-op">,</tt> <tt id="link-36" class="py-name" targets="Variable cutplace.tools._BaseCutplaceError.seeAlsoMessage=cutplace.tools._BaseCutplaceError-class.html#seeAlsoMessage"><a title="cutplace.tools._BaseCutplaceError.seeAlsoMessage" class="py-name" href="#" onclick="return doclink('link-36', 'seeAlsoMessage', 'link-36');">seeAlsoMessage</a></tt><tt class="py-op">=</tt><tt class="py-string">"location of previous occurrence"</tt><tt class="py-op">,</tt> <tt id="link-37" class="py-name"><a title="cutplace.tools._BaseCutplaceError.seeAlsoLocation" class="py-name" href="#" onclick="return doclink('link-37', 'seeAlsoLocation', 'link-31');">seeAlsoLocation</a></tt><tt class="py-op">=</tt><tt id="link-38" class="py-name"><a title="cutplace.tools._BaseCutplaceError.seeAlsoLocation" class="py-name" href="#" onclick="return doclink('link-38', 'seeAlsoLocation', 'link-31');">seeAlsoLocation</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">uniqueValues</tt><tt class="py-op">[</tt><tt class="py-name">keyText</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">copy</tt><tt class="py-op">.</tt><tt class="py-name">copy</tt><tt class="py-op">(</tt><tt id="link-39" class="py-name"><a title="cutplace.checks.AbstractCheck.location
+cutplace.interface.Validator.location
+cutplace.interface.Writer.location
+cutplace.tools._BaseCutplaceError.location" class="py-name" href="#" onclick="return doclink('link-39', 'location', 'link-16');">location</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"> </tt>
+<a name="DistinctCountCheck"></a><div id="DistinctCountCheck-def"><a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt> <a class="py-toggle" href="#" id="DistinctCountCheck-toggle" onclick="return toggle('DistinctCountCheck');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cutplace.checks.DistinctCountCheck-class.html">DistinctCountCheck</a><tt class="py-op">(</tt><tt class="py-base-class">AbstractCheck</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DistinctCountCheck-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="DistinctCountCheck-expanded"><a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-docstring">    Check to ensure that the number of different values in a field matches an expression.</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">    <tt id="link-40" class="py-name" targets="Variable cutplace.checks.DistinctCountCheck._COUNT_NAME=cutplace.checks.DistinctCountCheck-class.html#_COUNT_NAME"><a title="cutplace.checks.DistinctCountCheck._COUNT_NAME" class="py-name" href="#" onclick="return doclink('link-40', '_COUNT_NAME', 'link-40');">_COUNT_NAME</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"count"</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"> </tt>
+<a name="DistinctCountCheck.__init__"></a><div id="DistinctCountCheck.__init__-def"><a name="L198"></a><tt class="py-lineno">198</tt> <a class="py-toggle" href="#" id="DistinctCountCheck.__init__-toggle" onclick="return toggle('DistinctCountCheck.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.DistinctCountCheck-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">description</tt><tt class="py-op">,</tt> <tt class="py-param">rule</tt><tt class="py-op">,</tt> <tt class="py-param">availableFieldNames</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DistinctCountCheck.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DistinctCountCheck.__init__-expanded"><a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-41" class="py-name" targets="Class cutplace.checks.DistinctCountCheck=cutplace.checks.DistinctCountCheck-class.html"><a title="cutplace.checks.DistinctCountCheck" class="py-name" href="#" onclick="return doclink('link-41', 'DistinctCountCheck', 'link-41');">DistinctCountCheck</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="cutplace.checks.AbstractCheck.__init__
+cutplace.checks.DistinctCountCheck.__init__
+cutplace.checks.IsUniqueCheck.__init__
+cutplace.data.CsvDataFormat.__init__
+cutplace.data.DelimitedDataFormat.__init__
+cutplace.data.ExcelDataFormat.__init__
+cutplace.data.FixedDataFormat.__init__
+cutplace.data.OdsDataFormat.__init__
+cutplace.data._BaseDataFormat.__init__
+cutplace.data._BaseSpreadsheetDataFormat.__init__
+cutplace.data._BaseTextDataFormat.__init__
+cutplace.fields.AbstractFieldFormat.__init__
+cutplace.fields.ChoiceFieldFormat.__init__
+cutplace.fields.DateTimeFieldFormat.__init__
+cutplace.fields.DecimalFieldFormat.__init__
+cutplace.fields.IntegerFieldFormat.__init__
+cutplace.fields.PatternFieldFormat.__init__
+cutplace.fields.RegExFieldFormat.__init__
+cutplace.fields.TextFieldFormat.__init__
+cutplace.interface.InterfaceControlDocument.__init__
+cutplace.interface.Validator.__init__
+cutplace.interface.Writer.__init__
+cutplace.ranges.Range.__init__
+cutplace.sniff._ColumnSniffInfo.__init__
+cutplace.tools.ErrorInfo.__init__
+cutplace.tools.InputLocation.__init__
+cutplace.tools._BaseCutplaceError.__init__" class="py-name" href="#" onclick="return doclink('link-42', '__init__', 'link-13');">__init__</a></tt><tt class="py-op">(</tt><tt id="link-43" class="py-name"><a title="cutplace.checks.AbstractCheck.description
+cutplace.ranges.Range.description" class="py-name" href="#" onclick="return doclink('link-43', 'description', 'link-2');">description</a></tt><tt class="py-op">,</tt> <tt id="link-44" class="py-name"><a title="cutplace.checks.AbstractCheck.rule
+cutplace.fields.AbstractFieldFormat.rule" class="py-name" href="#" onclick="return doclink('link-44', 'rule', 'link-3');">rule</a></tt><tt class="py-op">,</tt> <tt class="py-name">availableFieldNames</tt><tt class="py-op">,</tt> <tt id="link-45" class="py-name"><a title="cutplace.checks.AbstractCheck.location
+cutplace.interface.Validator.location
+cutplace.interface.Writer.location
+cutplace.tools._BaseCutplaceError.location" class="py-name" href="#" onclick="return doclink('link-45', 'location', 'link-16');">location</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-name">ruleReadLine</tt> <tt class="py-op">=</tt> <tt class="py-name">StringIO</tt><tt class="py-op">.</tt><tt class="py-name">StringIO</tt><tt class="py-op">(</tt><tt id="link-46" class="py-name"><a title="cutplace.checks.AbstractCheck.rule
+cutplace.fields.AbstractFieldFormat.rule" class="py-name" href="#" onclick="return doclink('link-46', 'rule', 'link-3');">rule</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-name">tokens</tt> <tt class="py-op">=</tt> <tt class="py-name">tokenize</tt><tt class="py-op">.</tt><tt class="py-name">generate_tokens</tt><tt class="py-op">(</tt><tt class="py-name">ruleReadLine</tt><tt class="py-op">)</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-name">firstToken</tt> <tt class="py-op">=</tt> <tt class="py-name">tokens</tt><tt class="py-op">.</tt><tt class="py-name">next</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-comment"># Obtain and validate field to count.</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">firstToken</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-name">tokenize</tt><tt class="py-op">.</tt><tt class="py-name">NAME</tt><tt class="py-op">:</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-47" class="py-name"><a title="cutplace.checks.CheckSyntaxError" class="py-name" href="#" onclick="return doclink('link-47', 'CheckSyntaxError', 'link-19');">CheckSyntaxError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"rule must start with a field name but found: %r"</tt> <tt class="py-op">%</tt> <tt class="py-name">firstToken</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fieldNameToCount</tt> <tt class="py-op">=</tt> <tt class="py-name">firstToken</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt id="link-48" class="py-name"><a title="cutplace.fields" class="py-name" href="#" onclick="return doclink('link-48', 'fields', 'link-0');">fields</a></tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="cutplace.fields.getFieldNameIndex
+cutplace.interface.InterfaceControlDocument.getFieldNameIndex" class="py-name" href="#" onclick="return doclink('link-49', 'getFieldNameIndex', 'link-21');">getFieldNameIndex</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fieldNameToCount</tt><tt class="py-op">,</tt> <tt class="py-name">availableFieldNames</tt><tt class="py-op">)</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">        <tt class="py-name">lineWhereFieldNameEnds</tt><tt class="py-op">,</tt> <tt class="py-name">columnWhereFieldNameEnds</tt> <tt class="py-op">=</tt> <tt class="py-name">firstToken</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">columnWhereFieldNameEnds</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">lineWhereFieldNameEnds</tt> <tt class="py-op">==</tt> <tt class="py-number">1</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">        <tt class="py-comment"># Build and test Python expression for validation.</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">expression</tt> <tt class="py-op">=</tt> <tt id="link-50" class="py-name"><a title="cutplace.checks.DistinctCountCheck" class="py-name" href="#" onclick="return doclink('link-50', 'DistinctCountCheck', 'link-41');">DistinctCountCheck</a></tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="cutplace.checks.DistinctCountCheck._COUNT_NAME" class="py-name" href="#" onclick="return doclink('link-51', '_COUNT_NAME', 'link-40');">_COUNT_NAME</a></tt> <tt class="py-op">+</tt> <tt id="link-52" class="py-name"><a title="cutplace.checks.AbstractCheck.rule
+cutplace.fields.AbstractFieldFormat.rule" class="py-name" href="#" onclick="return doclink('link-52', 'rule', 'link-3');">rule</a></tt><tt class="py-op">[</tt><tt class="py-name">columnWhereFieldNameEnds</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="cutplace.checks.AbstractCheck.reset
+cutplace.checks.DistinctCountCheck.reset
+cutplace.checks.IsUniqueCheck.reset" class="py-name" href="#" onclick="return doclink('link-53', 'reset', 'link-28');">reset</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-54" class="py-name" targets="Method cutplace.checks.DistinctCountCheck._eval()=cutplace.checks.DistinctCountCheck-class.html#_eval"><a title="cutplace.checks.DistinctCountCheck._eval" class="py-name" href="#" onclick="return doclink('link-54', '_eval', 'link-54');">_eval</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"> </tt>
+<a name="DistinctCountCheck.reset"></a><div id="DistinctCountCheck.reset-def"><a name="L218"></a><tt class="py-lineno">218</tt> <a class="py-toggle" href="#" id="DistinctCountCheck.reset-toggle" onclick="return toggle('DistinctCountCheck.reset');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.DistinctCountCheck-class.html#reset">reset</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DistinctCountCheck.reset-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DistinctCountCheck.reset-expanded"><a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">distinctValuesToCountMap</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+</div><a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line"> </tt>
+<a name="DistinctCountCheck._distinctCount"></a><div id="DistinctCountCheck._distinctCount-def"><a name="L221"></a><tt class="py-lineno">221</tt> <a class="py-toggle" href="#" id="DistinctCountCheck._distinctCount-toggle" onclick="return toggle('DistinctCountCheck._distinctCount');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.DistinctCountCheck-class.html#_distinctCount">_distinctCount</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DistinctCountCheck._distinctCount-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DistinctCountCheck._distinctCount-expanded"><a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">distinctValuesToCountMap</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line"> </tt>
+<a name="DistinctCountCheck._eval"></a><div id="DistinctCountCheck._eval-def"><a name="L224"></a><tt class="py-lineno">224</tt> <a class="py-toggle" href="#" id="DistinctCountCheck._eval-toggle" onclick="return toggle('DistinctCountCheck._eval');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.DistinctCountCheck-class.html#_eval">_eval</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DistinctCountCheck._eval-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DistinctCountCheck._eval-expanded"><a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">        <tt class="py-name">localVariables</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt id="link-55" class="py-name"><a title="cutplace.checks.DistinctCountCheck" class="py-name" href="#" onclick="return doclink('link-55', 'DistinctCountCheck', 'link-41');">DistinctCountCheck</a></tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="cutplace.checks.DistinctCountCheck._COUNT_NAME" class="py-name" href="#" onclick="return doclink('link-56', '_COUNT_NAME', 'link-40');">_COUNT_NAME</a></tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name" targets="Method cutplace.checks.DistinctCountCheck._distinctCount()=cutplace.checks.DistinctCountCheck-class.html#_distinctCount"><a title="cutplace.checks.DistinctCountCheck._distinctCount" class="py-name" href="#" onclick="return doclink('link-57', '_distinctCount', 'link-57');">_distinctCount</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">}</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">eval</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">expression</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">localVariables</tt><tt class="py-op">)</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">Exception</tt><tt class="py-op">,</tt> <tt class="py-name">message</tt><tt class="py-op">:</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-58" class="py-name"><a title="cutplace.checks.CheckSyntaxError" class="py-name" href="#" onclick="return doclink('link-58', 'CheckSyntaxError', 'link-19');">CheckSyntaxError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"cannot evaluate count expression %r: %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">expression</tt><tt class="py-op">,</tt> <tt class="py-name">message</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">result</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-name">True</tt><tt class="py-op">,</tt> <tt class="py-name">False</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-59" class="py-name"><a title="cutplace.checks.CheckSyntaxError" class="py-name" href="#" onclick="return doclink('link-59', 'CheckSyntaxError', 'link-19');">CheckSyntaxError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"count expression %r must result in %r or %r, but test resulted in: %r"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">expression</tt><tt class="py-op">,</tt> <tt class="py-name">True</tt><tt class="py-op">,</tt> <tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-name">result</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line"> </tt>
+<a name="DistinctCountCheck.checkRow"></a><div id="DistinctCountCheck.checkRow-def"><a name="L234"></a><tt class="py-lineno">234</tt> <a class="py-toggle" href="#" id="DistinctCountCheck.checkRow-toggle" onclick="return toggle('DistinctCountCheck.checkRow');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.DistinctCountCheck-class.html#checkRow">checkRow</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">rowMap</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DistinctCountCheck.checkRow-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DistinctCountCheck.checkRow-expanded"><a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">        <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">rowMap</tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fieldNameToCount</tt><tt class="py-op">]</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">distinctValuesToCountMap</tt><tt class="py-op">[</tt><tt class="py-name">value</tt><tt class="py-op">]</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">KeyError</tt><tt class="py-op">:</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">distinctValuesToCountMap</tt><tt class="py-op">[</tt><tt class="py-name">value</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line"> </tt>
+<a name="DistinctCountCheck.checkAtEnd"></a><div id="DistinctCountCheck.checkAtEnd-def"><a name="L241"></a><tt class="py-lineno">241</tt> <a class="py-toggle" href="#" id="DistinctCountCheck.checkAtEnd-toggle" onclick="return toggle('DistinctCountCheck.checkAtEnd');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cutplace.checks.DistinctCountCheck-class.html#checkAtEnd">checkAtEnd</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DistinctCountCheck.checkAtEnd-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DistinctCountCheck.checkAtEnd-expanded"><a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="cutplace.checks.DistinctCountCheck._eval" class="py-name" href="#" onclick="return doclink('link-60', '_eval', 'link-54');">_eval</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-61" class="py-name"><a title="cutplace.checks.CheckError" class="py-name" href="#" onclick="return doclink('link-61', 'CheckError', 'link-34');">CheckError</a></tt><tt class="py-op">(</tt><tt class="py-string">u"distinct count is %d but check requires: %r"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name"><a title="cutplace.checks.DistinctCountCheck._distinctCount" class="py-name" href="#" onclick="return doclink('link-62', '_distinctCount', 'link-57');">_distinctCount</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">expression</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-63" class="py-name"><a title="cutplace.checks.AbstractCheck.location
+cutplace.interface.Validator.location
+cutplace.interface.Writer.location
+cutplace.tools._BaseCutplaceError.location" class="py-name" href="#" onclick="return doclink('link-63', 'location', 'link-16');">location</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cutplace-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://cutplace.sourceforge.net/">Cutplace</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sun Apr 15 20:34:52 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
