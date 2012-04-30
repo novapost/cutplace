@@ -172,9 +172,8 @@ package provided by Mac Ports.</p>
 </div>
 <div class="section" id="obtaining-and-building-the-source-code">
 <span id="index-3"></span><h2>Obtaining and building the source code<a class="headerlink" href="#obtaining-and-building-the-source-code" title="Permalink to this headline">¶</a></h2>
-<p>The source code for cutplace is available via a Subversion repository from
-<a class="reference external" href="https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk">https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk</a>. You can browse it
-at <a class="reference external" href="https://apps.sourceforge.net/trac/cutplace/browser/trunk">https://apps.sourceforge.net/trac/cutplace/browser/trunk</a>.</p>
+<p>The source code for cutplace is available via a Git repository from
+&lt;<a class="reference external" href="https://github.com/roskakori/cutplace">https://github.com/roskakori/cutplace</a>&gt;.</p>
 <p>The source code consists of:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">build.xml</span></tt> is the project file for the build tool <a class="reference external" href="http://ant.apache.org/">ant</a></li>
@@ -193,17 +192,12 @@ files</li>
 </ul>
 <p>If Eclipse and PyDev are your developer environment of choice, you can check
 out the repository directly from Eclipse using
-<em class="menuselection">File ‣ New ‣ Other...</em> and select
-<em class="menuselection">SVN ‣ Checkout projects from SVN</em>.</p>
-<p>If you prefer the command line, you need any Subversion client and the build
-tool ant.</p>
-<p>To check out the current version using the standard Subversion command line
-client, run:</p>
-<div class="highlight-python"><pre>$ svn checkout https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk cutplace</pre>
-</div>
-<p>After the checkout, change to the cutplace folder:</p>
-<div class="highlight-python"><pre>$ cd cutplace</pre>
-</div>
+<em class="menuselection">File ‣ Import...</em> and select
+<em class="menuselection">Git ‣ Projects from Git</em>.</p>
+<p>If you prefer the command line, you need a Git client. Visit
+&lt;<a class="reference external" href="http://help.github.com/">http://help.github.com/</a>&gt; to learn how to browse or fork the source code.</p>
+<p>Once you have your local copy of the source code, use ant to build and test
+cutplace.</p>
 <p>To just build a binary distribution, run:</p>
 <div class="highlight-python"><pre>$ ant bdist_egg</pre>
 </div>
@@ -227,9 +221,8 @@ writing cutplace.egg-info/PKG-INFO
 <div class="section" id="contributing-source-code">
 <h2>Contributing source code<a class="headerlink" href="#contributing-source-code" title="Permalink to this headline">¶</a></h2>
 <p>In case you fixed any bugs or added improvements to cutplace, feel free to
-contribute your changes.</p>
-<p>The easiest way to do this is by posting your patch to the
-<a class="reference external" href="http://apps.sourceforge.net/phpbb/cutplace/viewforum.php?f=4">developer forum</a></p>
+contribute your changes by forking the repository and issuing a pull request
+as described at &lt;<a class="reference external" href="http://help.github.com/fork-a-repo/">http://help.github.com/fork-a-repo/</a>&gt;.</p>
 </div>
 <div class="section" id="developer-notes">
 <h2>Developer notes<a class="headerlink" href="#developer-notes" title="Permalink to this headline">¶</a></h2>
@@ -249,7 +242,8 @@ a locally installed developer build has the same version.</p>
 <h3>Add a release tag<a class="headerlink" href="#add-a-release-tag" title="Permalink to this headline">¶</a></h3>
 <p>When publishing a new release, a tag should be added to the repository. This
 can be done using the following template:</p>
-<div class="highlight-python"><pre>$ svn copy -m "Added tag for version 0.x.x." https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk https://cutplace.svn.sourceforge.net/svnroot/cutplace/tags/0.x.x</pre>
+<div class="highlight-python"><pre>$ git tag -a -m "Tagged version 0.x.x." 0.x.x
+$ git push --tags</pre>
 </div>
 <p>Simply replace <tt class="docutils literal"><span class="pre">0.x.x</span></tt> with the current version number.</p>
 </div>
@@ -285,7 +279,7 @@ PATH=/opt/local/bin:/opt/local/sbin:$PATH</pre>
 <blockquote>
 <div><ul class="simple">
 <li>Source code management:<ul>
-<li>Subversion: <tt class="docutils literal"><span class="pre">https://cutplace.svn.sourceforge.net/svnroot/cutplace/trunk</span></tt></li>
+<li>Git: <tt class="docutils literal"><span class="pre">git://github.com/roskakori/cutplace.git</span></tt></li>
 </ul>
 </li>
 <li>Build triggers:<ul>
