@@ -86,13 +86,10 @@ cutplace.tools.__package__	cutplace.tools-module.html#__package__
 cutplace.tools.createCallerInputLocation	cutplace.tools-module.html#createCallerInputLocation
 cutplace.tools.SYMBOLIC_NAMES_MAP	cutplace.tools-module.html#SYMBOLIC_NAMES_MAP
 cutplace.version	cutplace.version-module.html
-cutplace.version.REPOSITORY_ID	cutplace.version-module.html#REPOSITORY_ID
-cutplace.version.VERSION_NUMBER	cutplace.version-module.html#VERSION_NUMBER
-cutplace.version.VERSION_TAG	cutplace.version-module.html#VERSION_TAG
-cutplace.version.__package__	cutplace.version-module.html#__package__
-cutplace.version.VERSION	cutplace.version-module.html#VERSION
 cutplace.version.RELEASE	cutplace.version-module.html#RELEASE
-cutplace.version.VERSION_DATE	cutplace.version-module.html#VERSION_DATE
+cutplace.version.VERSION_NUMBER	cutplace.version-module.html#VERSION_NUMBER
+cutplace.version.VERSION	cutplace.version-module.html#VERSION
+cutplace.version.__package__	cutplace.version-module.html#__package__
 cutplace.version.REVISION	cutplace.version-module.html#REVISION
 cutplace.checks.AbstractCheck	cutplace.checks.AbstractCheck-class.html
 cutplace.checks.AbstractCheck.__str__	cutplace.checks.AbstractCheck-class.html#__str__

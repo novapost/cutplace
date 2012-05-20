@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Application programmer interface &mdash; cutplace 0.7.0 documentation</title>
+    <title>Application programmer interface &mdash; cutplace 0.7.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.0',
+        VERSION:     '0.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/cutplace_logo_32x32.ico"/>
-    <link rel="top" title="cutplace 0.7.0 documentation" href="index.html" />
+    <link rel="top" title="cutplace 0.7.1 documentation" href="index.html" />
     <link rel="next" title="Getting support" href="support.html" />
     <link rel="prev" title="Command line usage" href="command-line-usage.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="command-line-usage.html" title="Command line usage"
              accesskey="P">previous</a> |</li>
-        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+        <li><a href="contents.html">cutplace 0.7.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -61,6 +61,7 @@
 <li><a class="reference internal" href="#validating-data">Validating data</a></li>
 <li><a class="reference internal" href="#processing-data">Processing data</a></li>
 <li><a class="reference internal" href="#putting-it-all-together">Putting it all together</a></li>
+<li><a class="reference internal" href="#writting-data">Writting data</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#advanced-usage">Advanced usage</a><ul>
@@ -282,6 +283,40 @@ loop by whatever needs to be done.</p>
 <p>In case you want to continue even if a row was rejected, use the optional
 parameter <tt class="docutils literal"><span class="pre">errors=&quot;yield&quot;</span></tt> as described earlier.</p>
 </div>
+<div class="section" id="writting-data">
+<h3>Writting data<a class="headerlink" href="#writting-data" title="Permalink to this headline">¶</a></h3>
+<p>To validate written data, use <tt class="docutils literal"><span class="pre">interface.Writer</span></tt>. A <tt class="docutils literal"><span class="pre">Writer</span></tt> needs an ICD
+tovalidate against and an output to write to. The output can be any filelike
+object such as a file or a <tt class="docutils literal"><span class="pre">StringIO</span></tt>. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">StringIO</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now you can create a writer and write a valid row to it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">Writer</span><span class="p">(</span><span class="n">icd</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">writeRow</span><span class="p">([</span><span class="s">u&#39;38000&#39;</span><span class="p">,</span> <span class="s">u&#39;234&#39;</span><span class="p">,</span> <span class="s">u&#39;John&#39;</span><span class="p">,</span> <span class="s">u&#39;Doe&#39;</span><span class="p">,</span> <span class="s">u&#39;male&#39;</span><span class="p">,</span> <span class="s">u&#39;08.03.1957&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Attempting to write broken data results in an <tt class="docutils literal"><span class="pre">Exception</span></tt> derived from
+<tt class="docutils literal"><span class="pre">CutplaceError</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">writeRow</span><span class="p">([</span><span class="s">u&#39;38000&#39;</span><span class="p">,</span> <span class="s">u&#39;not a number&#39;</span><span class="p">,</span> <span class="s">u&#39;Jane&#39;</span><span class="p">,</span> <span class="s">u&#39;Miller&#39;</span><span class="p">,</span> <span class="s">u&#39;female&#39;</span><span class="p">,</span> <span class="s">u&#39;04.10.1946&#39;</span><span class="p">])</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">FieldValueError: &lt;io&gt; (R1C2): field &#39;customer_id&#39; must match format: value must be an integer number</span>: <span class="n">u&#39;not a number&#39;</span>
+</pre></div>
+</div>
+<p>Note that after a <tt class="docutils literal"><span class="pre">CutplaceError</span></tt> you can continue writing. For any other
+<tt class="docutils literal"><span class="pre">Exception</span></tt> such as <tt class="docutils literal"><span class="pre">IOError</span></tt> it is recommended to stop writing and
+consider it an unrecoverable situation.</p>
+<p>Once done, close both the writer and the output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As <tt class="docutils literal"><span class="pre">interface.Writer</span></tt> implements the context management protocoll, you can
+also use the <tt class="docutils literal"><span class="pre">with</span></tt> statement to automatically <tt class="docutils literal"><span class="pre">close()</span></tt> it when done.</p>
+<p>Note that <tt class="docutils literal"><span class="pre">Writer.close()</span></tt> performs cutplace checks and consequently can
+raise a <tt class="docutils literal"><span class="pre">CheckError</span></tt>.</p>
+</div>
 </div>
 <div class="section" id="advanced-usage">
 <h2>Advanced usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h2>
@@ -346,9 +381,8 @@ happened.</p>
 </div>
 <p>If any of this methods cannot handle the parameters you passed, they raise a
 <tt class="docutils literal"><span class="pre">CutplaceError</span></tt> with a message describing what went wrong. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addCheck</span><span class="p">([])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">icd</span><span class="o">.</span><span class="n">addCheck</span><span class="p">([])</span> 
 <span class="gt">Traceback (most recent call last):</span>
-    <span class="o">...</span>
 <span class="gr">CheckSyntaxError: &lt;source&gt; (R1C2)</span>: <span class="n">check row (marked with &#39;c&#39;) must contain at least 2 columns</span>
 </pre></div>
 </div>
@@ -965,7 +999,7 @@ INFO:cutplace:    checks found: ['FullNameLengthIsInRangeCheck']</pre>
         <li class="right" >
           <a href="command-line-usage.html" title="Command line usage"
              >previous</a> |</li>
-        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+        <li><a href="contents.html">cutplace 0.7.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

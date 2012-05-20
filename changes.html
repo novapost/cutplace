@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Revision history &mdash; cutplace 0.7.0 documentation</title>
+    <title>Revision history &mdash; cutplace 0.7.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.0',
+        VERSION:     '0.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/cutplace_logo_32x32.ico"/>
-    <link rel="top" title="cutplace 0.7.0 documentation" href="index.html" />
+    <link rel="top" title="cutplace 0.7.1 documentation" href="index.html" />
     <link rel="prev" title="Development" href="development.html" /> 
   </head>
   <body>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="development.html" title="Development"
              accesskey="P">previous</a> |</li>
-        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+        <li><a href="contents.html">cutplace 0.7.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -50,7 +50,7 @@
   <h3><a href="contents.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Revision history</a><ul>
-<li><a class="reference internal" href="#version-0-7-1-2012-04-xx">Version 0.7.1, 2012-04-xx</a></li>
+<li><a class="reference internal" href="#version-0-7-1-2012-05-20">Version 0.7.1, 2012-05-20</a></li>
 <li><a class="reference internal" href="#version-0-7-0-2012-01-09">Version 0.7.0, 2012-01-09</a></li>
 <li><a class="reference internal" href="#version-0-6-8-2011-07-26">Version 0.6.8, 2011-07-26</a></li>
 <li><a class="reference internal" href="#version-0-6-7-2011-05-24">Version 0.6.7, 2011-05-24</a></li>
@@ -113,25 +113,37 @@
   <div class="section" id="revision-history">
 <h1>Revision history<a class="headerlink" href="#revision-history" title="Permalink to this headline">¶</a></h1>
 <p>This chapter describes improvements compared to earlier versions of cutplace.</p>
-<div class="section" id="version-0-7-1-2012-04-xx">
-<h2>Version 0.7.1, 2012-04-xx<a class="headerlink" href="#version-0-7-1-2012-04-xx" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="version-0-7-1-2012-05-20">
+<h2>Version 0.7.1, 2012-05-20<a class="headerlink" href="#version-0-7-1-2012-05-20" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Changed error location of failed row checks to use the first column instead
+of a number one past the actual number of columns (issue #42).</p>
+</li>
+<li><dl class="first docutils">
+<dt>Changed <tt class="docutils literal"><span class="pre">Pattern</span></tt> field format to allow shell patterns instead of only</dt>
+<dd><p class="first last">simple DOS patterns (issue #37).</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Improved <tt class="docutils literal"><span class="pre">cutsniff</span></tt>:</p>
 <ul class="simple">
-<li>Changed error location of failed row checks to use the first column instead
-of a number one past the actual number of columns (issue #42).</li>
-<li>Improved <tt class="docutils literal"><span class="pre">cutsniff</span></tt>:<ul>
+<li>Added sniffing of numeric fields (#48).</li>
 <li>Added first none empty field value as example.</li>
 </ul>
 </li>
-<li>Moved project and repository to &lt;<a class="reference external" href="https://github.com/roskakori/cutplace">https://github.com/roskakori/cutplace</a>&gt;
-(issue #47).</li>
-<li>Improved API:<ul>
+<li><p class="first">Moved project and repository to &lt;<a class="reference external" href="https://github.com/roskakori/cutplace">https://github.com/roskakori/cutplace</a>&gt;
+(issue #47).</p>
+</li>
+<li><p class="first">Improved API:</p>
+<ul class="simple">
 <li>Added validating writer, see <tt class="docutils literal"><span class="pre">interface.Writer</span></tt> for more information
 (issue #45).</li>
 <li>Added property <tt class="docutils literal"><span class="pre">example</span></tt> for <tt class="docutils literal"><span class="pre">*FieldFormat</span></tt> (issue #41).</li>
 </ul>
 </li>
-<li>Cleaned up build and the section on <a class="reference internal" href="development.html#jenkins"><em>Set up Jenkins</em></a> so that everything works
-as described even if Jenkins runs as deamon with MacPorts.</li>
+<li><p class="first">Cleaned up build and the section on <a class="reference internal" href="development.html#jenkins"><em>Set up Jenkins</em></a> so that everything works
+as described even if Jenkins runs as deamon with MacPorts.</p>
+</li>
 </ul>
 </div>
 <div class="section" id="version-0-7-0-2012-01-09">
@@ -589,7 +601,7 @@ line.</li>
         <li class="right" >
           <a href="development.html" title="Development"
              >previous</a> |</li>
-        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+        <li><a href="contents.html">cutplace 0.7.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

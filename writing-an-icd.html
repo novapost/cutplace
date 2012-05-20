@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Writing an Interface Control Document &mdash; cutplace 0.7.0 documentation</title>
+    <title>Writing an Interface Control Document &mdash; cutplace 0.7.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.0',
+        VERSION:     '0.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/cutplace_logo_32x32.ico"/>
-    <link rel="top" title="cutplace 0.7.0 documentation" href="index.html" />
+    <link rel="top" title="cutplace 0.7.1 documentation" href="index.html" />
     <link rel="next" title="Command line usage" href="command-line-usage.html" />
     <link rel="prev" title="Tutorial" href="tutorial.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              accesskey="P">previous</a> |</li>
-        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+        <li><a href="contents.html">cutplace 0.7.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -1001,9 +1001,13 @@ separators and have to appear in the data as specified.</p>
 <p>The Pattern type is similar to the Text type but additionally allows to use
 special characters as place holders:</p>
 <ul class="simple">
-<li>&#8221;?&#8221; mean &#8220;exactly 1 character&#8221;.</li>
-<li>&#8220;*&#8221; means &#8220;none or any characters&#8221;</li>
+<li>&#8221;?&#8221; means &#8220;exactly 1 character&#8221;.</li>
+<li>&#8220;*&#8221; means &#8220;none or any characters&#8221;.</li>
+<li>&#8220;[sequence]&#8221; means any character in sequence.</li>
+<li>&#8220;[!sequence]&#8221; means any character not in sequence.</li>
 </ul>
+<p>A <tt class="docutils literal"><span class="pre">sequence</span></tt> can be a list of characters such as <tt class="docutils literal"><span class="pre">[abc123]</span></tt> or a range
+like <tt class="docutils literal"><span class="pre">[a-z]</span></tt>.</p>
 <p>Examples for Pattern fields</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -1398,7 +1402,7 @@ rather cryptic escape sequences using a backslash:</p>
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              >previous</a> |</li>
-        <li><a href="contents.html">cutplace 0.7.0 documentation</a> &raquo;</li> 
+        <li><a href="contents.html">cutplace 0.7.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
