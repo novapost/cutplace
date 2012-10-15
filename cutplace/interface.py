@@ -1187,6 +1187,12 @@ def importPlugins(folderToScanPath):
         moduleName = os.path.splitext(os.path.basename(moduleToImportPath))[0]
         modulesToImport.add((moduleName, moduleToImportPath))
     for moduleNameToImport, modulePathToImport in modulesToImport:
+        try:
+            # Do not initialize module again if already initialized
+            return sys.modules[moduleNameToImport]
+        except KeyError:
+            pass
+
         _log.info(u"  import %s from \"%s\"", moduleNameToImport, modulePathToImport)
         imp.load_source(moduleNameToImport, modulePathToImport)
     currentChecks = set(checks.AbstractCheck.__subclasses__())  # @UndefinedVariable
