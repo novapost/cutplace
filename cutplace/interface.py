@@ -32,6 +32,7 @@ import sniff
 import tools
 import _parsers
 import _tools
+import sys
 
 _log = logging.getLogger("cutplace")
 
@@ -427,6 +428,10 @@ class InterfaceControlDocument(object):
         except tools.CutplaceUnicodeError, error:
             raise tools.CutplaceUnicodeError(u"ICD must conform to encoding %r: %s" % (encoding, error))
         finally:
+            for icdRowToIgnore in reader:
+                # if an exception occured, the only mean to terminate the
+                # reader thread is to read the whole file
+                pass
             if needsOpen:
                 icdFile.close()
         self._checkAfterRead()
