@@ -21,17 +21,13 @@ Cutplace setup for setuptools.
 import ez_setup
 ez_setup.use_setuptools()
 
-from setuptools import setup, find_packages, Command
+from setuptools import setup, Command
 
 # Set up logging early on so import warnings can be logged.
 import logging
 logging.basicConfig()
 
-from cutplace import version
-from cutplace import _ods
-from cutplace import _tools
-from cutplace import _cutplace
-
+from cutplace import version, DESCRIPTION
 import os.path
 import re
 import shutil
@@ -79,6 +75,8 @@ class _DocsCommand(Command):
                     self._convertOdsToCsvAndRst(os.path.join(baseFolder, fileName))
 
     def _convertOdsToCsvAndRst(self, odsSourcePath):
+        from cutplace import _ods
+        from cutplace import _tools
         assert odsSourcePath is not None
         csvTargetPath = _tools.withSuffix(odsSourcePath, ".csv")
         rstTargetPath = _tools.withSuffix(odsSourcePath, ".rst")
@@ -101,7 +99,7 @@ class _DocsCommand(Command):
 setup(
       name="cutplace",
       version=version.VERSION_NUMBER,
-      description=_cutplace.DESCRIPTION,
+      description=DESCRIPTION,
       author="Thomas Aglassinger",
       author_email="roskakori@users.sourceforge.net",
       url="http://roskakori.github.com/cutplace/",

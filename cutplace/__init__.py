@@ -25,3 +25,6 @@ import version
 
 __version_info__ = (version.VERSION, version.RELEASE, version.REVISION)
 __version__ = version.VERSION_NUMBER
+
+DESCRIPTION = "validate data stored in CSV, PRN, ODS or Excel files"
+

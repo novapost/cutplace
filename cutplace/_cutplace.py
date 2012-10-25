@@ -32,7 +32,6 @@ import _tools
 import _web
 
 DEFAULT_ICD_ENCODING = "ascii"
-DESCRIPTION = "validate data stored in CSV, PRN, ODS or Excel files"
 
 _log = logging.getLogger("cutplace")
 
