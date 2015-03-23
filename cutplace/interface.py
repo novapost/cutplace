@@ -622,7 +622,7 @@ class InterfaceControlDocument(object):
                         check = self._icd.getCheck(checkName)
                         try:
                             if __debug__:
-                                _log.debug(u"check row: ", check)
+                                _log.debug(u"check row: %r", check)
                             check.checkRow(rowMap, location)
                         except checks.CheckError, error:
                             raise checks.CheckError(u"row check failed: %r: %s" % (check.description, error), location)
@@ -737,7 +737,7 @@ class InterfaceControlDocument(object):
                                 check = self.getCheck(checkName)
                                 try:
                                     if __debug__:
-                                        _log.debug(u"check row: ", check)
+                                        _log.debug(u"check row: %r", check)
                                     check.checkRow(rowMap, location)
                                 except checks.CheckError, error:
                                     raise checks.CheckError(u"row check failed: %r: %s" % (check.description, error), location)
@@ -980,7 +980,7 @@ class Validator(object):
                 check = self.icd.checkFor(checkName)
                 try:
                     if __debug__:
-                        _log.debug(u"check row: ", check)
+                        _log.debug(u"check row: %r", check)
                     check.checkRow(rowMap, self.location)
                 except checks.CheckError, error:
                     raise checks.CheckError(u"row check failed: %r: %s" % (check.description, error), self.location)
